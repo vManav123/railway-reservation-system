@@ -4,15 +4,13 @@ package railway.management.system.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import railway.management.system.Models.Detail;
 import railway.management.system.Models.TimeTable;
 import railway.management.system.Models.Train;
 import railway.management.system.Models.TrainLocation;
 import railway.management.system.Repository.TrainRepository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,10 +81,10 @@ public class TrainServiceImpl implements TrainService {
             trainLocation.setTrain_name(train.getTrain_name());
             trainLocation.setYour_location(city);
 
-
-
-
-
+            for(Map.Entry<String, Detail> map : train.getRoute().entrySet())
+            {
+                
+            }
         }
 
 
