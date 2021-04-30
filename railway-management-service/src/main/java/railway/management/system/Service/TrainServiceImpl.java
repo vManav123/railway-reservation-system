@@ -4,12 +4,10 @@ package railway.management.system.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import railway.management.system.Models.Detail;
-import railway.management.system.Models.TimeTable;
-import railway.management.system.Models.Train;
-import railway.management.system.Models.TrainLocation;
+import railway.management.system.Models.*;
 import railway.management.system.Repository.TrainRepository;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,13 +69,34 @@ public class TrainServiceImpl implements TrainService {
         }
         return timeTable;
     }
+    // *--------------------------------------------------------------------------------------*
 
+
+    // *--------------------- Trains Between Station Functionality ---------------------------*
+    @Override
+    public List<TrainsBetweenStation> trains_between_station(String origin ,  String destination) {
+        List<TrainsBetweenStation> trainsBetweenStations = new ArrayList<>();
+        trains = trainRepository.findAll();
+        trains.forEach( trainData -> {
+            if(trainData.getRoute().containsKey(origin) && trainData.getRoute().containsKey(destination))
+            {
+                Duration duration = Duration.between(trainData.getRoute().get(origin).getDeparture_time(), trainData.getRoute().get(destination).getArrival_time());
+                String total_Time = Math.abs(duration.toHoursPart()) + "h " + Math.abs(duration.toMinutesPart()) + "m";
+                HashMap<String,Double> map = trainData.getCoaches_fair().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(p,q) -> p , HashMap::new));
+
+                trainsBetweenStations.add(new TrainsBetweenStation(trainData.getTrain_no(),trainData.getTrain_name(),origin,trainData.getRoute().get(origin).getDeparture_time(),destination,trainData.getRoute().get(destination).getArrival_time(),total_Time,trainData.getRun_days(),map));
+            }
+        });
+        return trainsBetweenStations;
+    }
+    // *-----------------------------------------------------------------------------------------*
 
     public List<TimeTable> displayTimeTableByYourCity(String city)
     {
         this.city = city;
         return displayTimeTable();
     }
+
 
     @Override
     public String trainLocationByTrainName(String train_name) {

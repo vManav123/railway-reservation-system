@@ -20,8 +20,8 @@ public class Train {
     private String to_destination;
     private LocalTime arrival_time;
     private String train_type;
-    List<String> run_days;
-    Map<String,Double> coaches_fair = new LinkedHashMap<>();
+    private List<String> run_days;
+    private Map<String,Double> coaches_fair = new LinkedHashMap<>();
     private int train_length;
     private boolean active;
     private Map<String,Detail> route;
