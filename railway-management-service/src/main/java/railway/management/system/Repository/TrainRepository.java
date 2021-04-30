@@ -7,4 +7,5 @@ import railway.management.system.Models.Train;
 
 @Repository
 public interface TrainRepository extends MongoRepository<Train,Long> {
+
 }

@@ -10,6 +10,7 @@ import railway.management.system.Models.Train;
 import railway.management.system.Models.TrainLocation;
 import railway.management.system.Repository.TrainRepository;
 
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,12 @@ public class TrainServiceImpl implements TrainService {
 
 
 
-
+    // public Services
     @Override
     public List<Train> displayAllTrains() {
         return trainRepository.findAll();
     }
+
 
     @Override
     public Train displayTrain(Long trainNo) {
@@ -42,6 +44,9 @@ public class TrainServiceImpl implements TrainService {
         return trains.stream().filter(p->p.getTrain_no().equals(trainNo.toString())).collect(Collectors.toList()).get(0);
     }
 
+
+
+    // *----------------------  TimeTable Functionality  ------------------------------*
     @Override
     public List<TimeTable> displayTimeTable() {
         List<Train> trains = displayAllTrains();
@@ -67,6 +72,13 @@ public class TrainServiceImpl implements TrainService {
         return timeTable;
     }
 
+
+    public List<TimeTable> displayTimeTableByYourCity(String city)
+    {
+        this.city = city;
+        return displayTimeTable();
+    }
+
     @Override
     public String trainLocationByTrainName(String train_name) {
 
@@ -81,9 +93,22 @@ public class TrainServiceImpl implements TrainService {
             trainLocation.setTrain_name(train.getTrain_name());
             trainLocation.setYour_location(city);
 
+            LocalTime previous_time = LocalTime.now().plusMinutes(-5);
+            LocalTime next_time = previous_time;
+            LocalTime current_time = LocalTime.now();
             for(Map.Entry<String, Detail> map : train.getRoute().entrySet())
             {
-                
+                if(map.getValue().getArrival_time().isBefore(current_time) && map.getValue().getDeparture_time().isAfter(current_time))
+                {
+                    trainLocation.setCurrent_station(map.getKey());
+                    trainLocation.setDeparture_time(map.getValue().getDeparture_time());
+                    return trainLocation.toString();
+                }
+                else if(previous_time.isBefore(current_time) && next_time.isAfter(current_time))
+                {
+
+                    return null;
+                }
             }
         }
 

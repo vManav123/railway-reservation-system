@@ -2,10 +2,8 @@ package railway.management.system.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 import railway.management.system.Models.TimeTable;
 import railway.management.system.Models.Train;
 import railway.management.system.Service.TrainService;
@@ -16,12 +14,24 @@ import java.util.List;
 @RequestMapping("/trains")
 public class TrainController {
 
+
+
+    //  *----- Train Service Autowiring -----*
     @Autowired
     TrainService trainService;
 
+
+
+    //  *----- Time Table Functionality -----*
     @GetMapping(path = "/timeTable")
     public List<TimeTable> displayTimeTable() { return trainService.displayTimeTable(); }
 
+    @GetMapping(path = "/timeTableByYourCity/{city_name}")
+    public List<TimeTable> displayTimeTable(@PathVariable String city_name) { System.out.println(city_name); return trainService.displayTimeTableByYourCity(city_name); }
+
+
+
+    //  *----- Basic Data Display Functionality -----*
     @GetMapping(path = "/displayAllTrains")
     public List<Train> displayAlltrains() {return trainService.displayAllTrains();}
 
@@ -30,5 +40,8 @@ public class TrainController {
     {
         return trainService.displayTrain(trainsNo);
     }
+    //  *---------------------------------------------*
+
+
 
 }

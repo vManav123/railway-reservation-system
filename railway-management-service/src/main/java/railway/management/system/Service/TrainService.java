@@ -12,8 +12,12 @@ public interface TrainService {
 
     public Train displayTrain(Long trainNo);
 
-    // Time Table Functionality
+    // *-------------- Time Table Functionality ---------------*
+
     public List<TimeTable> displayTimeTable();
+    public List<TimeTable> displayTimeTableByYourCity(String city);
+
+    // *--------------------------------------------------------*
 
     // Train Location Functionality
     public String trainLocationByTrainName(String train_name);
