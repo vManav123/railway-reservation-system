@@ -32,6 +32,6 @@ public interface TrainService {
 
 
     // Train Location Functionality
-    public String trainLocation(String train_search,String day);
+    public String trainLocation(String train_search,String day,String your_location);
 
 }

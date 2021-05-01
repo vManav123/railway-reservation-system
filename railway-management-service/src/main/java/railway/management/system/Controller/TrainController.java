@@ -2,8 +2,10 @@ package railway.management.system.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import railway.management.system.Models.TimeTable;
 import railway.management.system.Models.Train;
 import railway.management.system.Models.TrainsBetweenStation;
@@ -42,8 +44,8 @@ public class TrainController {
 
 
     // *---Train Location Functionality ---*
-    @GetMapping(path = "/trainsLocation/{train_info}:{day}")
-    public String getTrainLocation(@PathVariable String train_info , @PathVariable String day){return trainService.trainLocation(train_info,day);}
+    @GetMapping(path = "/trainsLocation/{train_info}:{your_location}:{day}")
+    public String getTrainLocation(@PathVariable String train_info ,@PathVariable String your_location , @PathVariable String day){return trainService.trainLocation(train_info,day,your_location);}
     // *-----------------------------------*
 
 
