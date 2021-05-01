@@ -3,6 +3,7 @@ package railway.management.system.Service;
 
 import railway.management.system.Models.TimeTable;
 import railway.management.system.Models.Train;
+import railway.management.system.Models.TrainLocation;
 import railway.management.system.Models.TrainsBetweenStation;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface TrainService {
     public List<Train> displayAllTrains();
 
     public Train displayTrain(Long trainNo);
+
+    public String updateData();
 
     // *-------------- Time Table Functionality ---------------*
 
@@ -29,8 +32,6 @@ public interface TrainService {
 
 
     // Train Location Functionality
-    public String trainLocationByTrainName(String train_name);
+    public String trainLocation(String train_search,String day);
 
-    // Train Location Functionality
-    public String trainLocationByTrainNo(String train_no);
 }

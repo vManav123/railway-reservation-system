@@ -32,18 +32,22 @@ import java.util.stream.Collectors;
 @TestComponent
 public class Functionality_Testing {
 
-    String timeTableFile;
-    List<TimeTable> timeTableList;
-    JSONArray jsonArray;
+
+    // *-------------------------------- Autowired Services -----------------------------------------*
 
     @Autowired
     TrainService trainService;
 
+    // *----------------------------------------------------------------------------------------------*
 
 
 
+    // *--------------------------------- TimeTable Functionality Testing ----------------------------------------*
 
-    // *--------------------------------- TimeTable Functionality ----------------------------------------*
+    String timeTableFile;
+    List<TimeTable> timeTableList;
+    JSONArray jsonArray;
+
     List<TimeTable> getTimeTableList(String timeTableFile) throws JSONException {
         jsonArray = new JSONArray(timeTableFile);
         timeTableList = new ArrayList<>();
@@ -87,15 +91,12 @@ public class Functionality_Testing {
 
     }
 
+    // *-------------------------------------------------------------------------------------------------------------*
 
+    // *-------------------------- TrainsBetweenStation Functionality Testing ---------------------------------------*
 
     String trainsBetweenStationFile;
     List<TrainsBetweenStation> trainBetweenStationList;
-
-
-
-    // *--------------------------------- TrainsBetweenStation Functionality ----------------------------------------*
-
 
     List<TrainsBetweenStation> getTrainsBetweenStationList(String TrainsBetweenStationFile) throws JSONException, JsonProcessingException {
 
@@ -152,6 +153,7 @@ public class Functionality_Testing {
         Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trains_between_station("noob city","Local City").toString());
     }
 
+    // *------------------------------------------------------------------------------------------------------------------*
 
 
 }

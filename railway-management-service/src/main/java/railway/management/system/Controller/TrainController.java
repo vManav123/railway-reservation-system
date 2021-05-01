@@ -17,9 +17,11 @@ public class TrainController {
 
 
 
-    //  *----- Train Service Autowiring -----*
+    // *----- Train Service Autowiring -----*
     @Autowired
     TrainService trainService;
+    // *-------------------------------------*
+
 
 
 
@@ -32,10 +34,26 @@ public class TrainController {
     // *-------------------------------------*
 
 
+
+    // *---Train Between Stations Functionality ---*
     @GetMapping(path = "/trainsBetweenStation/{origin}:{destination}")
     public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin , @PathVariable String destination){return trainService.trains_between_station(origin,destination);}
+    // *-------------------------------------------*
 
-    //  *----- Basic Data Display Functionality -----*
+
+    // *---Train Location Functionality ---*
+    @GetMapping(path = "/trainsLocation/{train_info}:{day}")
+    public String getTrainLocation(@PathVariable String train_info , @PathVariable String day){return trainService.trainLocation(train_info,day);}
+    // *-----------------------------------*
+
+
+
+
+
+    // *----- Basic Data Display Functionality -----*
+    @GetMapping(path = "/updateAllTrains")
+    public String updateAlltrains() {return trainService.updateData();}
+
     @GetMapping(path = "/displayAllTrains")
     public List<Train> displayAlltrains() {return trainService.displayAllTrains();}
 
@@ -44,7 +62,7 @@ public class TrainController {
     {
         return trainService.displayTrain(trainsNo);
     }
-    //  *---------------------------------------------*
+    // *---------------------------------------------*
 
 
 
