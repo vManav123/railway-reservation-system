@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class TrainsBetweenStation {
     private String train_no;
@@ -15,7 +14,7 @@ public class TrainsBetweenStation {
     private LocalTime arrival_time;
     private String travel_time;
     private List<String> run_days;
-    private Map<String,Double> classes = new LinkedHashMap<>();
+    private Map<String,Double> classes;
 
     public TrainsBetweenStation(String train_no, String train_name, String origin, LocalTime departure_time, String destination, LocalTime arrival_time, String travel_time, List<String> run_days, Map<String, Double> classes) {
         this.train_no = train_no;
@@ -26,6 +25,7 @@ public class TrainsBetweenStation {
         this.arrival_time = arrival_time;
         this.travel_time = travel_time;
         this.run_days = run_days;
+        this.classes = new LinkedHashMap<>();
         this.classes = classes;
     }
 

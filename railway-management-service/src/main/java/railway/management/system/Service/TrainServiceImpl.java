@@ -46,30 +46,46 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public String updateData() {
-        trains = trainRepository.findAll();
-        for(Train train : trains)
-        {
-            LocalTime time = train.getDeparture_time();
-            String start = train.getStart_from();
-            for(Map.Entry<String,Detail> route : train.getRoute().entrySet())
-            {
-                if(route.getKey().equals(start))
-                    continue;
-                route.getValue().setArrival_time(time.plusMinutes(new Random().nextInt(8)+10).plusSeconds(new Random().nextInt(60)));
-                route.getValue().setDeparture_time(route.getValue().getArrival_time().plusMinutes(new Random().nextInt(3)+2));
-                time=route.getValue().getDeparture_time();
-            }
-        }
+    public String updateData(List<Train> trains) {
+
+
         trainRepository.saveAll(trains);
         return " !!!! All Data Updated Successfully !!!!";
+    }
+
+    @Override
+    public String customUpdation() {
+        List<Train> trainList = trainRepository.findAll();
+
+        /*
+         Add Custom Update Here
+         */
+
+        for(Train train : trainList)
+        {
+            // city , cantoment , Junction
+            List<String> stationToBeDeleted;
+            for(Map.Entry<String,Detail> map : train.getRoute().entrySet())
+            {
+                if(train.getTrain_type().equals("Express"))
+                {
+
+                    int time = 0;
+                    if(map.getKey().equals(train.getStart_from()) || map.getKey().equals(train.getTo_destination()))
+                        continue;
+                }
+            }
+        }
+
+        trainRepository.saveAll(trainList);
+        return "Data Updated Successfully";
     }
 
 
     // *----------------------  TimeTable Functionality  ------------------------------*
 
     @Override
-    public List<TimeTable> displayTimeTable() {
+    public String displayTimeTable() {
         List<Train> trains = displayAllTrains();
         List<TimeTable> timeTables = new ArrayList<>();
         int i = 0;
@@ -90,13 +106,28 @@ public class TrainServiceImpl implements TrainService {
         {
             t.setId(x++);
         }
-        return timeTable;
+        return displayTimeTableInTable(timeTables);
     }
 
     @Override
-    public List<TimeTable> displayTimeTableByYourCity(String city) {
+    public String displayTimeTableByYourCity(String city) {
         this.city = city;
         return displayTimeTable();
+    }
+
+    public String displayTimeTableInTable(List<TimeTable> timeTables)
+    {
+        String result = "                                                     *---------------------------------------------------------------------------  ***  Pakistan Rail Network Running Train TimeTable  ***  ---------------------------------------------------------------------------*\n \n"
+                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n"
+                      + "|           Train No          |               Train Name              |              Start                |              destination           |             arrival           |             departure           | \n"
+                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n";
+
+        for (TimeTable timeTable : timeTables)
+        {
+            result += "            "+timeTable.getTrain_no()+"                     "+timeTable.getTrain_name()+"                         "+timeTable.getStart_from()+"                          "+timeTable.getTime_arrival()+"                      "+timeTable.getTime_departure()+"                     "+timeTable.getTime_departure()+"\n"
+                     + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+        }
+        return result;
     }
 
     // *--------------------------------------------------------------------------------------*
@@ -105,7 +136,7 @@ public class TrainServiceImpl implements TrainService {
     // *--------------------- Trains Between Station Functionality ---------------------------*
 
     @Override
-    public List<TrainsBetweenStation> trains_between_station(String origin ,  String destination) {
+    public List<TrainsBetweenStation> trainsBetweenStation(String origin ,  String destination) {
         List<TrainsBetweenStation> trainsBetweenStations = new ArrayList<>();
         trains = trainRepository.findAll();
         trains.forEach( trainData -> {
@@ -120,6 +151,48 @@ public class TrainServiceImpl implements TrainService {
         });
         return trainsBetweenStations;
     }
+    public String addSpaces(String test , int length)
+    {
+        int i=length;
+        while (--i>=0)
+        {
+            test+=" ";
+        }
+        return test;
+    }
+
+    public String trainsBetweenStationToTable(String origin , String destination)
+    {
+        List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
+        String result = "*------------------------------------------------  ***  Trains Between "+trainsBetweenStationList.get(0).getOrigin()+"   --->    "+trainsBetweenStationList.get(0).getDestination()+"  ***  ---------------------------------*\n \n"
+                      + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
+                      + "|   Train No     |             Train Name               |           Arrival          |          Departure         |  Travel Time   |                    Running Days                       |                     Classes                    | \n"
+                      + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+
+        for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList) {
+
+            String test = "    "+trainsBetweenStation.getTrain_no()+"      |       "+trainsBetweenStation.getTrain_name();
+            int i = "|   Train No     |           Train Name              |".length()-test.length();
+            test = addSpaces(test,i);
+            test = test+"  |";
+            test +="          "+trainsBetweenStation.getArrival_time()+"          "+"|"+"          "+trainsBetweenStation.getDeparture_time()+"          "+"|"+"     "+trainsBetweenStation.getTravel_time()+"     ";
+
+            // +"          |          "+trainsBetweenStation.getClasses().keySet()
+            String local ="|             "+trainsBetweenStation.getRun_days();
+            i = "                    Running Days                       ".length()-local.length();
+            local = addSpaces(local,i)+"|";
+            test+=local;
+            local = "           "+trainsBetweenStation.getClasses().keySet();
+            i="                     Classes                  ".length()-local.length();
+            local = addSpaces(local,i);
+            test+=local+"  |";
+//            result += "     "+trainsBetweenStation.getTrain_no()+"        "+trainsBetweenStation.getTrain_name()+"                            "+trainsBetweenStation.getArrival_time()+"                        "+trainsBetweenStation.getDeparture_time()+"               "+trainsBetweenStation.getTravel_time()+"            "+trainsBetweenStation.getRun_days()+"            "+new ArrayList(trainsBetweenStation.getClasses().keySet())+"\n"
+//                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n";
+            result+=test+"\n"+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+        }
+        return result;
+    }
+
 
     // *-----------------------------------------------------------------------------------------*
 
@@ -144,6 +217,9 @@ public class TrainServiceImpl implements TrainService {
                 return getTrainRoute(train,day,your_location);
             }
     }
+
+
+
     public String getTrainRoute(Train train , String day , String your_location)
     {
         String previous_station = "null";
@@ -287,8 +363,69 @@ public class TrainServiceImpl implements TrainService {
 
     // *-------------------------------------------------------------------------------------------*
 
-    //
+    // *------------------------------- train Fair Functionality ----------------------------------*
 
+    @Override
+    public List<TrainsBetweenStation> trainFair(String origin,String destination) {
+
+        List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
+        List<Train> trains = trainRepository.findAll();
+        for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList)
+        {
+            Integer fare = 0;
+            boolean chk = false;
+            Train train = trains.stream().filter( p -> p.getTrain_name().equals(trainsBetweenStation.getTrain_name())).toList().get(0);
+            System.out.println(train);
+            String dest = destination;
+            String start = origin;
+            for(Map.Entry<String,Detail> map : train.getRoute().entrySet())
+            {
+                if(map.getKey().equals(dest)) {
+                    if(fare == 0)
+                    {
+                        String temp = dest;
+                        dest = start;
+                        start = temp;
+                    }
+                    else
+                        break;
+                }
+                if(map.getKey().equals(start) || chk)
+                {
+                    chk = true;
+                    fare+=map.getValue().getPrice();
+                }
+            }
+            for (Map.Entry<String,Double> classes : trainsBetweenStation.getClasses().entrySet())
+            {
+                classes.setValue(classes.getValue()*fare);
+            }
+        }
+        return trainsBetweenStationList;
+    }
+    @Override
+    public String trainFairToTable(String origin, String destination) {
+        List<TrainsBetweenStation> trainsBetweenStationList = trainFair(origin,destination);
+        String result = "*-----------------------------------------------------------------------  ***  Trains Fare Between the Station  ***  -----------------------------------------------------------------------*\n \n"
+                + "----------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    "+trainsBetweenStationList.get(0).getDestination()+"   ##### ------------------------------------------------------------------------ \n"
+                + "============================================================================================================================================================================================= \n \n \n";
+        for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList)
+        {
+            String local = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            local += "|        Train No / Train Name   : "+trainsBetweenStation.getTrain_no() + " / " + trainsBetweenStation.getTrain_name()+"           Trip ===< "+trainsBetweenStation.getOrigin() + "  ----------- "+trainsBetweenStationList.get(0).getClasses().get("SEC")*0.4+" km | "+trainsBetweenStation.getTravel_time()+" --------->  "+trainsBetweenStation.getDestination()+" >===       Date : "+LocalDate.now()+"        \n";
+            for(Map.Entry<String,Double> map : trainsBetweenStation.getClasses().entrySet())
+            {
+                local+= "|        "+map.getKey() + " : "+Math.round(map.getValue())+"        ";
+            }
+            local+="|\n"
+                    +"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n";
+            result+=local;
+        }
+        return result;
+    }
+
+
+    // *-------------------------------------------------------------------------------------------*
 
 
 }

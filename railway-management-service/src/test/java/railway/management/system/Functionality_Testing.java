@@ -126,7 +126,7 @@ public class Functionality_Testing {
     public void TrainsBetweenStation_testcase_1() throws IOException, JSONException {
         trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainsBetweenStation-TestCase/TrainsBetweenStation-TestCase_1.json"));
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
-        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trains_between_station("Lahore Junction","Karachi City").toString());
+        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("Lahore Junction","Karachi City").toString());
 
     }
 
@@ -134,7 +134,7 @@ public class Functionality_Testing {
     void TrainsBetweenStation_testcase_2() throws IOException, JSONException {
         trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainsBetweenStation-TestCase/TrainsBetweenStation-TestCase_2.json"));
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
-        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trains_between_station("Lahore Junction","Landhi Junction").toString());
+        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("Lahore Junction","Landhi Junction").toString());
 
     }
 
@@ -142,7 +142,7 @@ public class Functionality_Testing {
     void TrainsBetweenStation_testcase_3() throws IOException, JSONException {
         trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainsBetweenStation-TestCase/TrainsBetweenStation-TestCase_3.json"));
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
-        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trains_between_station("Quetta","Multan Cantonment").toString());
+        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("Quetta","Multan Cantonment").toString());
 
     }
 
@@ -150,7 +150,7 @@ public class Functionality_Testing {
     void TrainsBetweenStation_testcase_4() throws IOException, JSONException {
         trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainsBetweenStation-TestCase/TrainsBetweenStation-TestCase_4.json"));
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
-        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trains_between_station("noob city","Local City").toString());
+        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("noob city","Local City").toString());
     }
 
     // *------------------------------------------------------------------------------------------------------------------*
