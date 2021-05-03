@@ -6,13 +6,17 @@ import railway.management.system.Models.Train;
 import railway.management.system.Models.TrainLocation;
 import railway.management.system.Models.TrainsBetweenStation;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface TrainService {
     // *----- Basic Data Display Functionality -----*
 
     public List<Train> displayAllTrains();
+
+    public String displayTrainToTable(Long trainNo);
     public Train displayTrain(Long trainNo);
+
     public String updateData(List<Train> trains);
     public String customUpdation();
 
@@ -20,7 +24,7 @@ public interface TrainService {
 
     // *-------------- Time Table Functionality ---------------*
 
-    public String displayTimeTable();
+    public List<TimeTable> displayTimeTable();
     public String displayTimeTableByYourCity(String city);
 
     // *--------------------------------------------------------*

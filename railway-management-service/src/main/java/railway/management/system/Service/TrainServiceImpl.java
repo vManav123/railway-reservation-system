@@ -26,11 +26,13 @@ public class TrainServiceImpl implements TrainService {
     private String city;
 
 
-    // Models
+    // Declared Useful Elements
     List<Train> trains;
     Train train;
     LocalDate localDate = LocalDate.now();
     List<TrainLocation> trainLocationList;
+    List<TimeTable> timeTables;
+    List<TrainsBetweenStation> trainsBetweenStations;
 
 
 
@@ -39,6 +41,27 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public List<Train> displayAllTrains() {
         return trainRepository.findAll();
+    }
+
+    @Override
+    public String displayTrainToTable(Long trainNo) {
+        train = displayTrain(trainNo);
+        String Result = "------------------------------------------------------------------------------------------------------------------------------------------------------------\n"+
+                        "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  "+train.getStart_from()+"  --------------->  "+train.getTo_destination()+"                   \n"+
+                        "                   Run Days : "+train.getRun_days().toString()+"               Train Length : "+train.getTrain_length()+"                    "+train.getDeparture_time()+  "                          "+train.getArrival_time()+  "                         \n"+
+                        "                   Coaches  : "+train.getCoaches_fair().keySet()+"            "+"Train Type : "+train.getTrain_type()+"\n"+
+                        "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n"+
+                        "                                Station            |       Arrival       |        Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+        for(Map.Entry<String,Detail> route : train.getRoute().entrySet())
+        {
+            Result+="                                ";
+            String local="";
+            local +=   route.getKey();
+            int i = " Karachi Cantonment ".length()-local.length();
+            Result+=addSpaces(local,i);
+            Result +=   "      "+route.getValue().getArrival_time()+"                 "+route.getValue().getDeparture_time()+"\n";
+        }
+        return Result;
     }
 
 
@@ -88,9 +111,9 @@ public class TrainServiceImpl implements TrainService {
     // *----------------------  TimeTable Functionality  ------------------------------*
 
     @Override
-    public String displayTimeTable() {
-        List<Train> trains = displayAllTrains();
-        List<TimeTable> timeTables = new ArrayList<>();
+    public List<TimeTable> displayTimeTable() {
+        trains = displayAllTrains();
+        timeTables = new ArrayList<>();
         int i = 0;
         trains.forEach( p -> {
             if(p.getRoute().containsKey(city)) {
@@ -109,26 +132,35 @@ public class TrainServiceImpl implements TrainService {
         {
             t.setId(x++);
         }
-        return displayTimeTableInTable(timeTables);
+        return timeTable;
     }
 
     @Override
     public String displayTimeTableByYourCity(String city) {
         this.city = city;
-        return displayTimeTable();
+        return displayTimeTableInTable(displayTimeTable());
     }
 
     public String displayTimeTableInTable(List<TimeTable> timeTables)
     {
-        String result = "                                                     *---------------------------------------------------------------------------  ***  Pakistan Rail Network Running Train TimeTable  ***  ---------------------------------------------------------------------------*\n \n"
-                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n"
-                      + "|           Train No          |               Train Name              |              Start                |              destination           |             arrival           |             departure           | \n"
-                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n";
+        String result = "*------------------------------------------------  ***  Pakistan Rail Network Running Train TimeTable  ***  -------------------------------------------------*\n \n"
+                      + "-------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
+                      + "|  Train No  |               Train Name              |            Start              |           destination            |      arrival     |     departure    | \n"
+                      + "-------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
 
         for (TimeTable timeTable : timeTables)
         {
-            result += "            "+timeTable.getTrain_no()+"                     "+timeTable.getTrain_name()+"                         "+timeTable.getStart_from()+"                          "+timeTable.getTime_arrival()+"                      "+timeTable.getTime_departure()+"                     "+timeTable.getTime_departure()+"\n"
-                     + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            result +=   "  "+timeTable.getTrain_no()+"          "+timeTable.getTrain_name();
+            int i = "          Train Name            ".length()-timeTable.getTrain_name().length();
+            result = addSpaces(result,i);
+            result +="        "+timeTable.getStart_from();
+            i = "            Start              ".length()-timeTable.getStart_from().length();
+            result = addSpaces(result,i);
+            result +=timeTable.getTo_destination();
+            i = "           destination            ".length()-timeTable.getTo_destination().length();
+            result = addSpaces(result,i);
+            result += "   "+timeTable.getTime_arrival()+"           "+timeTable.getTime_departure()+"\n";
+            result +=   "--------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
         }
         return result;
     }
@@ -140,7 +172,7 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public List<TrainsBetweenStation> trainsBetweenStation(String origin ,  String destination) {
-        List<TrainsBetweenStation> trainsBetweenStations = new ArrayList<>();
+        trainsBetweenStations = new ArrayList<>();
         trains = trainRepository.findAll();
         trains.forEach( trainData -> {
             if(trainData.getRoute().containsKey(origin) && trainData.getRoute().containsKey(destination))
@@ -167,31 +199,29 @@ public class TrainServiceImpl implements TrainService {
     public String trainsBetweenStationToTable(String origin , String destination)
     {
         List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
-        String result = "*------------------------------------------------  ***  Trains Between "+trainsBetweenStationList.get(0).getOrigin()+"   --->    "+trainsBetweenStationList.get(0).getDestination()+"  ***  ---------------------------------*\n \n"
-                      + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
-                      + "|   Train No     |             Train Name               |           Arrival          |          Departure         |  Travel Time   |                    Running Days                       |                     Classes                    | \n"
-                      + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+        String result = "*------------------------------------------------  ***  Trains Between "+trainsBetweenStationList.get(0).getOrigin()+"   --->    "+trainsBetweenStationList.get(0).getDestination()+"  ***  ---------------------------------------*\n \n"
+                      + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
+                      + "| Train No |         Train Name             |   Deprture   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
+                      + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
 
         for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList) {
 
-            String test = "    "+trainsBetweenStation.getTrain_no()+"      |       "+trainsBetweenStation.getTrain_name();
-            int i = "|   Train No     |           Train Name              |".length()-test.length();
+            String test = "| "+trainsBetweenStation.getTrain_no()+"  |    "+trainsBetweenStation.getTrain_name();
+            int i = "| Train No |           Train Name           |".length()-test.length();
             test = addSpaces(test,i);
-            test = test+"  |";
-            test +="          "+trainsBetweenStation.getArrival_time()+"          "+"|"+"          "+trainsBetweenStation.getDeparture_time()+"          "+"|"+"     "+trainsBetweenStation.getTravel_time()+"     ";
+            test = test+"|";
+            test +="   "+trainsBetweenStation.getArrival_time()+"   |"+"   "+trainsBetweenStation.getDeparture_time()+"    "+"|"+"   "+trainsBetweenStation.getTravel_time()+"      ";
 
             // +"          |          "+trainsBetweenStation.getClasses().keySet()
             String local ="|             "+trainsBetweenStation.getRun_days();
-            i = "                    Running Days                       ".length()-local.length();
+            i = "               Running Days                    ".length()-local.length();
             local = addSpaces(local,i)+"|";
             test+=local;
             local = "           "+trainsBetweenStation.getClasses().keySet();
             i="                     Classes                  ".length()-local.length();
             local = addSpaces(local,i);
             test+=local+"  |";
-//            result += "     "+trainsBetweenStation.getTrain_no()+"        "+trainsBetweenStation.getTrain_name()+"                            "+trainsBetweenStation.getArrival_time()+"                        "+trainsBetweenStation.getDeparture_time()+"               "+trainsBetweenStation.getTravel_time()+"            "+trainsBetweenStation.getRun_days()+"            "+new ArrayList(trainsBetweenStation.getClasses().keySet())+"\n"
-//                      + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n";
-            result+=test+"\n"+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            result+=test+"\n"+"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
         }
         return result;
     }
@@ -281,7 +311,7 @@ public class TrainServiceImpl implements TrainService {
         {
 
         }
-        Duration duration = Duration.between(departure,arrival);
+        Duration duration = Duration.between(train.getArrival_time(),train.getDeparture_time());
         String total_Time = Math.abs(duration.toHoursPart()) + "h " + Math.abs(duration.toMinutesPart()) + "m";
 
             String result = "";
