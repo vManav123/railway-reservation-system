@@ -1,10 +1,11 @@
-package user.management.system.Models;
+package user.management.system.Models.User;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import user.management.system.Models.Ticket;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -45,5 +46,5 @@ public class User {
     @Field(name = "lock_time")
     private LocalTime lock_time;
     @Field(name = "tickets")
-    private List<String> tickets;
+    private Map<Long, Ticket> tickets;
 }

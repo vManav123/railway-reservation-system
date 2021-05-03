@@ -2,7 +2,7 @@ package user.management.system.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import user.management.system.Models.User;
+import user.management.system.Models.User.User;
 import user.management.system.Service.UserService.UserService;
 
 

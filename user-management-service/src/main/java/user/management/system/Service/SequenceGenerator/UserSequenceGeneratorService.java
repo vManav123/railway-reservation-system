@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.query.*;
-import user.management.system.Models.UserSequence;
+import user.management.system.Models.User.UserSequence;
 
 import java.util.Objects;
 

@@ -26,14 +26,6 @@ public class TrainServiceImpl implements TrainService {
     private String city;
 
 
-    // Declared Useful Elements
-    List<Train> trains;
-    Train train;
-    LocalDate localDate = LocalDate.now();
-    List<TrainLocation> trainLocationList;
-    List<TimeTable> timeTables;
-    List<TrainsBetweenStation> trainsBetweenStations;
-
 
 
 
@@ -45,36 +37,35 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public String displayTrainToTable(Long trainNo) {
-        train = displayTrain(trainNo);
-        String Result = "------------------------------------------------------------------------------------------------------------------------------------------------------------\n"+
-                        "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  "+train.getStart_from()+"  --------------->  "+train.getTo_destination()+"                   \n"+
-                        "                   Run Days : "+train.getRun_days().toString()+"               Train Length : "+train.getTrain_length()+"                    "+train.getDeparture_time()+  "                          "+train.getArrival_time()+  "                         \n"+
-                        "                   Coaches  : "+train.getCoaches_fair().keySet()+"            "+"Train Type : "+train.getTrain_type()+"\n"+
-                        "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n"+
-                        "                                Station            |       Arrival       |        Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+        Train train = displayTrain(trainNo);
+        StringBuilder result = new StringBuilder("------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+                "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  " + train.getStart_from() + "  --------------->  " + train.getTo_destination() + "                   \n" +
+                "                   Run Days : " + train.getRun_days().toString() + "               Train Length : " + train.getTrain_length() + "                    " + train.getDeparture_time() + "                          " + train.getArrival_time() + "                         \n" +
+                "                   Coaches  : " + train.getCoaches_fair().keySet() + "            " + "Train Type : " + train.getTrain_type() + "\n" +
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n" +
+                "                                Station            |       Arrival       |        Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         for(Map.Entry<String,Detail> route : train.getRoute().entrySet())
         {
-            Result+="                                ";
+            result.append("                                ");
             String local="";
             local +=   route.getKey();
             int i = " Karachi Cantonment ".length()-local.length();
-            Result+=addSpaces(local,i);
-            Result +=   "      "+route.getValue().getArrival_time()+"                 "+route.getValue().getDeparture_time()+"\n";
+            result.append(addSpaces(local, i));
+            result.append("      ").append(route.getValue().getArrival_time()).append("                 ").append(route.getValue().getDeparture_time()).append("\n");
         }
-        return Result;
+        return result.toString();
     }
 
 
     @Override
     public Train displayTrain(Long trainNo) {
-        trains = trainRepository.findAll();
+        List<Train> trains = trainRepository.findAll();
         return trains.stream().filter(p->p.getTrain_no().equals(trainNo.toString())).collect(Collectors.toList()).get(0);
     }
 
     @Override
     public String updateData(List<Train> trains) {
-
-
         trainRepository.saveAll(trains);
         return " !!!! All Data Updated Successfully !!!!";
     }
@@ -87,22 +78,6 @@ public class TrainServiceImpl implements TrainService {
          Add Custom Update Here
          */
 
-        for(Train train : trainList)
-        {
-            // city , cantoment , Junction
-            List<String> stationToBeDeleted;
-            for(Map.Entry<String,Detail> map : train.getRoute().entrySet())
-            {
-                if(train.getTrain_type().equals("Express"))
-                {
-
-                    int time = 0;
-                    if(map.getKey().equals(train.getStart_from()) || map.getKey().equals(train.getTo_destination()))
-                        continue;
-                }
-            }
-        }
-
         trainRepository.saveAll(trainList);
         return "Data Updated Successfully";
     }
@@ -112,22 +87,23 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public List<TimeTable> displayTimeTable() {
-        trains = displayAllTrains();
-        timeTables = new ArrayList<>();
-        int i = 0;
+        List<Train> trains = displayAllTrains();
+        List<TimeTable> timeTables = new ArrayList<>();
+
         trains.forEach( p -> {
             if(p.getRoute().containsKey(city)) {
                 if(p.getRoute().get(city).getArrival_time().equals(p.getRoute().get(city).getDeparture_time()))
                 {
                     p.getRoute().get(city).setArrival_time(p.getRoute().get(city).getDeparture_time().plusMinutes(5));
                 }
-                timeTables.add(new TimeTable(new Random().nextInt(1000), p.getTrain_name(), p.getTrain_no(), p.getStart_from(), p.getRoute().get(city).getArrival_time(), p.getTo_destination(), p.getRoute().get(city).getDeparture_time()));
+                timeTables.add(new TimeTable(new Random().nextInt(1000), p.getTrain_name(), p.getTrain_no(), p.getStart_from(), p.getTo_destination(),p.getRoute().get(city).getArrival_time(), p.getRoute().get(city).getDeparture_time()));
             }
         });
 
         int x = 1;
 
         List<TimeTable> timeTable = timeTables.stream().sorted(Comparator.comparing(TimeTable :: getTime_arrival)).collect(Collectors.toList());
+
         for (TimeTable t : timeTable)
         {
             t.setId(x++);
@@ -143,10 +119,13 @@ public class TrainServiceImpl implements TrainService {
 
     public String displayTimeTableInTable(List<TimeTable> timeTables)
     {
-        String result = "*------------------------------------------------  ***  Pakistan Rail Network Running Train TimeTable  ***  -------------------------------------------------*\n \n"
-                      + "-------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
-                      + "|  Train No  |               Train Name              |            Start              |           destination            |      arrival     |     departure    | \n"
-                      + "-------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+        String result = """
+                *------------------------------------------------  ***  Pakistan Rail Network Running Train TimeTable  ***  -------------------------------------------------*
+                \s
+                --------------------------------------------------------------------------------------------------------------------------------------------------------------\s
+                |  Train No  |               Train Name              |            Start              |           destination            |      arrival     |     departure    |\s
+                --------------------------------------------------------------------------------------------------------------------------------------------------------------\s
+                """;
 
         for (TimeTable timeTable : timeTables)
         {
@@ -172,8 +151,8 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public List<TrainsBetweenStation> trainsBetweenStation(String origin ,  String destination) {
-        trainsBetweenStations = new ArrayList<>();
-        trains = trainRepository.findAll();
+        List<TrainsBetweenStation> trainsBetweenStations = new ArrayList<>();
+        List<Train> trains = trainRepository.findAll();
         trains.forEach( trainData -> {
             if(trainData.getRoute().containsKey(origin) && trainData.getRoute().containsKey(destination))
             {
@@ -189,20 +168,22 @@ public class TrainServiceImpl implements TrainService {
     public String addSpaces(String test , int length)
     {
         int i=length;
+        StringBuilder testBuilder = new StringBuilder(test);
         while (--i>=0)
         {
-            test+=" ";
+            testBuilder.append(" ");
         }
+        test = testBuilder.toString();
         return test;
     }
 
     public String trainsBetweenStationToTable(String origin , String destination)
     {
         List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
-        String result = "*------------------------------------------------  ***  Trains Between "+trainsBetweenStationList.get(0).getOrigin()+"   --->    "+trainsBetweenStationList.get(0).getDestination()+"  ***  ---------------------------------------*\n \n"
-                      + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
-                      + "| Train No |         Train Name             |   Deprture   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
-                      + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+        StringBuilder result = new StringBuilder("*------------------------------------------------  ***  Trains Between " + trainsBetweenStationList.get(0).getOrigin() + "   --->    " + trainsBetweenStationList.get(0).getDestination() + "  ***  ---------------------------------------*\n \n"
+                + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
+                + "| Train No |         Train Name             |   Deprture   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
+                + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
 
         for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList) {
 
@@ -221,9 +202,9 @@ public class TrainServiceImpl implements TrainService {
             i="                     Classes                  ".length()-local.length();
             local = addSpaces(local,i);
             test+=local+"  |";
-            result+=test+"\n"+"--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            result.append(test).append("\n").append("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
         }
-        return result;
+        return result.toString();
     }
 
 
@@ -234,7 +215,7 @@ public class TrainServiceImpl implements TrainService {
     public boolean isNumeric(String train_search_info)
     {
         try {
-            double d = Double.parseDouble(train_search_info);
+            Double.parseDouble(train_search_info);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -244,7 +225,7 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public List<TrainLocation> trainLocation(String train_search_info,String day,String your_location) {
 
-            trains = trainRepository.findAll();
+            List<Train> trains = trainRepository.findAll();
             if (isNumeric(train_search_info)) {
                 trains = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList());
                 try{
@@ -253,9 +234,8 @@ public class TrainServiceImpl implements TrainService {
                 }
                 catch (NoTrainExistException e)
                 {
-                    return Arrays.asList(new TrainLocation(e.toString(),LocalDateTime.now(),LocalDateTime.now(),"Not Reachable",12));
+                    return Collections.singletonList(new TrainLocation(e.toString(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", 12));
                 }
-                return getTrainRoute(train,day,your_location);
             }
             else {
 
@@ -266,16 +246,17 @@ public class TrainServiceImpl implements TrainService {
                 }
                 catch (NoTrainExistException e)
                 {
-                    return Arrays.asList(new TrainLocation(e.toString(),LocalDateTime.now(),LocalDateTime.now(),"Not Reachable",12));
+                    return Collections.singletonList(new TrainLocation(e.toString(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", 12));
                 }
-                return getTrainRoute(train,day,your_location);
             }
+        return getTrainRoute(trains.get(0),day,your_location);
     }
     @Override
     public String trainLocationToTable(String train_search_info,String day,String your_location)
     {
-        trainLocationList = trainLocation(train_search_info,day,your_location);
-        train = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList()).get(0);
+        List<TrainLocation> trainLocationList = trainLocation(train_search_info,day,your_location);
+        List<Train> trains = trainRepository.findAll();
+        Train train = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList()).get(0);
         try{
             if(train==null)
                 throw new NoTrainExistException("Ther is no train exist on this train Information");
@@ -314,11 +295,8 @@ public class TrainServiceImpl implements TrainService {
         Duration duration = Duration.between(train.getArrival_time(),train.getDeparture_time());
         String total_Time = Math.abs(duration.toHoursPart()) + "h " + Math.abs(duration.toMinutesPart()) + "m";
 
-            String result = "";
-            result += "*-----------------------------------  Train No. : "+train.getTrain_no()+" , Train Name : "+train.getTrain_name()+"     ***  Live train Running Status  ***  -----------------------------------------*    \n \n"
-                    + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n "
-                    + "|           Station             |           Arrival           |               Departure              |              Train Status                |             Delay           | \n"
-                    + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            StringBuilder result = new StringBuilder();
+            result.append("*-----------------------------------  Train No. : ").append(train.getTrain_no()).append(" , Train Name : ").append(train.getTrain_name()).append("     ***  Live train Running Status  ***  -----------------------------------------*    \n \n").append("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n ").append("|           Station             |           Arrival           |               Departure              |              Train Status                |             Delay           | \n").append("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
         String chk = "Not Started";
         for(TrainLocation trainLocation : trainLocationList)
         {
@@ -328,21 +306,18 @@ public class TrainServiceImpl implements TrainService {
             else if(trainLocation.getCurrent_station().equals(train_location)) {
                 chk = "Arriving";
 
-                result += "    "+trainLocation.getCurrent_station()+"                  "+trainLocation.getArrival_time()+"                  "+trainLocation.getDeparture_time()+"                     "+trainLocation.getTrain_status()+" ( "+chk+" )"+"                      No Delay                  --->  !!!  Your Train is at this station , will Reach in "+total_Time+ "!!!\n"
-                        + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+                result.append("    ").append(trainLocation.getCurrent_station()).append("                  ").append(trainLocation.getArrival_time()).append("                  ").append(trainLocation.getDeparture_time()).append("                     ").append(trainLocation.getTrain_status()).append(" ( ").append(chk).append(" )").append("                      No Delay                  --->  !!!  Your Train is at this station , will Reach in ").append(total_Time).append("!!!\n").append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
                 continue;
             }
             else if(trainLocation.getCurrent_station().equals(your_location))
             {
-                result += "    "+trainLocation.getCurrent_station()+"                  "+trainLocation.getArrival_time()+"                  "+trainLocation.getDeparture_time()+"                     "+trainLocation.getTrain_status()+" ( "+chk+" )"+"                      No Delay                  --->  !!!  Your are this Station !!!\n"
-                        + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+                result.append("    ").append(trainLocation.getCurrent_station()).append("                  ").append(trainLocation.getArrival_time()).append("                  ").append(trainLocation.getDeparture_time()).append("                     ").append(trainLocation.getTrain_status()).append(" ( ").append(chk).append(" )").append("                      No Delay                  --->  !!!  Your are this Station !!!\n").append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
                 continue;
             }
 
-            result += "    "+trainLocation.getCurrent_station()+"                   "+trainLocation.getArrival_time()+"                  "+trainLocation.getDeparture_time()+"                      "+trainLocation.getTrain_status()+" ( "+chk+" )"+"                       No Delay          \n"
-                    + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
+            result.append("    ").append(trainLocation.getCurrent_station()).append("                   ").append(trainLocation.getArrival_time()).append("                  ").append(trainLocation.getDeparture_time()).append("                      ").append(trainLocation.getTrain_status()).append(" ( ").append(chk).append(" )").append("                       No Delay          \n").append("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
         }
-        return result;
+        return result.toString();
     }
     public List<TrainLocation> getTrainRoute(Train train , String day , String your_location)
     {
@@ -350,7 +325,6 @@ public class TrainServiceImpl implements TrainService {
 
         if(day.isEmpty() || day.isBlank())
             day="today";
-        train = trains.get(0);
 
 
         // *------------- NoTrainExistException handled -----------------*
@@ -367,14 +341,14 @@ public class TrainServiceImpl implements TrainService {
         }
         catch (NoTrainExistException e)
         {
-            return Arrays.asList(new TrainLocation(e.toString(),LocalDateTime.MIN,LocalDateTime.MIN,"Not Reachable",0));
+            return Collections.singletonList(new TrainLocation(e.toString(), LocalDateTime.MIN, LocalDateTime.MIN, "Not Reachable", 0));
         }
 
     }
     public List<TrainLocation> getRoute(Train train,String train_location,String departed,String day , String your_location)
     {
         List<TrainLocation> route = new ArrayList<>();
-
+        LocalDate localDate = LocalDate.now();
 
         if(day.equalsIgnoreCase("yesterday"))
             localDate = localDate.minusDays(1);
@@ -394,7 +368,7 @@ public class TrainServiceImpl implements TrainService {
         }
         catch (TrainNotRunningOnThisDayException e)
         {
-            return Arrays.asList(new TrainLocation(e.toString(),LocalDateTime.now(),LocalDateTime.now(),"Not Reachable",12));
+            return Collections.singletonList(new TrainLocation(e.toString(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", 12));
         }
 
 
@@ -503,22 +477,26 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public String trainFairToTable(String origin, String destination) {
         List<TrainsBetweenStation> trainsBetweenStationList = trainFair(origin,destination);
-        String result = "*-----------------------------------------------------------------------  ***  Trains Fare Between the Station  ***  -----------------------------------------------------------------------*\n \n"
-                + "----------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    "+trainsBetweenStationList.get(0).getDestination()+"   ##### ------------------------------------------------------------------------ \n"
-                + "============================================================================================================================================================================================= \n \n \n";
+        StringBuilder result = new StringBuilder("*-----------------------------------------------------------------------  ***  Trains Fare Between the Station  ***  -----------------------------------------------------------------------*\n \n"
+                + "----------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    " + trainsBetweenStationList.get(0).getDestination() + "   ##### ------------------------------------------------------------------------ \n"
+                + "============================================================================================================================================================================================= \n \n \n");
         for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList)
         {
-            String local = "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n";
-            local += "|        Train No / Train Name   : "+trainsBetweenStation.getTrain_no() + " / " + trainsBetweenStation.getTrain_name()+"           Trip ===< "+trainsBetweenStation.getOrigin() + "  ----------- "+trainsBetweenStationList.get(0).getClasses().get("SEC")*0.4+" km | "+trainsBetweenStation.getTravel_time()+" --------->  "+trainsBetweenStation.getDestination()+" >===       Date : "+LocalDate.now()+"        \n";
+            StringBuilder local = new StringBuilder("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
+            local.append("|        Train No / Train Name   : ").append(trainsBetweenStation.getTrain_no()).append(" / ").append(trainsBetweenStation.getTrain_name()).append("           Trip ===< ").append(trainsBetweenStation.getOrigin()).append("  ----------- ").append(trainsBetweenStationList.get(0).getClasses().get("SEC") * 0.4).append(" km | ").append(trainsBetweenStation.getTravel_time()).append(" --------->  ").append(trainsBetweenStation.getDestination()).append(" >===       Date : ").append(LocalDate.now()).append("        \n");
             for(Map.Entry<String,Double> map : trainsBetweenStation.getClasses().entrySet())
             {
-                local+= "|        "+map.getKey() + " : "+Math.round(map.getValue())+"        ";
+                local.append("|        ").append(map.getKey()).append(" : ").append(Math.round(map.getValue())).append("        ");
             }
-            local+="|\n"
-                    +"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\n";
-            result+=local;
+            local.append("""
+                    |
+                    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+                    """);
+            result.append(local);
         }
-        return result;
+        return result.toString();
     }
 
 

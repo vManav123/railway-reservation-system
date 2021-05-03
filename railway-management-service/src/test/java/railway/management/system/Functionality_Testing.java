@@ -54,7 +54,7 @@ public class Functionality_Testing {
         for (int i = 0; i < jsonArray.length() ; i++)
         {
             JSONObject object = jsonArray.getJSONObject(i);
-            timeTableList.add(new TimeTable(Integer.parseInt(object.getString("id")), object.getString("train_name"), object.getString("train_no"), object.getString("start_from"), LocalTime.parse(object.getString("time_arrival")),object.getString("to_destination"),LocalTime.parse(object.getString("time_departure"))));
+            timeTableList.add(new TimeTable(Integer.parseInt(object.getString("id")), object.getString("train_name"), object.getString("train_no"), object.getString("start_from"),object.getString("to_destination"),LocalTime.parse(object.getString("time_arrival")),LocalTime.parse(object.getString("time_departure"))));
         }
         return timeTableList;
     }

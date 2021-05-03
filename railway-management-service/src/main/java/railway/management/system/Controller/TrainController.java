@@ -1,7 +1,6 @@
 package railway.management.system.Controller;
 
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -103,7 +102,6 @@ public class TrainController {
     {
         return trainService.displayTrainToTable(trainsNo);
     }
-
     // *---------------------------------------------*
 
 }

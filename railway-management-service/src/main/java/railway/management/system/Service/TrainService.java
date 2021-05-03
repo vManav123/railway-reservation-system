@@ -6,7 +6,6 @@ import railway.management.system.Models.Train;
 import railway.management.system.Models.TrainLocation;
 import railway.management.system.Models.TrainsBetweenStation;
 
-import java.sql.Time;
 import java.util.List;
 
 public interface TrainService {
