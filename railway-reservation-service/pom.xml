@@ -8,10 +8,10 @@
         <version>2.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>railway.management.system</groupId>
-    <artifactId>railway-management-service</artifactId>
+    <groupId>railway.reservation</groupId>
+    <artifactId>railway-reservation-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>railway-management-service</name>
+    <name>railway-reservation-service</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>16</java.version>
@@ -31,24 +31,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -56,7 +38,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
     </build>
