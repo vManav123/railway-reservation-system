@@ -36,7 +36,8 @@ public interface TrainService {
 
     // *------------------------------- train Fair Functionality ----------------------------------*
 
-    public String trainLocation(String train_search,String day,String your_location);
+    public List<TrainLocation> trainLocation(String train_search,String day,String your_location);
+    public String trainLocationToTable(String train_search,String day,String your_location);
 
     // *-------------------------------------------------------------------------------------------*
 
