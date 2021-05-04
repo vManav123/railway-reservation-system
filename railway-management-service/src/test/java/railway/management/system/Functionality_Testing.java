@@ -33,14 +33,12 @@ import java.util.stream.Collectors;
 public class Functionality_Testing {
 
 
-    // *-------------------------------- Autowired Services -----------------------------------------*
+    // *------------------------------------------ Autowired Services --------------------------------------------*
 
     @Autowired
     TrainService trainService;
 
-    // *----------------------------------------------------------------------------------------------*
-
-
+    // *----------------------------------------------------------------------------------------------------------*
 
     // *--------------------------------- TimeTable Functionality Testing ----------------------------------------*
 
@@ -63,7 +61,7 @@ public class Functionality_Testing {
     void TimeTable_testcase_1() throws IOException, JSONException {
         timeTableFile = Files.readString(Path.of("src/test/resources/TimeTable-TestCase/TimeTable_TestCase_1.json"));
         timeTableList = getTimeTableList(timeTableFile);
-        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTable().toString());
+        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTable("Karachi City").toString());
 
     }
 
@@ -71,7 +69,7 @@ public class Functionality_Testing {
     void TimeTable_testcase_2() throws IOException, JSONException {
         timeTableFile = Files.readString(Path.of("src/test/resources/TimeTable-TestCase/TimeTable_TestCase_2.json"));
         timeTableList = getTimeTableList(timeTableFile);
-        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTableByYourCity("Lahore Junction").toString());
+        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTable("Lahore Junction").toString());
 
     }
 
@@ -79,7 +77,7 @@ public class Functionality_Testing {
     void TimeTable_testcase_3() throws IOException, JSONException {
         timeTableFile = Files.readString(Path.of("src/test/resources/TimeTable-TestCase/TimeTable_TestCase_3.json"));
         timeTableList = getTimeTableList(timeTableFile);
-        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTableByYourCity("Multan Cantonment").toString());
+        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTable("Multan Cantonment").toString());
 
     }
 
@@ -87,7 +85,7 @@ public class Functionality_Testing {
     void TimeTable_testcase_4() throws IOException, JSONException {
         timeTableFile = Files.readString(Path.of("src/test/resources/TimeTable-TestCase/TimeTable_TestCase_4.json"));
         timeTableList = getTimeTableList(timeTableFile);
-        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTableByYourCity("noob city").toString());
+        Assertions.assertEquals(timeTableList.toString(),trainService.displayTimeTable("noob city").toString());
 
     }
 
@@ -142,7 +140,7 @@ public class Functionality_Testing {
     void TrainsBetweenStation_testcase_3() throws IOException, JSONException {
         trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainsBetweenStation-TestCase/TrainsBetweenStation-TestCase_3.json"));
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
-        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("Quetta","Multan Cantonment").toString());
+        Assertions.assertEquals(trainBetweenStationList.toString(),trainService.trainsBetweenStation("","").toString());
 
     }
 

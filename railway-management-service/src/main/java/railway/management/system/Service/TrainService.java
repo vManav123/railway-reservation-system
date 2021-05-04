@@ -23,7 +23,7 @@ public interface TrainService {
 
     // *-------------- Time Table Functionality ---------------*
 
-    public List<TimeTable> displayTimeTable();
+    public List<TimeTable> displayTimeTable(String city);
     public String displayTimeTableByYourCity(String city);
 
     // *--------------------------------------------------------*

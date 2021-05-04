@@ -28,10 +28,10 @@ public class TrainController {
 
 
     //  *------- Time Table Functionality -------*
-    @GetMapping(path = "/timeTable")
+    @GetMapping(path = "/timeTable/{city}")
     @ApiIgnore
     @ApiOperation(value = "get Time Table of Trains",notes = "It Will Display the TimeTable of All Trains From Your Station in JSON format",response = TimeTable.class)
-    public List<TimeTable> displayTimeTable() { return trainService.displayTimeTable(); }
+    public List<TimeTable> displayTimeTable(@PathVariable String city) { return trainService.displayTimeTable(city); }
 
     @GetMapping(path = "/timeTableByYourCity/{city_name}")
     @ApiOperation(value = "Display Time Table of Trains",notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ",response = TimeTable.class)

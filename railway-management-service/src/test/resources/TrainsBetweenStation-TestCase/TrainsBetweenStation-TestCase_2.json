@@ -3,25 +3,20 @@
     "train_no": "7967867",
     "train_name": "Awam Express",
     "origin": "Lahore Junction",
-    "departure_time": "17:50:40",
+    "departure_time": "18:45:40",
     "destination": "Landhi Junction",
-    "arrival_time": "10:45:40",
-    "travel_time": "7h 5m",
+    "arrival_time": "09:42:40",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE",
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
@@ -30,176 +25,140 @@
     "origin": "Lahore Junction",
     "departure_time": "18:00:44",
     "destination": "Landhi Junction",
-    "arrival_time": "01:00:44",
-    "travel_time": "17h 0m",
+    "arrival_time": "02:57:44",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2081282",
     "train_name": "Balochistan Express",
     "origin": "Lahore Junction",
-    "departure_time": "20:03:33",
+    "departure_time": "02:22:33",
     "destination": "Landhi Junction",
-    "arrival_time": "02:58:33",
-    "travel_time": "17h 5m",
+    "arrival_time": "11:19:33",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1253283",
     "train_name": "Buraq Express",
     "origin": "Lahore Junction",
-    "departure_time": "02:23:24",
+    "departure_time": "03:18:24",
     "destination": "Landhi Junction",
-    "arrival_time": "19:18:24",
-    "travel_time": "16h 55m",
+    "arrival_time": "18:15:24",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE",
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5349868",
     "train_name": "Chenab Express",
     "origin": "Lahore Junction",
-    "departure_time": "01:30:28",
+    "departure_time": "02:01:28",
     "destination": "Landhi Junction",
-    "arrival_time": "18:25:28",
-    "travel_time": "16h 55m",
+    "arrival_time": "16:58:28",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4681873",
     "train_name": "Chotiari Mixed",
     "origin": "Lahore Junction",
-    "departure_time": "09:28:06",
+    "departure_time": "14:59:06",
     "destination": "Landhi Junction",
-    "arrival_time": "16:23:06",
-    "travel_time": "6h 55m",
+    "arrival_time": "23:56:06",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1317809",
     "train_name": "Chiltan Express",
     "origin": "Lahore Junction",
-    "departure_time": "21:50:29",
+    "departure_time": "22:21:29",
     "destination": "Landhi Junction",
-    "arrival_time": "14:45:29",
-    "travel_time": "7h 5m",
+    "arrival_time": "13:18:29",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "TUE",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4737283",
     "train_name": "Dachi Fast",
     "origin": "Lahore Junction",
-    "departure_time": "13:48:21",
+    "departure_time": "14:54:21",
     "destination": "Landhi Junction",
-    "arrival_time": "07:18:21",
-    "travel_time": "6h 30m",
+    "arrival_time": "05:51:21",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "WED",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACSL": 25.0,
-      "PC": 0.0,
-      "ACLZ": 12.8,
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "PC": 2.2,
+      "ISL": 1.4,
+      "ACSL": 2.5,
+      "ACL": 1.7,
+      "EC": 1.2,
+      "ACLZ": 1.0
     }
   },
   {
@@ -208,48 +167,40 @@
     "origin": "Lahore Junction",
     "departure_time": "09:17:16",
     "destination": "Landhi Junction",
-    "arrival_time": "16:17:16",
-    "travel_time": "7h 0m",
+    "arrival_time": "18:14:16",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5733040",
     "train_name": "Fareed Express",
     "origin": "Lahore Junction",
-    "departure_time": "08:13:29",
+    "departure_time": "09:43:29",
     "destination": "Landhi Junction",
-    "arrival_time": "01:43:29",
-    "travel_time": "6h 30m",
+    "arrival_time": "00:40:29",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "WED",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
@@ -258,23 +209,19 @@
     "origin": "Lahore Junction",
     "departure_time": "16:47:39",
     "destination": "Landhi Junction",
-    "arrival_time": "23:47:39",
-    "travel_time": "7h 0m",
+    "arrival_time": "01:44:39",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
@@ -283,67 +230,52 @@
     "origin": "Lahore Junction",
     "departure_time": "09:30:11",
     "destination": "Landhi Junction",
-    "arrival_time": "16:30:11",
-    "travel_time": "7h 0m",
+    "arrival_time": "18:27:11",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "6193931",
     "train_name": "Hazara Express",
     "origin": "Lahore Junction",
-    "departure_time": "00:42:40",
+    "departure_time": "01:37:40",
     "destination": "Landhi Junction",
-    "arrival_time": "17:37:40",
-    "travel_time": "16h 55m",
+    "arrival_time": "16:34:40",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "6828339",
     "train_name": "Hashim Shah Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "12:57:13",
+    "departure_time": "14:03:13",
     "destination": "Landhi Junction",
-    "arrival_time": "06:27:13",
-    "travel_time": "6h 30m",
+    "arrival_time": "05:00:13",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0
@@ -355,167 +287,131 @@
     "origin": "Lahore Junction",
     "departure_time": "23:12:14",
     "destination": "Landhi Junction",
-    "arrival_time": "06:12:14",
-    "travel_time": "17h 0m",
+    "arrival_time": "08:09:14",
+    "travel_time": "15h 3m",
     "run_days": [
       "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1716385",
     "train_name": "Jaffar Express",
     "origin": "Lahore Junction",
-    "departure_time": "05:59:31",
+    "departure_time": "06:30:31",
     "destination": "Landhi Junction",
-    "arrival_time": "22:54:31",
-    "travel_time": "16h 55m",
+    "arrival_time": "21:27:31",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3371221",
     "train_name": "Karachi Express",
     "origin": "Lahore Junction",
-    "departure_time": "06:33:30",
+    "departure_time": "08:03:30",
     "destination": "Landhi Junction",
-    "arrival_time": "00:03:30",
-    "travel_time": "6h 30m",
+    "arrival_time": "23:00:30",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3364328",
     "train_name": "Kohat Express",
     "origin": "Lahore Junction",
-    "departure_time": "22:54:47",
+    "departure_time": "15:01:47",
     "destination": "Landhi Junction",
-    "arrival_time": "05:49:47",
-    "travel_time": "17h 5m",
+    "arrival_time": "23:58:47",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3919624",
     "train_name": "Karakoram Express",
     "origin": "Lahore Junction",
-    "departure_time": "07:30:46",
+    "departure_time": "09:00:46",
     "destination": "Landhi Junction",
-    "arrival_time": "01:00:46",
-    "travel_time": "6h 30m",
+    "arrival_time": "23:57:46",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5263551",
     "train_name": "Khushhal Khan Khattak Express",
     "origin": "Lahore Junction",
-    "departure_time": "11:37:20",
+    "departure_time": "12:32:20",
     "destination": "Landhi Junction",
-    "arrival_time": "04:32:20",
-    "travel_time": "7h 5m",
+    "arrival_time": "03:29:20",
+    "travel_time": "9h 3m",
     "run_days": [
       "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5048254",
     "train_name": "Kundian Pessenger",
     "origin": "Lahore Junction",
-    "departure_time": "00:29:50",
+    "departure_time": "20:06:50",
     "destination": "Landhi Junction",
-    "arrival_time": "07:24:50",
-    "travel_time": "6h 55m",
+    "arrival_time": "05:03:50",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
       "SEC": 1.0
@@ -527,17 +423,12 @@
     "origin": "Lahore Junction",
     "departure_time": "13:33:25",
     "destination": "Landhi Junction",
-    "arrival_time": "20:33:25",
-    "travel_time": "7h 0m",
+    "arrival_time": "22:30:25",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0
@@ -547,18 +438,13 @@
     "train_no": "1692951",
     "train_name": "Khush Khuram Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "19:25:12",
+    "departure_time": "20:31:12",
     "destination": "Landhi Junction",
-    "arrival_time": "12:55:12",
-    "travel_time": "6h 30m",
+    "arrival_time": "11:28:12",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "TUE",
       "SUN"
     ],
     "classes": {
@@ -571,41 +457,29 @@
     "origin": "Lahore Junction",
     "departure_time": "21:54:13",
     "destination": "Landhi Junction",
-    "arrival_time": "04:54:13",
-    "travel_time": "17h 0m",
+    "arrival_time": "06:51:13",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1669340",
     "train_name": "Karana Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "17:46:37",
+    "departure_time": "14:17:37",
     "destination": "Landhi Junction",
-    "arrival_time": "00:41:37",
-    "travel_time": "17h 5m",
+    "arrival_time": "23:14:37",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
       "SEC": 1.0
@@ -615,68 +489,54 @@
     "train_no": "5343612",
     "train_name": "Lala Musa Express",
     "origin": "Lahore Junction",
-    "departure_time": "14:40:22",
+    "departure_time": "11:11:22",
     "destination": "Landhi Junction",
-    "arrival_time": "21:35:22",
-    "travel_time": "6h 55m",
+    "arrival_time": "20:08:22",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "7077327",
     "train_name": "Mashriq-Maghreb Express",
     "origin": "Lahore Junction",
-    "departure_time": "12:34:53",
+    "departure_time": "13:05:53",
     "destination": "Landhi Junction",
-    "arrival_time": "05:29:53",
-    "travel_time": "7h 5m",
+    "arrival_time": "04:02:53",
+    "travel_time": "9h 3m",
     "run_days": [
       "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3244071",
     "train_name": "Marala Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "10:10:52",
+    "departure_time": "07:29:52",
     "destination": "Landhi Junction",
-    "arrival_time": "17:05:52",
-    "travel_time": "6h 55m",
+    "arrival_time": "16:26:52",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "WED",
       "SUN"
     ],
     "classes": {
@@ -687,93 +547,69 @@
     "train_no": "1965915",
     "train_name": "Mouj Darya Express",
     "origin": "Lahore Junction",
-    "departure_time": "03:43:01",
+    "departure_time": "04:49:01",
     "destination": "Landhi Junction",
-    "arrival_time": "21:13:01",
-    "travel_time": "17h 30m",
+    "arrival_time": "19:46:01",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "6158630",
     "train_name": "Tezrao Express",
     "origin": "Lahore Junction",
-    "departure_time": "09:22:26",
+    "departure_time": "10:29:26",
     "destination": "Landhi Junction",
-    "arrival_time": "02:17:26",
-    "travel_time": "7h 5m",
+    "arrival_time": "01:26:26",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2057142",
     "train_name": "Mehran Express",
     "origin": "Lahore Junction",
-    "departure_time": "19:43:09",
+    "departure_time": "20:38:09",
     "destination": "Landhi Junction",
-    "arrival_time": "12:38:09",
-    "travel_time": "7h 5m",
+    "arrival_time": "11:35:09",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "THU"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3106927",
     "train_name": "Marvi Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "17:39:53",
+    "departure_time": "23:10:53",
     "destination": "Landhi Junction",
-    "arrival_time": "00:34:53",
-    "travel_time": "17h 5m",
+    "arrival_time": "08:07:53",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
@@ -786,165 +622,132 @@
     "origin": "Lahore Junction",
     "departure_time": "00:05:53",
     "destination": "Landhi Junction",
-    "arrival_time": "07:05:53",
-    "travel_time": "7h 0m",
+    "arrival_time": "09:02:53",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "7181742",
     "train_name": "Narowal Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "22:13:03",
+    "departure_time": "23:19:03",
     "destination": "Landhi Junction",
-    "arrival_time": "15:43:03",
-    "travel_time": "6h 30m",
+    "arrival_time": "14:16:03",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "EC": 1.2
     }
   },
   {
     "train_no": "8872332",
     "train_name": "Noor Shah Mixed",
     "origin": "Lahore Junction",
-    "departure_time": "03:22:45",
+    "departure_time": "04:28:45",
     "destination": "Landhi Junction",
-    "arrival_time": "20:52:45",
-    "travel_time": "17h 30m",
+    "arrival_time": "19:25:45",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2296204",
     "train_name": "Pakistan Business Express",
     "origin": "Lahore Junction",
-    "departure_time": "23:41:41",
+    "departure_time": "01:23:41",
     "destination": "Landhi Junction",
-    "arrival_time": "17:11:41",
-    "travel_time": "6h 30m",
+    "arrival_time": "16:20:41",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5500866",
     "train_name": "Pakistan Express",
     "origin": "Lahore Junction",
-    "departure_time": "12:22:19",
+    "departure_time": "13:29:19",
     "destination": "Landhi Junction",
-    "arrival_time": "05:17:19",
-    "travel_time": "7h 5m",
+    "arrival_time": "04:26:19",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1196759",
     "train_name": "Pakpattan Express",
     "origin": "Lahore Junction",
-    "departure_time": "09:00:48",
+    "departure_time": "09:31:48",
     "destination": "Landhi Junction",
-    "arrival_time": "01:55:48",
-    "travel_time": "7h 5m",
+    "arrival_time": "00:28:48",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE",
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "1944911",
     "train_name": "Rohi Fast Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "16:46:57",
+    "departure_time": "17:17:57",
     "destination": "Landhi Junction",
-    "arrival_time": "09:41:57",
-    "travel_time": "7h 5m",
+    "arrival_time": "08:14:57",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
       "SEC": 1.0
@@ -954,225 +757,175 @@
     "train_no": "1952954",
     "train_name": "Rawal Express",
     "origin": "Lahore Junction",
-    "departure_time": "02:21:42",
+    "departure_time": "02:52:42",
     "destination": "Landhi Junction",
-    "arrival_time": "19:16:42",
-    "travel_time": "16h 55m",
+    "arrival_time": "17:49:42",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "8107698",
     "train_name": "Rehman Baba Express",
     "origin": "Lahore Junction",
-    "departure_time": "07:50:41",
+    "departure_time": "18:45:41",
     "destination": "Landhi Junction",
-    "arrival_time": "14:45:41",
-    "travel_time": "6h 55m",
+    "arrival_time": "03:42:41",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "6153496",
     "train_name": "Rawalpindi Express",
     "origin": "Lahore Junction",
-    "departure_time": "19:25:50",
+    "departure_time": "19:56:50",
     "destination": "Landhi Junction",
-    "arrival_time": "12:20:50",
-    "travel_time": "7h 5m",
+    "arrival_time": "10:53:50",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "TUE",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "6865707",
     "train_name": "Qalander Express",
     "origin": "Lahore Junction",
-    "departure_time": "18:16:34",
+    "departure_time": "23:35:34",
     "destination": "Landhi Junction",
-    "arrival_time": "01:11:34",
-    "travel_time": "17h 5m",
+    "arrival_time": "08:32:34",
+    "travel_time": "15h 3m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4831410",
     "train_name": "Shah Hussain Express",
     "origin": "Lahore Junction",
-    "departure_time": "04:00:38",
+    "departure_time": "05:42:38",
     "destination": "Landhi Junction",
-    "arrival_time": "21:30:38",
-    "travel_time": "17h 30m",
+    "arrival_time": "20:39:38",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "THU"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3531817",
     "train_name": "Samjhauta Express",
     "origin": "Lahore Junction",
-    "departure_time": "08:01:42",
+    "departure_time": "08:32:42",
     "destination": "Landhi Junction",
-    "arrival_time": "00:56:42",
-    "travel_time": "7h 5m",
+    "arrival_time": "23:29:42",
+    "travel_time": "14h 57m",
     "run_days": [
-      "SUN",
-      "MON",
       "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT",
+      "MON",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "5099749",
     "train_name": "Saman Sarkar Express",
     "origin": "Lahore Junction",
-    "departure_time": "18:18:58",
+    "departure_time": "18:49:58",
     "destination": "Landhi Junction",
-    "arrival_time": "11:13:58",
-    "travel_time": "7h 5m",
+    "arrival_time": "09:46:58",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2611211",
     "train_name": "Sargodha Express",
     "origin": "Lahore Junction",
-    "departure_time": "21:45:21",
+    "departure_time": "22:51:21",
     "destination": "Landhi Junction",
-    "arrival_time": "15:15:21",
-    "travel_time": "6h 30m",
+    "arrival_time": "13:48:21",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2630006",
     "train_name": "Shalimar Express",
     "origin": "Lahore Junction",
-    "departure_time": "21:52:16",
+    "departure_time": "23:34:16",
     "destination": "Landhi Junction",
-    "arrival_time": "15:22:16",
-    "travel_time": "6h 30m",
+    "arrival_time": "14:31:16",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
@@ -1181,198 +934,160 @@
     "origin": "Lahore Junction",
     "departure_time": "07:20:25",
     "destination": "Landhi Junction",
-    "arrival_time": "14:20:25",
-    "travel_time": "7h 0m",
+    "arrival_time": "16:17:25",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "TUE",
+      "SUN",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2094367",
     "train_name": "Sukkur Express",
     "origin": "Lahore Junction",
-    "departure_time": "12:17:02",
+    "departure_time": "13:12:02",
     "destination": "Landhi Junction",
-    "arrival_time": "05:12:02",
-    "travel_time": "7h 5m",
+    "arrival_time": "04:09:02",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "TUE",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "2980751",
     "train_name": "Sultan Bahu Express",
     "origin": "Lahore Junction",
-    "departure_time": "17:54:55",
+    "departure_time": "19:00:55",
     "destination": "Landhi Junction",
-    "arrival_time": "11:24:55",
-    "travel_time": "6h 30m",
+    "arrival_time": "09:57:55",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "3615481",
     "train_name": "Sindh Express",
     "origin": "Lahore Junction",
-    "departure_time": "22:19:36",
+    "departure_time": "23:26:36",
     "destination": "Landhi Junction",
-    "arrival_time": "15:14:36",
-    "travel_time": "7h 5m",
+    "arrival_time": "14:23:36",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "8032540",
     "train_name": "Sir Syed Express",
     "origin": "Lahore Junction",
-    "departure_time": "13:09:17",
+    "departure_time": "14:16:17",
     "destination": "Landhi Junction",
-    "arrival_time": "06:04:17",
-    "travel_time": "7h 5m",
+    "arrival_time": "05:13:17",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4185699",
     "train_name": "Shah Latif Bhattai Express",
     "origin": "Lahore Junction",
-    "departure_time": "16:11:43",
+    "departure_time": "16:42:43",
     "destination": "Landhi Junction",
-    "arrival_time": "09:06:43",
-    "travel_time": "7h 5m",
+    "arrival_time": "07:39:43",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
+      "TUE",
       "SUN"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4355609",
     "train_name": "Tezgam Express",
     "origin": "Lahore Junction",
-    "departure_time": "19:44:36",
+    "departure_time": "20:51:36",
     "destination": "Landhi Junction",
-    "arrival_time": "12:39:36",
-    "travel_time": "7h 5m",
+    "arrival_time": "11:48:36",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED",
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
     "train_no": "4573331",
     "train_name": "Tipu Sultan Express",
     "origin": "Lahore Junction",
-    "departure_time": "19:02:19",
+    "departure_time": "20:08:19",
     "destination": "Landhi Junction",
-    "arrival_time": "12:32:19",
-    "travel_time": "6h 30m",
+    "arrival_time": "11:05:19",
+    "travel_time": "9h 3m",
     "run_days": [
-      "SUN",
-      "MON",
+      "THU",
       "TUE",
       "WED",
-      "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "MON"
     ],
     "classes": {
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "ISL": 1.4,
+      "ACL": 1.7,
+      "EC": 1.2
     }
   },
   {
@@ -1381,49 +1096,38 @@
     "origin": "Lahore Junction",
     "departure_time": "06:44:02",
     "destination": "Landhi Junction",
-    "arrival_time": "13:44:02",
-    "travel_time": "7h 0m",
+    "arrival_time": "15:41:02",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
       "SUN"
     ],
     "classes": {
-      "ACSL": 25.0,
-      "PC": 0.0,
-      "ACLZ": 12.8,
-      "ACL": 25.0,
-      "ISL": 6.5,
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "PC": 2.2,
+      "ISL": 1.4,
+      "ACSL": 2.5,
+      "ACL": 1.7,
+      "EC": 1.2,
+      "ACLZ": 1.0
     }
   },
   {
     "train_no": "7779798",
     "train_name": "Zahedan Mixed Passenger",
     "origin": "Lahore Junction",
-    "departure_time": "06:25:17",
+    "departure_time": "12:44:17",
     "destination": "Landhi Junction",
-    "arrival_time": "13:20:17",
-    "travel_time": "6h 55m",
+    "arrival_time": "21:41:17",
+    "travel_time": "8h 57m",
     "run_days": [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
       "THU",
-      "FRI",
-      "SAT",
-      "SUN"
+      "WED",
+      "MON"
     ],
     "classes": {
-      "EC": 3.5,
-      "SEC": 1.0
+      "SEC": 1.0,
+      "EC": 1.2
     }
   }
 ]

@@ -86,7 +86,16 @@ public class TrainServiceImpl implements TrainService {
     // *----------------------  TimeTable Functionality  ------------------------------*
 
     @Override
-    public List<TimeTable> displayTimeTable() {
+    public List<TimeTable> displayTimeTable(String City) {
+        if(City.isEmpty() || City.isEmpty())
+        {
+
+        }
+        else
+        {
+            city = City;
+        }
+
         List<Train> trains = displayAllTrains();
         List<TimeTable> timeTables = new ArrayList<>();
 
@@ -114,7 +123,7 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public String displayTimeTableByYourCity(String city) {
         this.city = city;
-        return displayTimeTableInTable(displayTimeTable());
+        return displayTimeTableInTable(displayTimeTable(city));
     }
 
     public String displayTimeTableInTable(List<TimeTable> timeTables)
@@ -126,7 +135,8 @@ public class TrainServiceImpl implements TrainService {
                 |  Train No  |               Train Name              |            Start              |           destination            |      arrival     |     departure    |\s
                 --------------------------------------------------------------------------------------------------------------------------------------------------------------\s
                 """;
-
+        if(timeTables.isEmpty())
+            return "There is no Station This Exist on the Route Pakistan Rail Network";
         for (TimeTable timeTable : timeTables)
         {
             result +=   "  "+timeTable.getTrain_no()+"          "+timeTable.getTrain_name();
@@ -180,6 +190,13 @@ public class TrainServiceImpl implements TrainService {
     public String trainsBetweenStationToTable(String origin , String destination)
     {
         List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
+        try{
+            String s = trainsBetweenStationList.get(0).toString();
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            return "There is Mistake in the name of Origin or Destination";
+        }
         StringBuilder result = new StringBuilder("*------------------------------------------------  ***  Trains Between " + trainsBetweenStationList.get(0).getOrigin() + "   --->    " + trainsBetweenStationList.get(0).getDestination() + "  ***  ---------------------------------------*\n \n"
                 + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
                 + "| Train No |         Train Name             |   Deprture   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
@@ -476,7 +493,15 @@ public class TrainServiceImpl implements TrainService {
     }
     @Override
     public String trainFairToTable(String origin, String destination) {
-        List<TrainsBetweenStation> trainsBetweenStationList = trainFair(origin,destination);
+        List<TrainsBetweenStation> trainsBetweenStationList;
+        try {
+            trainsBetweenStationList = trainFair(origin, destination);
+            String s = trainsBetweenStationList.get(0).toString();
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            return "There is No City Exist with these names";
+        }
         StringBuilder result = new StringBuilder("*-----------------------------------------------------------------------  ***  Trains Fare Between the Station  ***  -----------------------------------------------------------------------*\n \n"
                 + "----------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    " + trainsBetweenStationList.get(0).getDestination() + "   ##### ------------------------------------------------------------------------ \n"
                 + "============================================================================================================================================================================================= \n \n \n");

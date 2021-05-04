@@ -33,4 +33,5 @@ public class Train {
     private boolean active;
     private Map<String,Detail> route;
 
+
 }
