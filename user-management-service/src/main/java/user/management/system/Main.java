@@ -2,6 +2,9 @@ package user.management.system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import user.management.system.Models.Bank.Bank_Account;
+import user.management.system.Models.User.User;
 
 @SpringBootApplication
 public class Main {
@@ -10,4 +13,9 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
+    @Bean
+    public User getUser(){return new User();}
+
+    @Bean
+    public Bank_Account getBank_Account(){return new Bank_Account();}
 }

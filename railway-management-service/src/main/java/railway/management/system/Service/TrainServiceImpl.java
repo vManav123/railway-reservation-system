@@ -19,45 +19,31 @@ import java.util.stream.Collectors;
 @Service
 public class TrainServiceImpl implements TrainService {
 
+
+    // *--------------------- Autowired Reference Variables----------------------*
     @Autowired
     TrainRepository trainRepository;
 
     @Value("${get.city:Karachi City}")
     private String city;
+    // *-------------------------------------------------------------------------*
+
+
+
+    // *---------------------------- Exception Messages -------------------------*
+    String noTrainsExistException = " !!! There is no train exist on this train Information !!!";
+    String trainNotRunningOnThisDayException = "This train is not running usually on that day";
+    // *-------------------------------------------------------------------------*
 
 
 
 
 
-    // public Services
+    // *--------------------------- Basic Functionalities -----------------------*
     @Override
     public List<Train> displayAllTrains() {
         return trainRepository.findAll();
     }
-
-    @Override
-    public String displayTrainToTable(Long trainNo) {
-
-        Train train = displayTrain(trainNo);
-        StringBuilder result = new StringBuilder("------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
-                "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  " + train.getStart_from() + "  --------------->  " + train.getTo_destination() + "                   \n" +
-                "                   Run Days : " + train.getRun_days().toString() + "               Train Length : " + train.getTrain_length() + "                    " + train.getDeparture_time() + "                          " + train.getArrival_time() + "                         \n" +
-                "                   Coaches  : " + train.getCoaches_fair().keySet() + "            " + "Train Type : " + train.getTrain_type() + "\n" +
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n" +
-                "                                Station            |       Arrival       |        Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-        for(Map.Entry<String,Detail> route : train.getRoute().entrySet())
-        {
-            result.append("                                ");
-            String local="";
-            local +=   route.getKey();
-            int i = " Karachi Cantonment ".length()-local.length();
-            result.append(addSpaces(local, i));
-            result.append("      ").append(route.getValue().getArrival_time()).append("                 ").append(route.getValue().getDeparture_time()).append("\n");
-        }
-        return result.toString();
-    }
-
-
     @Override
     public Train displayTrain(Long trainNo) {
         List<Train> trains = trainRepository.findAll();
@@ -82,16 +68,39 @@ public class TrainServiceImpl implements TrainService {
         return "Data Updated Successfully";
     }
 
+    // *--------------------------------------------------------------------------*
 
-    // *----------------------  TimeTable Functionality  ------------------------------*
+
+    // *------------------------Train Details Functionality ----------------------*
+    @Override
+    public String displayTrainToTable(Long trainNo) {
+
+        Train train = displayTrain(trainNo);
+        StringBuilder result = new StringBuilder("------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+                "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  " + train.getStart_from() + "  --------------->  " + train.getTo_destination() + "                   \n" +
+                "                   Run Days : " + train.getRun_days().toString() + "               Train Length : " + train.getTrain_length() + "                    " + train.getDeparture_time() + "                          " + train.getArrival_time() + "                         \n" +
+                "                   Coaches  : " + train.getCoaches_fair().keySet() + "            " + "Train Type : " + train.getTrain_type() + "\n" +
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n" +
+                "                                Station            |       Arrival       |        Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        for(Map.Entry<String,Detail> route : train.getRoute().entrySet())
+        {
+            result.append("                                ");
+            String local="";
+            local +=   route.getKey();
+            int i = " Karachi Cantonment ".length()-local.length();
+            result.append(addSpaces(local, i));
+            result.append("      ").append(route.getValue().getArrival_time()).append("                 ").append(route.getValue().getDeparture_time()).append("\n");
+        }
+        return result.toString();
+    }
+    // *-------------------------------------------------------------------------------*
+
+
+    // *-------------------------  TimeTable Functionality  ---------------------------*
 
     @Override
     public List<TimeTable> displayTimeTable(String City) {
-        if(City.isEmpty() || City.isEmpty())
-        {
-
-        }
-        else
+        if(City.length() != 0)
         {
             city = City;
         }
@@ -191,7 +200,7 @@ public class TrainServiceImpl implements TrainService {
     {
         List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
         try{
-            String s = trainsBetweenStationList.get(0).toString();
+            trainsBetweenStationList.get(0).toString();
         }
         catch (IndexOutOfBoundsException e)
         {
@@ -247,7 +256,7 @@ public class TrainServiceImpl implements TrainService {
                 trains = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList());
                 try{
                     if (trains.isEmpty())
-                        throw new NoTrainExistException("There is no train exist with this Train No");
+                        throw new NoTrainExistException(noTrainsExistException+" "+train_search_info);
                 }
                 catch (NoTrainExistException e)
                 {
@@ -259,7 +268,7 @@ public class TrainServiceImpl implements TrainService {
                 trains = trains.stream().filter(p -> p.getTrain_name().equals(train_search_info)).collect(Collectors.toList());
                 try{
                     if (trains.isEmpty())
-                        throw new NoTrainExistException("There is no train exist with this train name");
+                        throw new NoTrainExistException(noTrainsExistException+" "+train_search_info);
                 }
                 catch (NoTrainExistException e)
                 {
@@ -276,11 +285,11 @@ public class TrainServiceImpl implements TrainService {
         Train train = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList()).get(0);
         try{
             if(train==null)
-                throw new NoTrainExistException("Ther is no train exist on this train Information");
+                throw new NoTrainExistException(noTrainsExistException);
         }
         catch (NoTrainExistException e)
         {
-            return Arrays.stream(e.toString().split(":")).toList().get(1);
+            return e.getMessage();
         }
         String train_location = "";
         TrainLocation previous_station = null;
@@ -380,7 +389,7 @@ public class TrainServiceImpl implements TrainService {
         // *------------- TrainNotRunningOnThisDayException handled -----------------*
         try{
             if(!train.getRun_days().contains(localDate.getDayOfWeek().toString().substring(0,3).toUpperCase())){
-                throw new TrainNotRunningOnThisDayException("Train is not usually run on that day");
+                throw new TrainNotRunningOnThisDayException(trainNotRunningOnThisDayException);
             }
         }
         catch (TrainNotRunningOnThisDayException e)
@@ -496,7 +505,7 @@ public class TrainServiceImpl implements TrainService {
         List<TrainsBetweenStation> trainsBetweenStationList;
         try {
             trainsBetweenStationList = trainFair(origin, destination);
-            String s = trainsBetweenStationList.get(0).toString();
+            trainsBetweenStationList.get(0).toString();
         }
         catch (IndexOutOfBoundsException e)
         {
