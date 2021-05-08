@@ -1,0 +1,42 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: RAILWAY-API-GATEWAY
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: RAILWAY-RESERVATION-SERVICE
+          uri: lb://RAILWAY-RESERVATION-SERVICE
+          predicates:
+            - Path=/trains/**
+        - id: RAILWAY-RESERVATION-SERVICE
+          uri: lb://RAILWAY-RESERVATION-SERVICE
+          predicates:
+            - Path=/reservation/**
+        - id: USER-MANAGEMENT-SERVICE
+          uri: lb://USER-MANAGEMENT-SERVICE
+          predicates:
+            - Path=/user/**
+        - id: USER-MANAGEMENT-SERVICE
+          uri: lb://USER-MANAGEMENT-SERVICE
+          predicates:
+            - Path=/bank/**
+        - id: RAILWAY-APPLICATION-SYSTEM
+          uri: lb://RAILWAY-APPLICATION-SYSTEM
+          predicates:
+            - Path=/application/**
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    preferIpAddress: true

@@ -18,6 +18,9 @@ public class UserController {
 
 
     // *-----------------  Basic Functionality -----------------*
+    @GetMapping(path = "/welcome")
+    public String user(){return "Welcome to User Interface";}
+
     @PostMapping(path = "/addUser")
     public String addUser(@RequestBody User user) { return userService.addUser(user); }
 

@@ -6,13 +6,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import user.management.system.Models.Ticket;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Hashtable;
 import java.util.Map;
+import user.management.system.Models.Ticket;
 
 @Data
 @AllArgsConstructor
@@ -64,5 +63,5 @@ public class User {
     @Field(name = "lock_time")
     private LocalTime lock_time;
     @Field(name = "tickets")
-    private Map<Long, Ticket> tickets = new Hashtable<>();
+    private Map<Long,Ticket> tickets = new Hashtable<Long,Ticket>();
 }

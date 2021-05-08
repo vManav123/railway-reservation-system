@@ -1,0 +1,19 @@
+server:
+  port: 8084
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+
+spring:
+  application:
+    name: RAILWAY-APPLICATION-SYSTEM
+  data:
+    mongodb:
+      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Railway-Reservation-System?retryWrites=true&w=majority

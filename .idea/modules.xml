@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Railway-Reservation-System.iml" filepath="$PROJECT_DIR$/.idea/Railway-Reservation-System.iml" />
-      <module fileurl="file://$PROJECT_DIR$/railway-management-service/railway-management-service.iml" filepath="$PROJECT_DIR$/railway-management-service/railway-management-service.iml" />
     </modules>
   </component>
 </project>
