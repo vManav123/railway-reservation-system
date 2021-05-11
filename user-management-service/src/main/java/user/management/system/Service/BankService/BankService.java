@@ -12,4 +12,5 @@ public interface BankService {
     public String addBankAccount(Bank_Account bank_account);
     public String addAllAccounts(List<Bank_Account> bank_accounts);
     public String createAccount(BankForm bankForm);
+    public boolean accountNoExist(Long account_no);
 }

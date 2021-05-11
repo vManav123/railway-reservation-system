@@ -29,6 +29,12 @@ public class UserController {
 
     @PostMapping(path = "/createUser")
     public String createUser(@RequestBody UserForm userForm){return userService.createUser(userForm);}
+
+    @GetMapping(path = "/getAllUsers")
+    public List<User> getAllUser(){return userService.getAllUser();}
+
+    @GetMapping(path = "/userExistById/{user_id}")
+    public boolean userExistById(@PathVariable Long user_id){return userService.userExistById(user_id);}
     // *--------------------------------------------------------*
 
 }

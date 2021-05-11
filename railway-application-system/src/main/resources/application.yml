@@ -1,6 +1,9 @@
 server:
   port: 8084
 
+railway:
+  image: src/main/resources/Data/templates/train.gif
+
 eureka:
   client:
     fetch-registry: true
@@ -9,7 +12,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
-    preferIpAddress: true
 
 spring:
   application:

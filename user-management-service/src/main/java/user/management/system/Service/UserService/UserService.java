@@ -12,4 +12,5 @@ public interface UserService {
     public String addAllUser(List<User> users);
     public List<User> getAllUser();
     public String createUser(UserForm userForm);
+    public boolean userExistById(Long user_id);
 }

@@ -1,4 +1,4 @@
-package railway.management.system.Configuration;
+package railway.reservation.system.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,7 @@ public class Swagger2Configuration {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("railway.management.system"))
-                .paths(regex("/trains.*"))
+                .apis(RequestHandlerSelectors.basePackage("railway.reservation.system.Controller"))
                 .build()
                 .apiInfo(apiDetails());
     }

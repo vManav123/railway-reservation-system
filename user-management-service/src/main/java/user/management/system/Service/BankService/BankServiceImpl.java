@@ -104,6 +104,11 @@ public class BankServiceImpl implements BankService {
         bankRepository.save(bank_account);
         return "Account Created Successfully";
     }
+
+    @Override
+    public boolean accountNoExist(Long account_no) {
+        return bankRepository.existsById(account_no);
+    }
     // *----------------------------------------------------------------*
 
 }

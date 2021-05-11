@@ -1,4 +1,4 @@
-package railway.reservation.system.Models.Ticket;
+package railway.application.system.Models;
 
 
 import lombok.*;

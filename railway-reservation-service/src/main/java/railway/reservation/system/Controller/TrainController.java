@@ -35,7 +35,7 @@ public class TrainController {
 
     @GetMapping(path = "/timeTableByYourCity/{city_name}")
     @ApiOperation(value = "Display Time Table of Trains",notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ",response = TimeTable.class)
-    public String displayTimeToTable(@PathVariable String city_name) { System.out.println(city_name); return trainService.displayTimeTableByYourCity(city_name); }
+    public String displayTimeToTable(@PathVariable String city_name) { return trainService.displayTimeTableByYourCity(city_name); }
     // *-------------------------------------------*
 
 

@@ -21,7 +21,7 @@ public class Swagger2Configuration {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .apis(RequestHandlerSelectors.basePackage("user.management.system.Controller"))
                 .build()
                 .apiInfo(apiDetails());
     }

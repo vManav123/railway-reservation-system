@@ -3,20 +3,29 @@ package railway.application.system.Controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import railway.application.system.Service.ApplicationService;
+import org.springframework.web.bind.annotation.*;
+import railway.application.system.Models.Forms.ReservationForm;
+import railway.application.system.Service.ApplicationService.ApplicationService;
+import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @Api( tags = "Application")
-@RequestMapping(path = "application")
+@RequestMapping(path = "/application")
 public class ApplicationController {
 
 
     @Autowired
     private ApplicationService applicationService;
+
+    @RequestMapping(value = "/swagger")
+    @ApiIgnore
+    public void redirect(HttpServletResponse response) throws IOException {
+        response.sendRedirect("localhost:8084/swagger-ui/");
+    }
+
 
     // *-------------- Public Functionalities -------------*
     @GetMapping(path = "/trainDetail/{train_info}")
@@ -41,5 +50,10 @@ public class ApplicationController {
     // *---------------------------------------------------*
 
 
+
+    // *------- Ticket Reservation Functionalities -------*
+    @PostMapping(path = "/reserveTicket")
+    public String reservedTicket(@RequestBody ReservationForm reservationForm){return applicationService.reserveTicket(reservationForm);}
+    // *--------------------------------------------------*
 
 }

@@ -26,5 +26,8 @@ public class BankController {
     {
         return bankService.createAccount(bankForm);
     }
+
+    @GetMapping(path = "/accountExistByAccountNo/{account_no}")
+    public boolean accountExistByAccountNo(@PathVariable Long account_no){return bankService.accountNoExist(account_no);}
     // *----------------------------------------------------------*
 }

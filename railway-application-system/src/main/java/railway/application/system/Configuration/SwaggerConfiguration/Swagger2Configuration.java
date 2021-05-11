@@ -39,8 +39,8 @@ public class Swagger2Configuration {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiDetails())
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .build();
@@ -48,7 +48,7 @@ public class Swagger2Configuration {
 
     private ApiInfo apiDetails() {
         return new ApiInfo("Railway Application System"
-                ,"This Application is for railway reservation purpose. her you can do   `Ticket Reservation` , `Ticket Cancellation` , `Check Train Details` and many more thing can do..."
+                ,"This Application is for railway reservation purpose. here you can do   `Ticket Reservation` , `Ticket Cancellation` , `Check Train Details` and many more thing can do..."
                 ,"1.2.0"
                 ,"Free To Use"
                 ,new springfox.documentation.service.Contact("Railway Developer","http://localhost:8085/reservation/welcome","railway.developer@gmail.com")

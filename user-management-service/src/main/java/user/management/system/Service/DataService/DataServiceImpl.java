@@ -10,6 +10,7 @@ import user.management.system.Repository.UserRepository.UserRepository;
 import user.management.system.Service.SequenceGenerator.DataSequenceGeneratorService;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,7 +71,7 @@ public class DataServiceImpl implements DataService{
                     p.setCvv(q.getCvv());
                     p.setExpiry_date(p.getExpiry_date());
                     p.setBank_name(p.getBank_name());
-                    p.setExpiry_date(q.getExpiry_date());
+                    p.setExpiry_date(new Date());
                     p.setBank_name(q.getBank_name());
                 }
             });

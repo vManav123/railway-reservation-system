@@ -30,6 +30,12 @@ spring:
           uri: lb://RAILWAY-APPLICATION-SYSTEM
           predicates:
             - Path=/application/**
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 
 eureka:
   client:
@@ -39,4 +45,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
-    preferIpAddress: true
+    ip-address: 127 .0.0.1
+swagger:
+  config:
+    refreshrate: 5000

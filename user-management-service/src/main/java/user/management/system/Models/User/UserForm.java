@@ -11,4 +11,5 @@ public class UserForm {
     private String full_name;
     private int age;
     private String contact_no;
+    private String email_address;
 }

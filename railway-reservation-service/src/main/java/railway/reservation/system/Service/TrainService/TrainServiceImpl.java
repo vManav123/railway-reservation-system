@@ -89,7 +89,7 @@ public class TrainServiceImpl implements TrainService {
         try {
             if(train.getRun_days()==null)
             {
-                throw new NoTrainExistException(noTrainsExistException+" "+trainNo);
+                throw new NoTrainExistException(trainNotRunningOnThisDayException+" "+trainNo);
             }
         }
         catch(NoTrainExistException e)

@@ -1,12 +1,11 @@
-package user.management.system.Models.User;
+package railway.application.system.Models.Body;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import user.management.system.Models.Ticket;
+import railway.application.system.Models.Ticket;
 
 import java.time.LocalTime;
 import java.util.Date;
@@ -58,5 +57,5 @@ public class User {
     @Field(name = "lock_time")
     private LocalTime lock_time;
     @Field(name = "tickets")
-    private Map<Long,Ticket> tickets;
+    private Map<Long, Ticket> tickets;
 }
