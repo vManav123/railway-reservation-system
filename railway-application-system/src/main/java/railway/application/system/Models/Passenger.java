@@ -9,7 +9,6 @@ import lombok.*;
 @Setter
 @ToString
 public class Passenger {
-    private Long passenger_id;
     private String passenger_name;
     private int age;
     private String contact_no;

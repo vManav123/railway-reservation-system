@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import railway.application.system.Models.Forms.ReservationForm;
 import railway.application.system.Service.ApplicationService.ApplicationService;
-import springfox.documentation.annotations.ApiIgnore;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @RestController
 @Api( tags = "Application")
@@ -20,27 +16,23 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @RequestMapping(value = "/swagger")
-    @ApiIgnore
-    public void redirect(HttpServletResponse response) throws IOException {
-        response.sendRedirect("localhost:8084/swagger-ui/");
-    }
-
-
     // *-------------- Public Functionalities -------------*
-    @GetMapping(path = "/trainDetail/{train_info}")
+    @GetMapping(path = "/userWelcome")
+    public String UserWelcome(){return applicationService.userWelcome();}
+
+    @GetMapping(path = "/trainDetail/{train_no}")
     @ApiOperation(value = "Display details of trains",notes = "It will display the details of then trains")
-    public String getTrainDetail(@PathVariable String train_info){return applicationService.getTrain(train_info);}
+    public String getTrainDetail(@PathVariable String train_no){return applicationService.getTrain(train_no);}
 
     @GetMapping(path = "/trainTimeTable/{station}")
     @ApiOperation(value = "Display Time Table of Trains",notes = "It will display the timeTable of all trains from your station")
     public String trainTimeTable(@PathVariable String station){return applicationService.trainTimeTable(station);}
 
-    @GetMapping(path = "/trainBetweenStation/{origin}:{destination}")
+    @GetMapping(path = "/trainsBetweenStation/{origin}:{destination}")
     @ApiOperation(value = "Display trains between stations",notes = "It will display all trains between given stations")
     public String trainBetweenStation(@PathVariable String origin , @PathVariable String destination){return applicationService.trainBetweenStation(origin, destination);}
 
-    @GetMapping(path = "/trainFares/{origin}:{destination}")
+    @GetMapping(path = "/trainFare/{origin}:{destination}")
     @ApiOperation(value = "Display trains and fare between stations",notes = "It will display all trains and fare between given stations")
     public String trainFares(@PathVariable String origin , @PathVariable String destination){return applicationService.trainFares(origin, destination);}
 

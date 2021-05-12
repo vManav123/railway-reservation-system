@@ -54,7 +54,6 @@ public class BankServiceImpl implements BankService {
     @Override
     public String addBankAccount(Bank_Account bank_account)
     {
-        bank_account.setAccount_no(sequenceGeneratorService.getBankSequenceNmber("bank_sequence"));
         return "*--------- Bank added Successfully ---------*";
     }
 

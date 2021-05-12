@@ -45,4 +45,5 @@ public class Bank_Account {
     private Double bank_balance;
     @Field(name = "account_type")
     private String account_type;
+
 }

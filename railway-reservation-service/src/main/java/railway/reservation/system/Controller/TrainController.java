@@ -33,7 +33,7 @@ public class TrainController {
     @ApiOperation(value = "get Time Table of Trains",notes = "It Will Display the TimeTable of All Trains From Your Station in JSON format",response = TimeTable.class)
     public List<TimeTable> displayTimeTable(@PathVariable String city) { return trainService.displayTimeTable(city); }
 
-    @GetMapping(path = "/timeTableByYourCity/{city_name}")
+    @GetMapping(path = "/trainTimeTable/{city_name}")
     @ApiOperation(value = "Display Time Table of Trains",notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ",response = TimeTable.class)
     public String displayTimeToTable(@PathVariable String city_name) { return trainService.displayTimeTableByYourCity(city_name); }
     // *-------------------------------------------*
@@ -47,7 +47,7 @@ public class TrainController {
 
     @GetMapping(path = "/trainsBetweenStations/{origin}:{destination}")
     @ApiIgnore
-    @ApiOperation(value = "get trains between stations",notes = "It will display all trains between given stations into JSON Format",response = TrainsBetweenStation.class)
+    @ApiOperation(value = "get trains between stations",notes = "It will display all trains     between given stations into JSON Format",response = TrainsBetweenStation.class)
     public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin , @PathVariable String destination){return trainService.trainsBetweenStation(origin,destination);}
     // *--------------------------------------------*
 
@@ -93,12 +93,20 @@ public class TrainController {
 
     @GetMapping(path = "/displaytrains/{trainsNo}")
     @ApiIgnore
-    public Train displayTrains(@PathVariable Long trainsNo)
+    public Train displayTrains(@PathVariable String trainsNo)
     {
         return trainService.displayTrain(trainsNo);
     }
+
+    @GetMapping(path = "/getTrainByTrainNo/{train_no}")
+    public Train getTrainByTrainNo(@PathVariable String train_no){return trainService.getTrainByTrainNo(train_no);}
+
+    @GetMapping(path = "/trainExistByTrainNo/{train_no}")
+    public boolean trainExistByTrainNo(@PathVariable String train_no){return trainService.trainExistByTrainNo(train_no);}
+
     @GetMapping(path = "/displaytrain/{trainsNo}")
-    public String displayTrain(@PathVariable Long trainsNo)
+    @ApiIgnore
+    public String displayTrain(@PathVariable String trainsNo)
     {
         return trainService.displayTrainToTable(trainsNo);
     }

@@ -14,7 +14,6 @@ import java.util.List;
 @ToString
 public class TicketForm {
     private String train_no;
-    private String train_name;
     private String start;
     private String destination;
     private Date reservation_date;

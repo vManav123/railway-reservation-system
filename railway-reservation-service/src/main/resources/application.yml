@@ -1,12 +1,12 @@
 server:
-  port: 8082
+  port: 8083
 
 spring:
   data:
     mongodb:
       uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Railway-Reservation-System?retryWrites=true&w=majority
   application:
-    name: USER-MANAGEMENT-SERVICE
+    name: RAILWAY-RESERVATION-SERVICE
 
 eureka:
   client:

@@ -46,6 +46,6 @@ eureka:
   instance:
     hostname: localhost
     ip-address: 127 .0.0.1
-swagger:
-  config:
-    refreshrate: 5000
+#swagger:
+#  config:
+#    refreshrate: 90000

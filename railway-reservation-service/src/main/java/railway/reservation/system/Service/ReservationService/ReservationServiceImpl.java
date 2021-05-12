@@ -8,7 +8,7 @@ import railway.reservation.system.ExceptionHandling.*;
 import railway.reservation.system.Models.Ticket.Ticket;
 import railway.reservation.system.Models.Ticket.TicketForm;
 import railway.reservation.system.Models.Train.Train;
-import railway.reservation.system.Repository.ReservatedTicketRepository;
+import railway.reservation.system.Repository.ReservedTicketRepository;
 import railway.reservation.system.Service.SequenceGenerator.DataSequenceGeneratorService;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class ReservationServiceImpl implements ReservationService{
 
     @Autowired
-    private ReservatedTicketRepository reservatedTicketRepository;
+    private ReservedTicketRepository reservedTicketRepository;
 
     @Autowired
     private DataSequenceGeneratorService dataSequenceGeneratorService;
@@ -70,11 +70,11 @@ public class ReservationServiceImpl implements ReservationService{
                     throw new InvalidContactNumberException(invalidContactNumberException);
 
                 if(trains.stream()
-                         .noneMatch(p -> p.getTrain_no().equals(ticketForm.getTrain_no()) && p.getTrain_name().equalsIgnoreCase(ticketForm.getTrain_name())))
+                         .noneMatch(p -> p.getTrain_no().equals(ticketForm.getTrain_no()) && p.getTrain_name().equalsIgnoreCase(ticketForm.getTrain_no())))
                     throw new NoTrainExistException(noTrainsExistException);
 
                 if(trains.stream()
-                        .filter(p -> p.getTrain_name().equals(ticketForm.getTrain_name()))
+                        .filter(p -> p.getTrain_no().equals(ticketForm.getTrain_no()))
                         .collect(Collectors.toList())
                         .get(0)
                         .getRoute()
@@ -86,7 +86,7 @@ public class ReservationServiceImpl implements ReservationService{
                     throw new StationNotExistExcception(stationNotExistExcception);
                 if(!ticketForm.getPassengers().stream()
                                             .allMatch(q -> trains.stream()
-                                                                 .filter(p -> p.getTrain_name().equals(ticketForm.getTrain_name()))
+                                                                 .filter(p -> p.getTrain_no().equals(ticketForm.getTrain_no()))
                                                                  .collect(Collectors.toList())
                                                                  .get(0).getCoaches_fair()
                                                                  .containsKey(q.getClass_name())
@@ -97,7 +97,7 @@ public class ReservationServiceImpl implements ReservationService{
                     throw new InvalidDateException(invalidDateException + "You can not book tickets on a date before today");
 
                 if(trains.stream()
-                        .filter(p -> p.getTrain_name().equalsIgnoreCase(ticketForm.getTrain_name()))
+                        .filter(p -> p.getTrain_no().equalsIgnoreCase(ticketForm.getTrain_no()))
                         .collect(Collectors.toList())
                         .get(0)
                         .getRun_days()
@@ -131,7 +131,7 @@ public class ReservationServiceImpl implements ReservationService{
         ticketForm.getPassengers().forEach(p -> {
             Ticket ticket = new Ticket();
             ticket.setTrain_no(ticketForm.getTrain_no());
-            ticket.setTrain_name(ticketForm.getTrain_name());
+            ticket.setTrain_name(train.getTrain_name());
             ticket.setStart(ticketForm.getStart());
             ticket.setDestination(ticketForm.getDestination());
             ticket.setClass_name(p.getClass_name());

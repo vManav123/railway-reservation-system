@@ -11,10 +11,12 @@ import java.util.List;
 public interface TrainService {
     // *------------------- Basic Data Display Functionality -------------------*
     public List<Train> displayAllTrains();
-    public String displayTrainToTable(Long trainNo);
-    public Train displayTrain(Long trainNo);
+    public String displayTrainToTable(String trainNo);
+    public Train displayTrain(String trainNo);
     public String updateData(List<Train> trains);
     public String customUpdation();
+    public Train getTrainByTrainNo(String train_no);
+    public boolean trainExistByTrainNo(String train_no);
     // *------------------------------------------------------------------------*
 
     // *----------------------- Time Table Functionality -----------------------*

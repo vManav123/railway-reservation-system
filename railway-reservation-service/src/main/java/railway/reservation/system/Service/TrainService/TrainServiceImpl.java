@@ -1,6 +1,7 @@
 package railway.reservation.system.Service.TrainService;
 
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -47,10 +48,10 @@ public class TrainServiceImpl implements TrainService {
         return trainRepository.findAll();
     }
     @Override
-    public Train displayTrain(Long trainNo) {
+    public Train displayTrain(String trainNo) {
         List<Train> trains = trainRepository.findAll();
         try {
-            if(trains.stream().filter(p->p.getTrain_no().equals(trainNo.toString())).collect(Collectors.toList()).isEmpty())
+            if(trains.stream().filter(p->p.getTrain_no().equals(trainNo)).collect(Collectors.toList()).isEmpty())
                 throw new NoTrainExistException(trainNotRunningOnThisDayException);
         }
         catch (NoTrainExistException e)
@@ -70,12 +71,25 @@ public class TrainServiceImpl implements TrainService {
     public String customUpdation() {
         List<Train> trainList = trainRepository.findAll();
 
-        /*
-         Add Custom Update Here
-         */
-
+        List<String> days = Arrays.asList("MON","TUE","WED","THU","FRI","SAT","SUN");
+        trainList.stream()
+                 .forEach(p ->{
+                     for(int i = 0 ; i < new Random().nextInt(4) ; i++)
+                         Collections.shuffle(days);
+                     p.setRun_days(days.subList(0,new Random().nextInt(3)+4));
+                 });
         trainRepository.saveAll(trainList);
         return "Data Updated Successfully";
+    }
+
+    @Override
+    public Train getTrainByTrainNo(String train_no) {
+        return trainRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+    }
+
+    @Override
+    public boolean trainExistByTrainNo(String train_no) {
+        return !trainRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).isEmpty();
     }
 
     // *--------------------------------------------------------------------------*
@@ -83,7 +97,7 @@ public class TrainServiceImpl implements TrainService {
 
     // *------------------------Train Details Functionality ----------------------*
     @Override
-    public String displayTrainToTable(Long trainNo) {
+    public String displayTrainToTable(String trainNo) {
 
         Train train = displayTrain(trainNo);
         try {
@@ -97,10 +111,10 @@ public class TrainServiceImpl implements TrainService {
             return e.getMessage();
         }
         StringBuilder result = new StringBuilder("------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
-                "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                  " + train.getStart_from() + "  --------------->  " + train.getTo_destination() + "                   \n" +
+                "                   Train No / Train Name : " + train.getTrain_no() + "/" + train.getTrain_name() + "                               " + train.getStart_from() + "  --------------->  " + train.getTo_destination() + "                   \n" +
                 "                   Run Days : " + train.getRun_days().toString() + "               Train Length : " + train.getTrain_length() + "                    " + train.getDeparture_time() + "                          " + train.getArrival_time() + "                         \n" +
                 "                   Coaches  : " + train.getCoaches_fair().keySet() + "            " + "Train Type : " + train.getTrain_type() + "\n" +
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n" +
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
                 "                                Station               |       Arrival       |         Departure\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         for(Map.Entry<String, Detail> route : train.getRoute().entrySet())
         {
@@ -220,11 +234,12 @@ public class TrainServiceImpl implements TrainService {
     {
         List<TrainsBetweenStation> trainsBetweenStationList = trainsBetweenStation(origin,destination);
         try{
-            trainsBetweenStationList.get(0).toString();
+            if(trainsBetweenStationList.isEmpty())
+                throw new TrainNotRunningOnThisDayException("There is Mistake in the name of Origin or Destination");
         }
-        catch (IndexOutOfBoundsException e)
+        catch (IndexOutOfBoundsException | TrainNotRunningOnThisDayException e)
         {
-            return "There is Mistake in the name of Origin or Destination";
+            return e.getMessage();
         }
         StringBuilder result = new StringBuilder("*------------------------------------------------  ***  Trains Between " + trainsBetweenStationList.get(0).getOrigin() + "   --->    " + trainsBetweenStationList.get(0).getDestination() + "  ***  ---------------------------------------*\n \n"
                 + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
@@ -543,8 +558,8 @@ public class TrainServiceImpl implements TrainService {
             return "There is No City Exist with these names";
         }
         StringBuilder result = new StringBuilder("*-----------------------------------------------------------------------  ***  Trains Fare Between the Station  ***  -----------------------------------------------------------------------*\n \n"
-                + "----------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    " + trainsBetweenStationList.get(0).getDestination() + "   ##### ------------------------------------------------------------------------ \n"
-                + "============================================================================================================================================================================================= \n \n \n");
+                + "--------------------------------------------------------------- ######   " + trainsBetweenStationList.get(0).getOrigin() + "    --------->    " + trainsBetweenStationList.get(0).getDestination() + "   ##### ------------------------------------------------------------- \n"
+                + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \n \n \n");
         for(TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList)
         {
             StringBuilder local = new StringBuilder("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");

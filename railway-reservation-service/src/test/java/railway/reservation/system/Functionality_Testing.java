@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestComponent;
 import railway.reservation.system.Models.TimeTable;
 import railway.reservation.system.Models.TrainsBetweenStation;
+import railway.reservation.system.Repository.TrainRepository;
 import railway.reservation.system.Service.TrainService.TrainService;
 
 import java.io.IOException;
@@ -35,6 +36,10 @@ public class Functionality_Testing {
 
     @Autowired
     TrainService trainService;
+
+    @Autowired
+    TrainRepository trainRepository;
+
 
     // *----------------------------------------------------------------------------------------------------------*
 
