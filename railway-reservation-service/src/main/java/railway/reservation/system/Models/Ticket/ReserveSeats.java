@@ -3,9 +3,9 @@ package railway.reservation.system.Models.Ticket;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import railway.reservation.system.Models.Train.Trains_Seats;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDate;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +16,9 @@ import java.time.LocalDate;
 @Document(collection = "Reserve-Seats")
 public class ReserveSeats {
     @Id
-    private Long reserve_id;
-    private LocalDate reservation_date;
-    private Trains_Seats trains_seats;
+    @Field(name = "seat_id")
+    private Seat_Id seat_id;
+    private Map<String, Map<Integer, Long>> seats; // classes -> (seatNo,pnr)
 
+    private Map<String, Integer> coaches_per_class; // classes -> no of coaches
 }

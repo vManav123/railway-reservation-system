@@ -3,8 +3,9 @@ package user.management.system.Service.SequenceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-import org.springframework.data.mongodb.core.query.*;
 import user.management.system.Models.Bank.BankSequence;
 import user.management.system.Models.User.UserSequence;
 
@@ -17,18 +18,17 @@ public class DataSequenceGeneratorService {
     @Autowired
     private MongoOperations mongoOperations;
 
-    public Long getUserSequenceNmber(String sequenceName)
-    {
+    public Long getUserSequenceNmber(String sequenceName) {
         Query query = new Query(Criteria.where("id").is(sequenceName));
-        Update update = new Update().inc("seq",1);
-        UserSequence counter = mongoOperations.findAndModify(query,update,options().returnNew(true).upsert(true), UserSequence.class);
+        Update update = new Update().inc("seq", 1);
+        UserSequence counter = mongoOperations.findAndModify(query, update, options().returnNew(true).upsert(true), UserSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
-    public Long getBankSequenceNmber(String sequenceName)
-    {
+
+    public Long getBankSequenceNmber(String sequenceName) {
         Query query = new Query(Criteria.where("id").is(sequenceName));
-        Update update = new Update().inc("seq",1);
-        BankSequence counter = mongoOperations.findAndModify(query,update,options().returnNew(true).upsert(true), BankSequence.class);
+        Update update = new Update().inc("seq", 1);
+        BankSequence counter = mongoOperations.findAndModify(query, update, options().returnNew(true).upsert(true), BankSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
 }

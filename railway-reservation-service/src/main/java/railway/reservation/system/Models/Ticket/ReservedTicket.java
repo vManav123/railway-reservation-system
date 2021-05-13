@@ -24,5 +24,8 @@ public class ReservedTicket {
     private Long pnr;
     private Ticket ticket;
     private Long transactional_id;
+    private Long account_no;
+    private String email_address;
+    private String status;
     private LocalDateTime booking_time;
 }

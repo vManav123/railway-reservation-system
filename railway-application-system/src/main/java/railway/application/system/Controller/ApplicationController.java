@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import railway.application.system.Models.Forms.ReservationForm;
 import railway.application.system.Service.ApplicationService.ApplicationService;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
-@Api( tags = "Application")
+@Api(tags = "Application")
 @RequestMapping(path = "/application")
 public class ApplicationController {
 
@@ -16,13 +20,27 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
+    // *----------------------- Login Interface -------------------------*
+    @ApiOperation(value = "This method is used to get the clients.")
+    @GetMapping(path = "/authenticate")
+    public List<String> getClients() {
+        return Arrays.asList("First Client", "Second Client");
+    }
+    // *-----------------------------------------------------------------*
+
+
     // *-------------- Public Functionalities -------------*
     @GetMapping(path = "/userWelcome")
-    public String UserWelcome(){return applicationService.userWelcome();}
+    @ApiIgnore
+    public String UserWelcome() {
+        return applicationService.userWelcome();
+    }
 
     @GetMapping(path = "/trainDetail/{train_no}")
-    @ApiOperation(value = "Display details of trains",notes = "It will display the details of then trains")
-    public String getTrainDetail(@PathVariable String train_no){return applicationService.getTrain(train_no);}
+    @ApiOperation(value = "Display details of trains", notes = "It will display the details of then trains")
+    public String getTrainDetail(@PathVariable String train_no) {
+        return applicationService.getTrain(train_no);
+    }
 
     @GetMapping(path = "/trainTimeTable/{station}")
     @ApiOperation(value = "Display Time Table of Trains",notes = "It will display the timeTable of all trains from your station")

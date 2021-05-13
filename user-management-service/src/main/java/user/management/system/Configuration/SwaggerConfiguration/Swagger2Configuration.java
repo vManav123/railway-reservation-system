@@ -2,7 +2,6 @@ package user.management.system.Configuration.SwaggerConfiguration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -10,8 +9,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @Configuration
@@ -28,12 +25,12 @@ public class Swagger2Configuration {
 
     private ApiInfo apiDetails() {
         return new ApiInfo("User Management System"
-                ,"user Management Service are here "
-                ,"1.1.0"
-                ,"Free To Use"
-                ,new springfox.documentation.service.Contact("Railway Developer","http://user-management-system.com","railway.developer@gmail.com")
-                ,"API Lisence"
-                ,"http://user-management-system.com"
+                , "user Management Service are here "
+                , "1.1.0"
+                , "Free To Use"
+                , new springfox.documentation.service.Contact("Railway Developer", "http://user-management-system.com", "railway.developer@gmail.com")
+                , "API Lisence"
+                , "http://user-management-system.com"
                 , Collections.emptyList());
     }
 

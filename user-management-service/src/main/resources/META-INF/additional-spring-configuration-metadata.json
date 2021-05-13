@@ -4,5 +4,6 @@
       "name": "spring.cloud.config.server.git.clone-on-start",
       "type": "java.lang.String",
       "description": "Description for spring.cloud.config.server.git.clone-on-start."
-  }
-] }
+    }
+  ]
+}

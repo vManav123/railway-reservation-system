@@ -21,6 +21,6 @@ public class TrainsBetweenStation {
     private LocalTime arrival_time;
     private String travel_time;
     private List<String> run_days;
-    private Map<String,Double> classes = new LinkedHashMap<>();
+    private Map<String, Double> classes = new LinkedHashMap<>();
 
 }

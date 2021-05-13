@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import user.management.system.Models.Bank.Bank_Account;
 
 @Repository("bankRepository")
-public interface BankRepository extends MongoRepository<Bank_Account,Long> {
+public interface BankRepository extends MongoRepository<Bank_Account, Long> {
 }

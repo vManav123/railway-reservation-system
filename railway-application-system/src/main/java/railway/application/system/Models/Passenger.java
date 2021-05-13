@@ -11,6 +11,7 @@ import lombok.*;
 public class Passenger {
     private String passenger_name;
     private int age;
+    private String email_address;
     private String contact_no;
     private String sex;
     private String quota;

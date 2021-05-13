@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class DataServiceImpl implements DataService{
+public class DataServiceImpl implements DataService {
 
 
     // *------------------------- Autowiring Services -----------------------*
@@ -31,7 +31,6 @@ public class DataServiceImpl implements DataService{
     private DataSequenceGeneratorService sequenceGeneratorService;
 
     // *---------------------------------------------------------------------*
-
 
 
     // *-------------------- Link Bank Account With User --------------------*
@@ -55,11 +54,10 @@ public class DataServiceImpl implements DataService{
     }
 
     private void LinkAccountsToUser(List<User> users, List<Bank_Account> bank_accounts) {
-        users.forEach(p->{
-            bank_accounts.forEach( q -> {
+        users.forEach(p -> {
+            bank_accounts.forEach(q -> {
                 // Account updating ....
-                if(p.getUser_id().equals(q.getUser_id()))
-                {
+                if (p.getUser_id().equals(q.getUser_id())) {
                     q.setStart_date(LocalDate.now());
                     q.setExpiry_date(q.getStart_date().plusYears(5));
                     q.setContact_no(p.getContact_no());

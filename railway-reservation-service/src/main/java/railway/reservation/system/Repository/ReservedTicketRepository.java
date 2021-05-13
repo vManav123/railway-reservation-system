@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import railway.reservation.system.Models.Ticket.ReservedTicket;
 
 @Repository
-public interface ReservedTicketRepository extends MongoRepository<ReservedTicket,Long> {
+public interface ReservedTicketRepository extends MongoRepository<ReservedTicket, Long> {
 }

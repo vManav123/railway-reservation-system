@@ -1,4 +1,4 @@
-package railway.reservation.system.Models.Train;
+package railway.reservation.system.Models.Ticket;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -15,8 +15,7 @@ import java.util.Map;
 @Document(collection = "Train-Seats")
 public class Trains_Seats {
     @Id
-    private Long train_id;
-    private Train train;
-    private Map<String,Seats> seats; // coach name & total seat , cabin seats
-    private Map<String,Integer> coaches;
+    private String train_no;
+    private Map<String, Integer> coaches_per_class; // quantity per coach
+    private Map<String, Integer> seats_per_coach; // coach name & total seat
 }

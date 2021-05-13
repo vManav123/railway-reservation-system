@@ -57,7 +57,7 @@ public class User {
     @Field(name = "lock_time")
     private LocalTime lock_time;
     @Field(name = "tickets")
-    private Map<Long,Ticket> tickets;
+    private Map<Long, Ticket> tickets;
 
 
 }

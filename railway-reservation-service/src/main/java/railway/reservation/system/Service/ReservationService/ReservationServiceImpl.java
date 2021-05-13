@@ -1,53 +1,58 @@
 package railway.reservation.system.Service.ReservationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import railway.reservation.system.ExceptionHandling.*;
-import railway.reservation.system.Models.Ticket.Ticket;
-import railway.reservation.system.Models.Ticket.TicketForm;
-import railway.reservation.system.Models.Train.Train;
+import railway.reservation.system.Models.Ticket.*;
+import railway.reservation.system.Repository.ReservedSeatsRepository;
 import railway.reservation.system.Repository.ReservedTicketRepository;
 import railway.reservation.system.Service.SequenceGenerator.DataSequenceGeneratorService;
+import railway.reservation.system.Service.TrainSeatService.TrainSeatService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
 @Service
-public class ReservationServiceImpl implements ReservationService{
-
-    @Autowired
-    private ReservedTicketRepository reservedTicketRepository;
-
-    @Autowired
-    private DataSequenceGeneratorService dataSequenceGeneratorService;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
+public class ReservationServiceImpl implements ReservationService {
 
     // *---------------------------- Exception Messages -------------------------*
     String noTrainsExistException = " !!! There is no train exist on this train Information !!!";
     String trainNotRunningOnThisDayException = "!!! This train is not running usually on that day !!!";
     String trainClassNotExistException = "!!! This Train class not exist in our System !!!";
     String invalidContactNumberException = "!!! Invalid Contact Number !!!";
-    String stationNotExistExcception = "!!! These Station doest Exist Please, Select Station Wisely !!!";
+    String stationNotExistException = "!!! These Station doest Exist Please, Select Station Wisely !!!";
     String invalidDateException = "!!! Date is Invalid !!!";
-    String seatLimitOutOfBoundException = "!!! Maximum 6 seats can be reserved at a time";
+    String seatLimitOutOfBoundException = "!!! Maximum 6 seats can be reserved a t a time";
     String invalidQuotaException = "!!! Invalid Quota!!!";
+    // *--------------------------------------------------------------------------*
+
+
+
+    // *-------------------- Autowiring reference Variables ----------------------*
+    @Autowired
+    private ReservedTicketRepository reservedTicketRepository;
+    @Autowired
+    private ReservedSeatsRepository reservedSeatsRepository;
+    @Autowired
+    private TrainSeatService trainSeatService;
+    @Autowired
+    private DataSequenceGeneratorService dataSequenceGeneratorService;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private ReservedTicket reservedTicket;
     // *-------------------------------------------------------------------------*
 
 
 
-    public boolean isNumeric(String train_search_info)
-    {
+
+    // *------------------------- Reservation Functionality ----------------------*
+    public boolean isNumeric(String train_search_info) {
         try {
             Double.parseDouble(train_search_info);
         } catch (NumberFormatException nfe) {
@@ -57,96 +62,60 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public String reserveTicket(TicketForm ticketForm) {
+    public TicketStatus reserveTicket(Ticket ticket) {
+        ticket.setPnr(dataSequenceGeneratorService.getUserSequenceNumber("ticket_sequence"));
+        String status = reserveSeat(ticket.getTrain_no(), ticket.getClass_name(), ticket.getDate_of_journey(), ticket.getPnr());
+        ticket.setStatus(Arrays.stream(status.split(":")).collect(Collectors.toList()).get(0));
+        return new TicketStatus(ticket.getPnr(),ticket.getStatus(),Arrays.stream(status.split(":")).collect(Collectors.toList()).get(1));
+    }
 
-        ResponseEntity<Train[]> responseEntity = restTemplate.getForEntity("http://Railway-reservation-Service/trains/displayAllTrains",Train[].class);
-        List<Train> trains = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
+    public ReserveSeats getReserveSeats() {
+        return new ReserveSeats();
+    }
 
-            try{
-                if(ticketForm.getPassengers().stream()
-                             .filter(p -> isNumeric(p.getContact_no()))
-                             .count()==0
-                )
-                    throw new InvalidContactNumberException(invalidContactNumberException);
-
-                if(trains.stream()
-                         .noneMatch(p -> p.getTrain_no().equals(ticketForm.getTrain_no()) && p.getTrain_name().equalsIgnoreCase(ticketForm.getTrain_no())))
-                    throw new NoTrainExistException(noTrainsExistException);
-
-                if(trains.stream()
-                        .filter(p -> p.getTrain_no().equals(ticketForm.getTrain_no()))
-                        .collect(Collectors.toList())
-                        .get(0)
-                        .getRoute()
-                        .keySet()
-                        .stream()
-                        .filter(p -> p.equalsIgnoreCase(ticketForm.getStart()) || p.equalsIgnoreCase(ticketForm.getDestination()))
-                        .count() != 2
-                )
-                    throw new StationNotExistExcception(stationNotExistExcception);
-                if(!ticketForm.getPassengers().stream()
-                                            .allMatch(q -> trains.stream()
-                                                                 .filter(p -> p.getTrain_no().equals(ticketForm.getTrain_no()))
-                                                                 .collect(Collectors.toList())
-                                                                 .get(0).getCoaches_fair()
-                                                                 .containsKey(q.getClass_name())
-                ))
-                    throw new TrainClassNotExistException(trainClassNotExistException);
-
-                if(ticketForm.getReservation_date().isBefore(LocalDate.now()))
-                    throw new InvalidDateException(invalidDateException + "You can not book tickets on a date before today");
-
-                if(trains.stream()
-                        .filter(p -> p.getTrain_no().equalsIgnoreCase(ticketForm.getTrain_no()))
-                        .collect(Collectors.toList())
-                        .get(0)
-                        .getRun_days()
-                        .contains(ticketForm.getReservation_date().getDayOfWeek().toString().substring(3))
-                )
-                    throw new TrainNotRunningOnThisDayException(trainNotRunningOnThisDayException);
-
-                if(ticketForm.getPassengers().size()>6)
-                    throw new SeatLimitOutOfBoundException(seatLimitOutOfBoundException);
-
-                if(!ticketForm.getPassengers().stream()
-                                             .filter(p->"Female".equalsIgnoreCase(p.getSex()))
-                                             .allMatch(q -> "ladies".equalsIgnoreCase(q.getQuota()))
-                  )
-                    throw new InvalidQuotaException(invalidDateException+"Ladies Quota Applicable for Female gender ");
-
-                if(!ticketForm.getPassengers().stream()
-                                             .filter(p->"senior citizen".equalsIgnoreCase(p.getQuota()))
-                                             .allMatch(p->p.getAge()>=58))
-                    throw new InvalidQuotaException(invalidDateException+"Senior Citizen Quota is not Applicable for People has age less than 58 years");
+    @Override
+    public String reserveSeat(String train_no, String class_name, LocalDate date, Long pnr) {
+        Trains_Seats trains_seats = trainSeatService.getTrainSeats(train_no);
+        int seat_no = 0;
+        ReserveSeats reserveSeats;
+        boolean chk = false;
+        try {
+            reserveSeats = reservedSeatsRepository.findAll().stream().filter(p -> p.getSeat_id().getTrain_no().equals(train_no) && p.getSeat_id().getReservation_date().equals(date)).collect(Collectors.toList()).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            reserveSeats = getReserveSeats();
+            chk = true;
+        }
+        if (chk) {
+            reserveSeats.setSeat_id(new Seat_Id(train_no, date));
+            reserveSeats.setCoaches_per_class(trains_seats.getCoaches_per_class());
+            Map<String, Map<Integer, Long>> seats = new Hashtable<>();
+            reserveSeats.setSeats(seats);
+            for (Map.Entry<String, Integer> map : reserveSeats.getCoaches_per_class().entrySet()) {
+                Map<Integer, Long> seat_per_pnr = new Hashtable<>();
+                seat_per_pnr.put(0, 0L);
+                if (map.getKey().equals(class_name)) {
+                    seat_no=1;
+                    seat_per_pnr.put(1, pnr);
+                    reserveSeats.getSeats().put(map.getKey(), seat_per_pnr);
+                    seat_per_pnr.remove(map.getKey());
+                    continue;
+                }
+                reserveSeats.getSeats().put(map.getKey(), seat_per_pnr);
             }
-            catch (InvalidContactNumberException | InvalidQuotaException | SeatLimitOutOfBoundException | NoTrainExistException | InvalidDateException | TrainNotRunningOnThisDayException | TrainClassNotExistException | StationNotExistExcception e)
-            {
-                return e.getMessage();
-            }
+        } else {
+            seat_no = (Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1)%(trains_seats.getSeats_per_coach().get(class_name)/trains_seats.getCoaches_per_class().get(class_name));
+            reserveSeats.getSeats().get(class_name).put(Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1, pnr);
+        }
+        reservedSeatsRepository.save(reserveSeats);
+        if (trains_seats.getSeats_per_coach().get(class_name) >= Collections.max(reserveSeats.getSeats().get(class_name).keySet()))
+            return "Confirmed"+":"+seat_no;
+        else
+            return "Waiting"+":"+seat_no;
+    }
 
-        // problem : if more people is filling ticket form for same info again
-
-        Train train = trains.stream().filter(p->p.getTrain_no().equals(ticketForm.getTrain_no())).collect(Collectors.toList()).get(0);
-        List<Ticket> tickets = new ArrayList<>();
-        ticketForm.getPassengers().forEach(p -> {
-            Ticket ticket = new Ticket();
-            ticket.setTrain_no(ticketForm.getTrain_no());
-            ticket.setTrain_name(train.getTrain_name());
-            ticket.setStart(ticketForm.getStart());
-            ticket.setDestination(ticketForm.getDestination());
-            ticket.setClass_name(p.getClass_name());
-            ticket.setDeparture_time(LocalDateTime.of(ticketForm.getReservation_date(),train.getRoute().get(ticket.getStart()).getDeparture_time()));
-            ticket.setArrival_time(LocalDateTime.of(ticketForm.getReservation_date(),train.getRoute().get(ticket.getStart()).getArrival_time()));
-            ticket.setPassenger_name(p.getPassenger_name());
-            ticket.setContact_no(p.getContact_no());
-            ticket.setAge(p.getAge());
-            ticket.setDate_of_journey(ticketForm.getReservation_date());
-            ticket.setSex(p.getSex());
-            ticket.setQuota(p.getQuota());
-        });
-
-
-
-        return null;
+    @Override
+    public String reservedTicket(ReservedTicket reservedTicket) {
+        reservedTicketRepository.save(reservedTicket);
+        return "success";
     }
 }

@@ -20,7 +20,7 @@ public class Train {
 
     @Id
     private Long id;
-    private String  train_name;
+    private String train_name;
     private String train_no;
     private String start_from;
     private LocalTime departure_time;
@@ -28,14 +28,13 @@ public class Train {
     private LocalTime arrival_time;
     private String train_type;
     private List<String> run_days;
-    private Map<String,Double> coaches_fair = new LinkedHashMap<>();
+    private Map<String, Double> coaches_fair = new LinkedHashMap<>();
     private int train_length;
     private boolean active;
-    private Map<String,Detail> route;
+    private Map<String, Detail> route;
 
-    public Train(String s)
-    {
-        train_name=s;
+    public Train(String s) {
+        train_name = s;
     }
 
 }

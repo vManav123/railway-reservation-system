@@ -10,8 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
-import static springfox.documentation.builders.PathSelectors.regex;
-
 @EnableSwagger2
 @Configuration
 public class Swagger2Configuration {
@@ -27,12 +25,12 @@ public class Swagger2Configuration {
 
     private ApiInfo apiDetails() {
         return new ApiInfo("Railway Management System"
-                ,"Railway Management Service are here "
-                ,"1.1.0"
-                ,"Free To Use"
-                ,new springfox.documentation.service.Contact("Railway Developer","http://railway-management-system.com","railway.developer@gmail.com")
-                ,"API Lisence"
-                ,"http://railway-management-system.com"
+                , "Railway Management Service are here "
+                , "1.1.0"
+                , "Free To Use"
+                , new springfox.documentation.service.Contact("Railway Developer", "http://railway-management-system.com", "railway.developer@gmail.com")
+                , "API Lisence"
+                , "http://railway-management-system.com"
                 , Collections.emptyList());
     }
 

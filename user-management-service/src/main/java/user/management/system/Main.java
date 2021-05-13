@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import user.management.system.Models.User.User;
 import user.management.system.Models.Bank.Bank_Account;
+import user.management.system.Models.User.User;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -16,8 +16,12 @@ public class Main {
     }
 
     @Bean
-    public User getUser(){return new User();}
+    public User getUser() {
+        return new User();
+    }
 
     @Bean
-    public Bank_Account getBank_Account(){return new Bank_Account();}
+    public Bank_Account getBank_Account() {
+        return new Bank_Account();
+    }
 }

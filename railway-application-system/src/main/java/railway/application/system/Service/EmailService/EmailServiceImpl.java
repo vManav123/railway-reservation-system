@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 
 @Service(value = "emailService")
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -21,12 +21,13 @@ public class EmailServiceImpl implements EmailService{
     @Value("${spring.mail.username}")
     private String email;
 
-    @Value("${railway.image}")
-    private String attachment;
+    private final String attachment = "C:\\Users\\MVERMA\\Railway-Reservation-System\\railway-application-system\\src\\main\\resources\\Data\\templates\\Ticket.txt";
+    private final String attachment2 = "C:\\Users\\MVERMA\\Railway-Reservation-System\\railway-application-system\\src\\main\\resources\\Data\\templates\\train.gif";
 
-    public void sendSimpleEmail(String to,String body,String subject)
-    {
-        SimpleMailMessage mailMessage =new SimpleMailMessage();
+
+    @Override
+    public void sendSimpleEmail(String to, String body, String subject) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(email);
         mailMessage.setTo(to);
@@ -35,16 +36,19 @@ public class EmailServiceImpl implements EmailService{
         javaMailSender.send(mailMessage);
     }
 
-    public void sendEmailWithAttachment(String to,String body,String subject) throws MessagingException {
+    @Override
+    public void sendEmailWithAttachment(String to, String body, String subject) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mailMessage = new MimeMessageHelper(mimeMessage,true);
+        MimeMessageHelper mailMessage = new MimeMessageHelper(mimeMessage, true);
 
         mailMessage.setFrom(email);
         mailMessage.setTo(to);
         mailMessage.setText(body);
         mailMessage.setSubject(subject);
         FileSystemResource fileSystemResource = new FileSystemResource(new File(attachment));
-        mailMessage.addAttachment(fileSystemResource.getFilename(),fileSystemResource);
+        mailMessage.addAttachment(fileSystemResource.getFilename(), fileSystemResource);
+        FileSystemResource fileSystemResource1 = new FileSystemResource(new File(attachment2));
+        mailMessage.addAttachment(fileSystemResource1.getFilename(), fileSystemResource);
         javaMailSender.send(mimeMessage);
     }
 

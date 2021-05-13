@@ -17,11 +17,10 @@ public class DataSequenceGeneratorService {
     @Autowired
     private MongoOperations mongoOperations;
 
-    public Long getUserSequenceNumber(String sequenceName)
-    {
+    public Long getUserSequenceNumber(String sequenceName) {
         Query query = new Query(Criteria.where("id").is(sequenceName));
-        Update update = new Update().inc("seq",1);
-        TicketSequence counter = mongoOperations.findAndModify(query,update,options().returnNew(true).upsert(true), TicketSequence.class);
+        Update update = new Update().inc("seq", 1);
+        TicketSequence counter = mongoOperations.findAndModify(query, update, options().returnNew(true).upsert(true), TicketSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
 }

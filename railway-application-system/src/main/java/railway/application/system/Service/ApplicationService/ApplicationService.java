@@ -17,4 +17,6 @@ public interface ApplicationService {
     String trainLocation(String train_info, String your_location, String day);
 
     String reserveTicket(ReservationForm reservationForm);
+
+    String getPNR(Long pnr);
 }

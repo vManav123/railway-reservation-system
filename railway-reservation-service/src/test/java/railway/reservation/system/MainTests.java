@@ -21,28 +21,21 @@ class MainTests {
     TrainService trainService;
 
     @Autowired
-    MongoRepository<Train,Long> mongoRepository;
-
-
-
-
-
+    MongoRepository<Train, Long> mongoRepository;
 
 
     // *----------------------- DisplayAllTrain Functionality Testing -------------------*
-
-    @Test
-    void DisplayAllTrain_testcase()
-    {
-        Assertions.assertEquals(mongoRepository.findAll().toString(),trainService.displayAllTrains().toString());
-    }
+    @Autowired
+    private Functionality_Testing _functionality_testing;
 
     // *---------------------------------------------------------------------------------*
 
     // *------------------------ TimeTable Functionality Testing ------------------------*
 
-    @Autowired
-    private Functionality_Testing _functionality_testing;
+    @Test
+    void DisplayAllTrain_testcase() {
+        Assertions.assertEquals(mongoRepository.findAll().toString(), trainService.displayAllTrains().toString());
+    }
 
     @Test
     public void timeTable_functionality_testing() throws JSONException, IOException {
@@ -67,15 +60,11 @@ class MainTests {
     // *---------------------------------------------------------------------------------*
 
 
-
 //    @Test
 //    @BeforeAll
 //    void contextLoads() {
 //
 //    }
-
-
-
 
 
 }

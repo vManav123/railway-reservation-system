@@ -14,18 +14,10 @@ spring:
           uri: lb://RAILWAY-RESERVATION-SERVICE
           predicates:
             - Path=/trains/**
-        - id: RAILWAY-RESERVATION-SERVICE
-          uri: lb://RAILWAY-RESERVATION-SERVICE
-          predicates:
-            - Path=/reservation/**
         - id: USER-MANAGEMENT-SERVICE
           uri: lb://USER-MANAGEMENT-SERVICE
           predicates:
             - Path=/user/**
-        - id: USER-MANAGEMENT-SERVICE
-          uri: lb://USER-MANAGEMENT-SERVICE
-          predicates:
-            - Path=/bank/**
         - id: RAILWAY-APPLICATION-SYSTEM
           uri: lb://RAILWAY-APPLICATION-SYSTEM
           predicates:
@@ -46,6 +38,6 @@ eureka:
   instance:
     hostname: localhost
     ip-address: 127 .0.0.1
-#swagger:
-#  config:
-#    refreshrate: 90000
+swagger:
+  config:
+    refreshrate: 5000

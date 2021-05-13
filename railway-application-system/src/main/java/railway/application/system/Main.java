@@ -9,6 +9,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import railway.application.system.Models.Payment.Payment;
+import railway.application.system.Models.Ticket;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -33,5 +35,17 @@ public class Main {
         return new RestTemplate(httpRequestFactory);
     }
 
+
+    // *------------------ Creating beans for Models --------------------*
+    @Bean
+    public Payment payment() {
+        return new Payment();
+    }
+
+    @Bean
+    public Ticket ticket() {
+        return new Ticket();
+    }
+    // *-----------------------------------------------------------------*
 
 }
