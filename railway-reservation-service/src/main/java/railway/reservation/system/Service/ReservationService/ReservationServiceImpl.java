@@ -3,6 +3,7 @@ package railway.reservation.system.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import railway.reservation.system.Models.Controller_Body.Payment;
 import railway.reservation.system.Models.Ticket.*;
 import railway.reservation.system.Repository.ReservedSeatsRepository;
 import railway.reservation.system.Repository.ReservedTicketRepository;
@@ -103,8 +104,24 @@ public class ReservationServiceImpl implements ReservationService {
                 reserveSeats.getSeats().put(map.getKey(), seat_per_pnr);
             }
         } else {
-            seat_no = (Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1)%(trains_seats.getSeats_per_coach().get(class_name)/trains_seats.getCoaches_per_class().get(class_name));
-            reserveSeats.getSeats().get(class_name).put(Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1, pnr);
+
+            int seat = -1;
+            for(Map.Entry<Integer,Long> map : reserveSeats.getSeats().get(class_name).entrySet())
+            {
+                if(map.getValue()==-1)
+                {
+                    seat=map.getKey();
+                }
+            }
+            if(seat>0)
+            {
+                seat_no = seat;
+                reserveSeats.getSeats().get(class_name).put(seat, pnr);
+            }
+            else {
+                seat_no = (Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1)%(trains_seats.getSeats_per_coach().get(class_name)/trains_seats.getCoaches_per_class().get(class_name));
+                reserveSeats.getSeats().get(class_name).put(Collections.max(reserveSeats.getSeats().get(class_name).keySet()) + 1, pnr);
+            }
         }
         reservedSeatsRepository.save(reserveSeats);
         if (trains_seats.getSeats_per_coach().get(class_name) >= Collections.max(reserveSeats.getSeats().get(class_name).keySet()))
@@ -116,6 +133,31 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public String reservedTicket(ReservedTicket reservedTicket) {
         reservedTicketRepository.save(reservedTicket);
+        return "success";
+    }
+
+    @Override
+    public ReservedTicket getTicket(long pnr) {
+        return reservedTicketRepository.findAll().stream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).get(0);
+    }
+
+    @Override
+    public boolean ticketExistByPNR(long pnr) {
+        return !reservedTicketRepository.findAll().stream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).isEmpty();
+    }
+
+    @Override
+    public String ticketCancellation(long pnr) {
+        ReservedTicket reservedTicket = reservedTicketRepository.findById(pnr).get();
+        reservedTicketRepository.deleteById(pnr);
+        return "success";
+    }
+
+    @Override
+    public String seatCancellation(String seat_no, String class_name,Seat_Id seat_id) {
+        ReserveSeats reserveSeats = reservedSeatsRepository.findById(seat_id).get();
+        reserveSeats.getSeats().get(class_name).computeIfPresent(Integer.parseInt(seat_no),(key,value)-> Long.valueOf(-1));
+        reservedSeatsRepository.save(reserveSeats);
         return "success";
     }
 }

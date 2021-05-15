@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import railway.reservation.system.Models.Ticket.ReservedTicket;
+import railway.reservation.system.Models.Ticket.SeatData;
 import railway.reservation.system.Models.Ticket.Ticket;
 import railway.reservation.system.Models.Ticket.TicketStatus;
 import railway.reservation.system.Models.TimeTable;
@@ -23,7 +24,6 @@ import java.util.List;
 public class ReservationController {
 
 
-    // *------------------------- Train Reservation Functionalities --------------------------*
 
     // *-------- Train Service Autowiring -------*
     @Autowired
@@ -32,25 +32,30 @@ public class ReservationController {
     private TrainSeatService trainSeatService;
     @Autowired
     private ReservationService reservationService;
+    // *-----------------------------------------*
 
-    // *--------------------------- Train Seat Service Functionality -------------------------*
+    // *--------------------------------------- Ticket Reservation Functionality ---------------------------------------------*
     @GetMapping(path = "/addData")
     public String addData() {
         return trainSeatService.addData();
     }
-
     @GetMapping(path = "/welcome")
     public String welcome() {
         return "Welcome to Pakistan Railway Reservation portal";
     }
-
     @PostMapping(path = "/reserveTicket")
-    public TicketStatus reserveTicket(@RequestBody Ticket ticket) {
-        return reservationService.reserveTicket(ticket);
-    }
+    public TicketStatus reserveTicket(@RequestBody Ticket ticket){return reservationService.reserveTicket(ticket);}
     @PostMapping(path = "/reservedTicket")
     public String reservedTicket(@RequestBody ReservedTicket reservedTicket){return reservationService.reservedTicket(reservedTicket);}
-    // *--------------------------------------------------------------------------------------*
+    @GetMapping(path = "/ticketExistByPNR/{pnr}")
+    public boolean chkPNR(@PathVariable long pnr){return reservationService.ticketExistByPNR(pnr);}
+    @GetMapping(path = "/getTicket/{pnr}")
+    public ReservedTicket getTicket(@PathVariable long pnr){return reservationService.getTicket(pnr);}
+    @GetMapping(path = "/cancelTicket/{pnr}")
+    public String cancelTicket(@PathVariable long pnr){return reservationService.ticketCancellation(pnr);}
+    @PostMapping(path = "/cancelSeat")
+    public String cancelSeat(@RequestBody SeatData seatData){return reservationService.seatCancellation(seatData.getSeat_no(),seatData.getClass_name(),seatData.getSeat_id());}
+    // *----------------------------------------------------------------------------------------------------------------------*
 
     // *---------------------------------------------- End of Reservation Functionalities ------------------------------------*
 
@@ -58,9 +63,7 @@ public class ReservationController {
 
     // *----------------------------------------------- Train Management Functionalities -------------------------------------*
 
-    // *-----------------------------------------*
-
-    //  *------- Time Table Functionality -------*
+    //  *-------- Time Table Functionality -------*
     @GetMapping(path = "/timeTable/{city}")
     @ApiIgnore
     @ApiOperation(value = "get Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station in JSON format", response = TimeTable.class)
@@ -70,25 +73,19 @@ public class ReservationController {
 
     @GetMapping(path = "/trainTimeTable/{city_name}")
     @ApiOperation(value = "Display Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ", response = TimeTable.class)
-    public String displayTimeToTable(@PathVariable String city_name) {
-        return trainService.displayTimeTableByYourCity(city_name);
-    }
+    public String displayTimeToTable(@PathVariable String city_name) { return trainService.displayTimeTableByYourCity(city_name); }
     // *-------------------------------------------*
 
 
     // *---Train Between Stations Functionality ---*
     @GetMapping(path = "/trainsBetweenStation/{origin}:{destination}")
     @ApiOperation(value = "Display trains between stations", notes = "It will display all trains between given stations into Table Format", response = TrainsBetweenStation.class)
-    public String getTrainsBetweenStationToTable(@PathVariable String origin, @PathVariable String destination) {
-        return trainService.trainsBetweenStationToTable(origin, destination);
-    }
+    public String getTrainsBetweenStationToTable(@PathVariable String origin, @PathVariable String destination) { return trainService.trainsBetweenStationToTable(origin, destination); }
 
     @GetMapping(path = "/trainsBetweenStations/{origin}:{destination}")
     @ApiIgnore
     @ApiOperation(value = "get trains between stations", notes = "It will display all trains     between given stations into JSON Format", response = TrainsBetweenStation.class)
-    public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin, @PathVariable String destination) {
-        return trainService.trainsBetweenStation(origin, destination);
-    }
+    public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin, @PathVariable String destination) { return trainService.trainsBetweenStation(origin, destination); }
     // *--------------------------------------------*
 
 

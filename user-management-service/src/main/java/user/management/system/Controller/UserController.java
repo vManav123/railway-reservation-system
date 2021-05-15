@@ -2,6 +2,7 @@ package user.management.system.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import user.management.system.Models.Bank.AddMoney;
 import user.management.system.Models.Bank.BankForm;
 import user.management.system.Models.Bank.Bank_Account;
 import user.management.system.Models.Body.BankBody.Debit;
@@ -81,11 +82,14 @@ public class UserController {
     public boolean accountExistByAccountNo(@PathVariable Long account_no) {
         return bankService.accountNoExist(account_no);
     }
-
     @PostMapping(path = "/balanceDebited")
     public String balanceDebited(@RequestBody Debit debit) {
         return bankService.balanceDebited(debit);
     }
+
+    @PostMapping(path = "/addMoney")
+    public String addAmount(@RequestBody AddMoney addMoney){return bankService.addMoney(addMoney.getAccount_no(),addMoney.getAmount());}
+
     // *----------------------------------------------------------*
 
     // *------------------------------------------ End of Bank Functionalities -----------------------------------------*

@@ -20,4 +20,6 @@ public interface BankService {
     public Double getBalance(Long account_no);
 
     public String balanceDebited(Debit debit);
+
+    public String addMoney(Long account_no,double amount);
 }

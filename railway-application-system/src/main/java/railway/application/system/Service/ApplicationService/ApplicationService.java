@@ -19,4 +19,8 @@ public interface ApplicationService {
     String reserveTicket(ReservationForm reservationForm);
 
     String getPNR(Long pnr);
+
+    String TicketCancellation(long pnr);
+
+
 }

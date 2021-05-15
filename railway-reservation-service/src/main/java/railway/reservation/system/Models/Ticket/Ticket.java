@@ -30,4 +30,5 @@ public class Ticket {
     private int age;
     private String quota;
     private String status;
+    private Long transactional_id;
 }

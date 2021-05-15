@@ -8,9 +8,10 @@
     "arrival_time": "08:15:40",
     "travel_time": "10h 30m",
     "run_days": [
-      "THU",
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -29,7 +30,9 @@
     "travel_time": "13h 33m",
     "run_days": [
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -48,7 +51,11 @@
     "travel_time": "10h 27m",
     "run_days": [
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0,
@@ -66,9 +73,11 @@
     "arrival_time": "16:48:24",
     "travel_time": "13h 30m",
     "run_days": [
-      "THU",
       "TUE",
       "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -88,7 +97,9 @@
     "travel_time": "13h 27m",
     "run_days": [
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -106,8 +117,11 @@
     "arrival_time": "01:26:06",
     "travel_time": "13h 33m",
     "run_days": [
-      "THU",
-      "WED"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -125,10 +139,11 @@
     "arrival_time": "11:48:29",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
-      "MON",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -146,10 +161,10 @@
     "arrival_time": "04:21:21",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
+      "TUE",
+      "SUN",
       "WED",
-      "MON",
-      "SUN"
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -171,9 +186,10 @@
     "travel_time": "10h 27m",
     "run_days": [
       "TUE",
+      "SUN",
       "WED",
-      "MON",
-      "SUN"
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -191,10 +207,12 @@
     "arrival_time": "23:13:29",
     "travel_time": "13h 30m",
     "run_days": [
-      "THU",
+      "TUE",
+      "SUN",
       "WED",
-      "MON",
-      "SUN"
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0,
@@ -212,10 +230,10 @@
     "arrival_time": "03:14:39",
     "travel_time": "13h 33m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
       "WED",
-      "SUN"
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -234,8 +252,9 @@
     "travel_time": "10h 27m",
     "run_days": [
       "TUE",
-      "MON",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -253,9 +272,11 @@
     "arrival_time": "15:07:40",
     "travel_time": "13h 30m",
     "run_days": [
-      "THU",
-      "MON",
-      "SUN"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -273,8 +294,11 @@
     "arrival_time": "03:30:13",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
+      "TUE",
+      "SUN",
       "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -290,7 +314,11 @@
     "arrival_time": "09:39:14",
     "travel_time": "13h 33m",
     "run_days": [
+      "TUE",
       "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -309,10 +337,11 @@
     "arrival_time": "19:57:31",
     "travel_time": "13h 27m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
       "WED",
-      "MON"
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -331,9 +360,10 @@
     "travel_time": "13h 30m",
     "run_days": [
       "TUE",
-      "WED",
       "SUN",
-      "MON"
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -351,9 +381,11 @@
     "arrival_time": "01:28:47",
     "travel_time": "13h 33m",
     "run_days": [
-      "THU",
-      "MON",
-      "SUN"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -372,7 +404,10 @@
     "travel_time": "13h 30m",
     "run_days": [
       "TUE",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -390,8 +425,11 @@
     "arrival_time": "02:02:20",
     "travel_time": "10h 30m",
     "run_days": [
+      "TUE",
       "SUN",
-      "MON"
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -410,8 +448,9 @@
     "travel_time": "13h 33m",
     "run_days": [
       "TUE",
+      "SUN",
       "WED",
-      "MON"
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0
@@ -426,8 +465,11 @@
     "arrival_time": "00:00:25",
     "travel_time": "13h 33m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -443,9 +485,10 @@
     "arrival_time": "09:58:12",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0
@@ -460,8 +503,12 @@
     "arrival_time": "08:21:13",
     "travel_time": "13h 33m",
     "run_days": [
-      "THU",
-      "WED"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0,
@@ -479,7 +526,9 @@
     "travel_time": "13h 33m",
     "run_days": [
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0
@@ -494,11 +543,12 @@
     "arrival_time": "21:38:22",
     "travel_time": "10h 27m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
       "WED",
-      "MON",
-      "SUN"
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0,
@@ -516,8 +566,11 @@
     "arrival_time": "02:32:53",
     "travel_time": "10h 33m",
     "run_days": [
+      "TUE",
       "SUN",
-      "MON"
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -535,9 +588,12 @@
     "arrival_time": "17:56:52",
     "travel_time": "10h 27m",
     "run_days": [
-      "THU",
+      "TUE",
+      "SUN",
       "WED",
-      "SUN"
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0
@@ -553,7 +609,9 @@
     "travel_time": "13h 27m",
     "run_days": [
       "TUE",
-      "WED"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -571,7 +629,10 @@
     "arrival_time": "10:08:09",
     "travel_time": "10h 30m",
     "run_days": [
-      "THU"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -590,8 +651,10 @@
     "travel_time": "13h 33m",
     "run_days": [
       "TUE",
-      "MON",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0
@@ -606,8 +669,11 @@
     "arrival_time": "10:32:53",
     "travel_time": "10h 27m",
     "run_days": [
-      "WED",
+      "TUE",
       "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -626,8 +692,11 @@
     "arrival_time": "12:46:03",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
+      "TUE",
       "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -646,7 +715,10 @@
     "travel_time": "13h 27m",
     "run_days": [
       "TUE",
-      "MON"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -663,9 +735,11 @@
     "arrival_time": "22:58:48",
     "travel_time": "13h 27m",
     "run_days": [
-      "THU",
       "TUE",
       "SUN",
+      "WED",
+      "FRI",
+      "SAT",
       "MON"
     ],
     "classes": {
@@ -685,7 +759,9 @@
     "travel_time": "10h 33m",
     "run_days": [
       "TUE",
-      "MON"
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0
@@ -700,7 +776,10 @@
     "arrival_time": "16:19:42",
     "travel_time": "13h 27m",
     "run_days": [
-      "WED"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -718,10 +797,11 @@
     "arrival_time": "09:23:50",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
-      "MON",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -740,8 +820,11 @@
     "travel_time": "13h 27m",
     "run_days": [
       "TUE",
-      "MON",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT",
+      "MON"
     ],
     "classes": {
       "SEC": 1.0,
@@ -759,8 +842,11 @@
     "arrival_time": "08:16:58",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
-      "TUE"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -778,8 +864,10 @@
     "arrival_time": "12:18:21",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
-      "MON"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -797,10 +885,10 @@
     "arrival_time": "17:47:25",
     "travel_time": "10h 27m",
     "run_days": [
-      "THU",
       "TUE",
       "SUN",
-      "MON"
+      "WED",
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -818,9 +906,11 @@
     "arrival_time": "02:42:02",
     "travel_time": "10h 30m",
     "run_days": [
-      "THU",
       "TUE",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -838,10 +928,10 @@
     "arrival_time": "08:27:55",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
       "WED",
-      "SUN"
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,
@@ -859,9 +949,11 @@
     "arrival_time": "06:09:43",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
-      "SUN"
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -879,10 +971,11 @@
     "arrival_time": "09:35:19",
     "travel_time": "10h 33m",
     "run_days": [
-      "THU",
       "TUE",
+      "SUN",
       "WED",
-      "MON"
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -900,8 +993,11 @@
     "arrival_time": "17:11:02",
     "travel_time": "10h 27m",
     "run_days": [
-      "THU",
-      "SUN"
+      "TUE",
+      "SUN",
+      "WED",
+      "FRI",
+      "SAT"
     ],
     "classes": {
       "SEC": 1.0,
@@ -922,9 +1018,10 @@
     "arrival_time": "23:11:17",
     "travel_time": "10h 27m",
     "run_days": [
-      "THU",
+      "TUE",
+      "SUN",
       "WED",
-      "MON"
+      "FRI"
     ],
     "classes": {
       "SEC": 1.0,

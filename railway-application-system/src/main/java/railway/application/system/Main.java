@@ -9,6 +9,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import railway.application.system.Models.Body.SeatData;
 import railway.application.system.Models.Payment.Payment;
 import railway.application.system.Models.Ticket;
 
@@ -45,6 +46,11 @@ public class Main {
     @Bean
     public Ticket ticket() {
         return new Ticket();
+    }
+
+    @Bean
+    public SeatData seatData() {
+        return new SeatData();
     }
     // *-----------------------------------------------------------------*
 

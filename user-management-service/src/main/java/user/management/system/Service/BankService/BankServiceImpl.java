@@ -7,15 +7,17 @@ import user.management.system.ExceptionHandling.BankNotExistException;
 import user.management.system.ExceptionHandling.UserNotExistException;
 import user.management.system.Models.Bank.BankForm;
 import user.management.system.Models.Bank.Bank_Account;
+import user.management.system.Models.Bank.TransactionalDetails;
+import user.management.system.Models.Bank.TransactionalHistory;
 import user.management.system.Models.Body.BankBody.Debit;
 import user.management.system.Repository.BankRepository.BankRepository;
+import user.management.system.Repository.BankRepository.TransactionalRepository;
 import user.management.system.Repository.UserRepository.UserRepository;
 import user.management.system.Service.SequenceGenerator.DataSequenceGeneratorService;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("bankServiceImpl")
@@ -49,6 +51,9 @@ public class BankServiceImpl implements BankService {
 
     @Autowired
     private Bank_Account bank_account;
+
+    @Autowired
+    private TransactionalRepository transactionalRepository;
     // *-----------------------------------------------------------------*
 
 
@@ -114,11 +119,49 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public String balanceDebited(Debit debit) {
+
+        // Transaction
+        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().stream().filter(p->p.getAccount_no().equals(debit.getAccount_no())).collect(Collectors.toList());
+        if(transactionalHistories.isEmpty())
+        {
+            Map<Long,TransactionalDetails> map = new Hashtable<>();
+            map.put(sequenceGeneratorService.getTransactionSequenceNmber("transaction_sequence"),new TransactionalDetails(LocalDateTime.now(),"Debited",debit.getAmount()));
+            transactionalRepository.save(new TransactionalHistory(debit.getAccount_no(),map));
+        }
+        else
+        {
+            transactionalHistories.get(0).getTransactions().put(sequenceGeneratorService.getTransactionSequenceNmber("transaction_sequence"),new TransactionalDetails(LocalDateTime.now(),"Debited",debit.getAmount()));
+        }
+
+        // bank
         Bank_Account bank_account = bankRepository.findAll().stream().filter(p -> p.getAccount_no().equals(debit.getAccount_no())).collect(Collectors.toList()).get(0);
         bank_account.setBank_balance(bank_account.getBank_balance() - debit.getAmount());
         bankRepository.save(bank_account);
         System.out.println("Done Payment");
         return "success";
+    }
+
+    @Override
+    public String addMoney(Long account_no, double amount) {
+
+
+        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().stream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList());
+        if(transactionalHistories.isEmpty())
+        {
+            Map<Long,TransactionalDetails> map = new Hashtable<>();
+            map.put(sequenceGeneratorService.getTransactionSequenceNmber("transaction_sequence"),new TransactionalDetails(LocalDateTime.now(),"Credited",amount));
+            transactionalRepository.save(new TransactionalHistory(account_no,map));
+        }
+        else
+        {
+            transactionalHistories.get(0).getTransactions().put(sequenceGeneratorService.getTransactionSequenceNmber("transaction_sequence"),new TransactionalDetails(LocalDateTime.now(),"Credited",amount));
+        }
+
+
+        Bank_Account bank_account = bankRepository.findById(account_no).get();
+        bank_account.setBank_balance(bank_account.getBank_balance()+amount);
+        bankRepository.save(bank_account);
+        return "Amount Added Successfully to your Account with account no : "+account_no;
     }
     // *----------------------------------------------------------------*
 

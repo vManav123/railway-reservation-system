@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import user.management.system.Models.Bank.BankSequence;
+import user.management.system.Models.Bank.TransactionalSequence;
 import user.management.system.Models.User.UserSequence;
 
 import java.util.Objects;
@@ -30,5 +31,12 @@ public class DataSequenceGeneratorService {
         Update update = new Update().inc("seq", 1);
         BankSequence counter = mongoOperations.findAndModify(query, update, options().returnNew(true).upsert(true), BankSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
+    }
+
+    public Long getTransactionSequenceNmber(String sequenceName) {
+        Query query = new Query(Criteria.where("id").is(sequenceName));
+        Update update = new Update().inc("seq", 1);
+        TransactionalSequence counter = mongoOperations.findAndModify(query, update, options().returnNew(true).upsert(true), TransactionalSequence.class);
+        return !Objects.isNull(counter) ? counter.getSeq() : 966660909;
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestComponent;
 import railway.reservation.system.Models.TimeTable;
 import railway.reservation.system.Models.TrainsBetweenStation;
-import railway.reservation.system.Repository.TrainRepository;
 import railway.reservation.system.Service.TrainService.TrainService;
 
 import java.io.IOException;
@@ -37,11 +36,10 @@ public class Functionality_Testing {
     @Autowired
     TrainService trainService;
 
-    @Autowired
-    TrainRepository trainRepository;
-
-
     // *----------------------------------------------------------------------------------------------------------*
+
+
+
 
     // *--------------------------------- TimeTable Functionality Testing ----------------------------------------*
 
@@ -77,10 +75,6 @@ public class Functionality_Testing {
 
     }
 
-    // *-------------------------------------------------------------------------------------------------------------*
-
-    // *-------------------------- TrainsBetweenStation Functionality Testing ---------------------------------------*
-
     @Test
     void TimeTable_testcase_3() throws IOException, JSONException {
         timeTableFile = Files.readString(Path.of("src/test/resources/TimeTable-TestCase/TimeTable_TestCase_3.json"));
@@ -96,6 +90,11 @@ public class Functionality_Testing {
         Assertions.assertEquals(timeTableList.toString(), trainService.displayTimeTable("noob city").toString());
 
     }
+
+
+    // *-------------------------------------------------------------------------------------------------------------*
+
+    // *-------------------------- TrainsBetweenStation Functionality Testing ---------------------------------------*
 
     List<TrainsBetweenStation> getTrainsBetweenStationList(String TrainsBetweenStationFile) throws JSONException, JsonProcessingException {
 
@@ -152,6 +151,8 @@ public class Functionality_Testing {
     }
 
     // *------------------------------------------------------------------------------------------------------------------*
+
+
 
 
 }
