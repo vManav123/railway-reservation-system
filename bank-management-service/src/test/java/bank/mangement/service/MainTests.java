@@ -52,4 +52,12 @@ class MainTests {
         functionalityTesting.AddMoney_TestCase_4();
     }
 
+    @Test
+    public void balanceDebited()
+    {
+        functionalityTesting.balanceDebited_TestCase_1();
+        functionalityTesting.balanceDebited_TestCase_2();
+        functionalityTesting.balanceDebited_TestCase_3();
+        functionalityTesting.balanceDebited_TestCase_4();
+    }
 }

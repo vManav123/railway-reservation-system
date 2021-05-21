@@ -71,19 +71,23 @@ class MainTests {
     // *----------------- train Between Station Functionality Testing -------------------*
     @Test
     public void trainDetail_functionality_testing() throws JSONException, IOException{
-        _functionality_testing.Train_testcase_1();
-        _functionality_testing.TrainsFare_testcase_2();
-        _functionality_testing.TrainsFare_testcase_3();
-        _functionality_testing.TrainsFare_testcase_4();
+        _functionality_testing.train_testcase_1();
+        _functionality_testing.train_testcase_2();
+        _functionality_testing.train_testcase_3();
+        _functionality_testing.train_testcase_4();
     }
     // *---------------------------------------------------------------------------------*
 
+    // *----------------- train Between Station Functionality Testing -------------------*
+    @Test
+    public void ticketCancellation_functionality_testing() throws JSONException, IOException{
+        _functionality_testing.ticketCancellation_TestCase_1();
+        _functionality_testing.ticketCancellation_TestCase_2();
+        _functionality_testing.ticketCancellation_TestCase_3();
+        _functionality_testing.ticketCancellation_TestCase_4();
+    }
+    // *---------------------------------------------------------------------------------*
 
-//    @Test
-//    @BeforeAll
-//    void contextLoads() {
-//
-//    }
 
 
 }

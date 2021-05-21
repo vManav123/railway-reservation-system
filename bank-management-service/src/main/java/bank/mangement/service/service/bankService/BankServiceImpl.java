@@ -158,7 +158,8 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public String balanceDebited(Debit debit) {
-
+        if(debit.getAmount()<=0)
+            return "Amount will not Not accepted should be greater than 0";
         // Transaction
         List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().stream().filter(p->p.getAccount_no().equals(debit.getAccount_no())).collect(Collectors.toList());
         if(transactionalHistories.isEmpty())

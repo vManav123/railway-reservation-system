@@ -155,7 +155,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public String ticketCancellation(long pnr) {
-        ReservedTicket reservedTicket = reservedTicketRepository.findById(pnr).get();
+        ReservedTicket reservedTicket;
+        if(reservedTicketRepository.existsById(pnr))
+            reservedTicket = reservedTicketRepository.findById(pnr).get();
+        else
+            return "!!! Invalid PNR !!! , Please write Information correctly.";
         reservedTicketRepository.deleteById(pnr);
         return "success";
     }

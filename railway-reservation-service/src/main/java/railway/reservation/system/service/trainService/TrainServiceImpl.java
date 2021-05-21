@@ -272,7 +272,8 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public String trainLocationToTable(String train_search_info, LocalDate date, String your_location) {
-        List<TrainLocation> trainLocationList = trainLocation(train_search_info, date, your_location);
+
+        List<TrainLocation> trainLocationList = trainLocation(train_search_info, date,WordUtils.capitalizeFully(your_location));
         if(trainLocationList.size()==1 && trainLocationList.get(0).getPlatform()==-1)
             return trainLocationList.get(0).getCurrent_station();
 
@@ -297,17 +298,18 @@ public class TrainServiceImpl implements TrainService {
                 status="Departed";
             trainLocation.setTrain_status(status);
         }
-
+        String s = WordUtils.capitalizeFully(your_location);
         String train_location = trainLocationList.stream().filter(p-> p.getTrain_status().equals("Arrived") || p.getTrain_status().equals("Arriving")).collect(Collectors.toList()).get(0).getCurrent_station();
         List<TrainLocation> trainLocations = trainLocationList
                 .stream()
                 .filter(p->WordUtils.capitalizeFully(train_location).equalsIgnoreCase(p.getCurrent_station()) || WordUtils.capitalizeFully(your_location).equalsIgnoreCase(p.getCurrent_station()))
                 .collect(Collectors.toList());
+        System.out.println(trainLocations);
         Duration duration = Duration.between(trainLocations.get(0).getArrival_time()
                                             ,
                                             trainLocations
                                                     .stream()
-                                                    .filter(p->p.getCurrent_station().equals(your_location))
+                                                    .filter(p->p.getCurrent_station().equals(s))
                                                     .collect(Collectors.toList())
                                                     .get(0)
                                                     .getArrival_time());

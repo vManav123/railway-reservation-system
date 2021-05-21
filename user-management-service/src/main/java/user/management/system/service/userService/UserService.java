@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import user.management.system.model.user.ChangePassword;
 import user.management.system.model.user.Ticket;
 import user.management.system.model.user.User;
-import user.management.system.model.user.UserForm;
+import user.management.system.model.user.UserForm1;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface UserService {
 
     public List<User> getAllUser();
 
-    public String createUser(UserForm userForm);
+    public String createUser(UserForm1 userForm1);
 
     public boolean userExistById(Long user_id);
 

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class UserForm {
+public class UserForm1 {
     private String full_name;
     private int age;
     private String contact_no;

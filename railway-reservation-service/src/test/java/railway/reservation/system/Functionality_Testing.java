@@ -16,7 +16,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import railway.reservation.system.model.TimeTable;
 import railway.reservation.system.model.TrainLocation;
 import railway.reservation.system.model.TrainsBetweenStation;
+import railway.reservation.system.model.ticket.ReservedTicket;
+import railway.reservation.system.model.ticket.Ticket;
 import railway.reservation.system.model.train.Train;
+import railway.reservation.system.repository.ReservedTicketRepository;
+import railway.reservation.system.service.reservationService.ReservationService;
 import railway.reservation.system.service.trainService.TrainService;
 
 import java.io.IOException;
@@ -35,10 +39,13 @@ public class Functionality_Testing {
     // *------------------------------------------ Autowired Services --------------------------------------------*
 
     @Autowired
-    TrainService trainService;
+    private TrainService trainService;
     @Autowired
-    MongoRepository<Train, Long> mongoRepository;
-
+    private ReservationService reservationService;
+    @Autowired
+    private MongoRepository<Train, Long> mongoRepository;
+    @Autowired
+    private ReservedTicketRepository reservedTicketRepository;
     // *----------------------------------------------------------------------------------------------------------*
 
 
@@ -195,32 +202,93 @@ public class Functionality_Testing {
 
 
     // *--------------------------------------------------- Display Train ------------------------------------------------*
-
     @Test
-    void Train_testcase_1() throws IOException, JSONException {
+    void train_testcase_1() throws IOException, JSONException {
         String train_no = "410878";
         Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
         Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
     }
     @Test
-    void Train_testcase_2() throws IOException, JSONException {
+    void train_testcase_2() throws IOException, JSONException {
         String train_no = "5555108";
         Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
         Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
     }
     @Test
-    void Train_testcase_3() throws IOException, JSONException {
+    void train_testcase_3() throws IOException, JSONException {
         String train_no = "778120";
         Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
         Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
     }
     @Test
-    void Train_testcase_4() throws IOException, JSONException {
+    void train_testcase_4() throws IOException, JSONException {
         String train_no = "4108";
         Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
         Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
     }
     // *-------------------------------------------------------------------------------------------------------------------*
 
+
+    // *----------------------------------------------- Get Ticket --------------------------------------------------------*
+    @Test
+    void pnr_testcase_1() throws IOException, JSONException {
+        String train_no = "410878";
+        Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void pnr_testcase_2() throws IOException, JSONException {
+        String train_no = "5555108";
+        Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void pnr_testcase_3() throws IOException, JSONException {
+        String train_no = "778120";
+        Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void pnr_testcase_4() throws IOException, JSONException {
+        String train_no = "4108";
+        Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    // *-------------------------------------------------------------------------------------------------------------------*
+
+
+
+    // *----------------------------------------------- Ticket cancellation -----------------------------------------------*
+    @Test
+    public void ticketCancellation_TestCase_1()
+    {
+        long pnr = 1231112L;
+        ReservedTicket reservedTicket = new ReservedTicket();
+        reservedTicket.setPnr(pnr);
+        reservedTicketRepository.save(reservedTicket);
+        Assertions.assertEquals("success",reservationService.ticketCancellation(pnr));
+    }
+    @Test
+    public void ticketCancellation_TestCase_2()
+    {
+        long pnr = 12312312L;
+        ReservedTicket reservedTicket = new ReservedTicket();
+        reservedTicket.setPnr(pnr);
+        reservedTicketRepository.save(reservedTicket);
+        Assertions.assertEquals("success",reservationService.ticketCancellation(pnr));
+    }
+    @Test
+    public void ticketCancellation_TestCase_3()
+    {
+        long pnr = 12312312L;
+        Assertions.assertEquals("!!! Invalid PNR !!! , Please write Information correctly.",reservationService.ticketCancellation(pnr));
+    }
+    @Test
+    public void ticketCancellation_TestCase_4()
+    {
+        long pnr = 12312312L;
+        Assertions.assertEquals("!!! Invalid PNR !!! , Please write Information correctly.",reservationService.ticketCancellation(pnr));
+    }
+    // *--------------------------------------------------------------------------------------------------------------------*
 
 }

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import railway.application.system.configuration.securityConfiguration.models.AuthenticationRequest;
 import railway.application.system.configuration.securityConfiguration.models.AuthenticationResponse;
 import railway.application.system.configuration.securityConfiguration.util.JwtUtil;
+import railway.application.system.models.forms.BankForm;
 import railway.application.system.models.forms.ReservationForm;
 import railway.application.system.models.forms.UserForm;
+import railway.application.system.models.forms.UserForm1;
+import railway.application.system.models.payment.AddMoney;
 import railway.application.system.models.response.AccommodationBody;
 import railway.application.system.models.response.AvailableSeats;
 import railway.application.system.models.response.LocationBody;
@@ -72,6 +75,7 @@ public class ApplicationController {
     private Message message;
 
     @GetMapping(value = "/producer")
+    @ApiIgnore
     public String producer(@RequestParam("message") String message1,@RequestParam("messageId") int messageId) {
 
         message.setMessage(message1);
@@ -91,8 +95,17 @@ public class ApplicationController {
         return applicationService.userWelcome();
     }
 
-    @PostMapping("/createUserAccount")
-    public String createUserAccount(@RequestBody UserForm  userForm){ log.info("Account Creation in Process");return applicationService.createUserAccount(userForm);}
+    @PostMapping("/train/createUserAccount")
+    public String createUserAccount(@RequestBody UserForm1 userForm){ log.info("Account Creation in Process");return applicationService.createUserAccount(userForm);}
+
+    @PostMapping("/train/createBankAccount")
+    public String createBankAccount(@RequestBody BankForm bankForm){
+        log.info("bank account created");
+        return applicationService.createBankAccount(bankForm);
+    }
+
+    @PostMapping("/train/addMoneyToBankAccount")
+    public String addMoney(@RequestBody AddMoney addMoney){return applicationService.addBalance(addMoney);}
 
     @GetMapping(path = "/train/trainDetail/{train_no}")
     @ApiOperation(value = "Display details of trains", notes = "It will display the details of then trains")
@@ -130,6 +143,7 @@ public class ApplicationController {
     }
 
     @GetMapping(path = "/train/getTrainByTrainNo/{train_no}")
+    @ApiIgnore
     public ResponseEntity<?> getTrainByTrainNo(@PathVariable String train_no) {
         log.info("Getting Train Details ....");
         return applicationService.getTrainByTrainNo(train_no);

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import user.management.system.model.user.ChangePassword;
 import user.management.system.model.user.Ticket;
 import user.management.system.model.user.User;
-import user.management.system.model.user.UserForm;
+import user.management.system.model.user.UserForm1;
 
 @SpringBootTest
 @Import({FunctionalityTesting.class})
@@ -15,7 +15,7 @@ class MainTests {
 
     @Autowired
     private FunctionalityTesting functionalityTesting;
-    private UserForm userForm;
+    private UserForm1 userForm1;
     private User user;
     private ChangePassword changePassword;
     private Ticket ticket;
@@ -25,11 +25,11 @@ class MainTests {
     @Test
     public void CreateUser_Testing()
     {
-        userForm=new UserForm();
-        functionalityTesting.createUser_TestCase_1(userForm);
-        functionalityTesting.createUser_TestCase_2(userForm);
-        functionalityTesting.createUser_TestCase_3(userForm);
-        functionalityTesting.createUser_TestCase_4(userForm);
+        userForm1 =new UserForm1();
+        functionalityTesting.createUser_TestCase_1(userForm1);
+        functionalityTesting.createUser_TestCase_2(userForm1);
+        functionalityTesting.createUser_TestCase_3(userForm1);
+        functionalityTesting.createUser_TestCase_4(userForm1);
     }
     @Test
     public void updateUser_Testing()

@@ -1,6 +1,7 @@
 package bank.mangement.service;
 
 import bank.mangement.service.model.bankForm.BankForm;
+import bank.mangement.service.model.bankForm.Debit;
 import bank.mangement.service.model.payment.Payment;
 import bank.mangement.service.repository.BankRepository;
 import bank.mangement.service.service.bankService.BankService;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.context.TestComponent;
 
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @SpringBootTest
@@ -127,6 +128,31 @@ public class FunctionalityTesting {
     @Test
     public void AddMoney_TestCase_4()
     {
+        Assertions.assertEquals("Amount Added Successfully to your Account with account no : 10001",bankService.addMoney(10001L,2));
+    }
+
+
+
+
+    @Test
+    public void balanceDebited_TestCase_1()
+    {
+        Assertions.assertEquals("Amount will not Not accepted should be greater than 0",bankService.balanceDebited(new Debit(10001L,-1.0)));
+    }
+    @Test
+    public void balanceDebited_TestCase_2()
+    {
+        Assertions.assertEquals("Amount will not Not accepted should be greater than 0",bankService.addMoney(10028L,0));
+    }
+    @Test
+    public void balanceDebited_TestCase_3()
+    {
+        Assertions.assertEquals("!!! Invalid Account No !!!",bankService.addMoney(100028L,1));
+    }
+    @Test
+    public void balanceDebited_TestCase_4()
+    {
+        bankService.addMoney(10001L,2);
         Assertions.assertEquals("Amount Added Successfully to your Account with account no : 10001",bankService.addMoney(10001L,2));
     }
 

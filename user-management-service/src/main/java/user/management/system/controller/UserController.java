@@ -2,10 +2,11 @@ package user.management.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 import user.management.system.model.user.ChangePassword;
 import user.management.system.model.user.Ticket;
 import user.management.system.model.user.User;
-import user.management.system.model.user.UserForm;
+import user.management.system.model.user.UserForm1;
 import user.management.system.service.userService.UserService;
 
 
@@ -34,31 +35,35 @@ public class UserController {
     }
 
     @PostMapping(path = "/addUser")
-    public String addUser(@RequestBody User user) {
+    public String addUser(@RequestBody User user)    {
         return userService.addUser(user);
     }
 
     @PostMapping(path = "/addAllUser")
+    @ApiIgnore
     public String addAllUser(@RequestBody List<User> users) {
         return userService.addAllUser(users);
     }
 
     @PostMapping(path = "/createUser")
-    public String createUser(@RequestBody UserForm userForm) {
-        return userService.createUser(userForm);
+    public String createUser(@RequestBody UserForm1 userForm1) {
+        return userService.createUser(userForm1);
     }
 
     @GetMapping(path = "/getAllUsers")
+    @ApiIgnore
     public List<User> getAllUser() {
         return userService.getAllUser();
     }
 
     @GetMapping(path = "/userExistById/{user_id}")
+    @ApiIgnore
     public boolean userExistById(@PathVariable Long user_id) {
         return userService.userExistById(user_id);
     }
 
     @PostMapping(path = "/updateUser")
+    @ApiIgnore
     public String updateUser(@RequestBody User user){return userService.updateUser(user);}
 
     @GetMapping(path = "/getUser/{user_id}")

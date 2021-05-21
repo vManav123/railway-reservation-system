@@ -180,7 +180,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String availableAccommodation(AccommodationBody accommodationBody) {
-        return restTemplate.postForObject("https://RAILWAY-RESERVATION-SERVICE:8083/availableAccommodation",accommodationBody,String.class);
+        return restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE:8083/trains/availableAccommodation",accommodationBody,String.class);
     }
 
     public String getFallBackAvailableAccommodation(AccommodationBody accommodationBody){return "!!! Service is Down !!! , Please Try Again Later";}
@@ -191,8 +191,24 @@ public class ApplicationServiceImpl implements ApplicationService {
     @HystrixCommand(fallbackMethod = "getFallBackCreateUserAccount" , commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
-    public String createUserAccount(UserForm userForm) {
+    public String createUserAccount(UserForm1 userForm) {
         return restTemplate.postForObject("http://USER-MANAGEMENT-SERVICE:8082/user/createUser",userForm,String.class);
+    }
+    public String getFallBackCreateUserAccount(UserForm1 userForm){return "!!! Service is Down !!! , Please Try Again Later";}
+    @Override
+    @HystrixCommand(fallbackMethod = "getFallBackCreateBankAccount" , commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
+    })
+    public String createBankAccount(BankForm bankForm) {
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/createAccount",bankForm,String.class);
+    }
+    public String getFallBackCreateBankAccount(BankForm bankForm) {
+        return "!!! Service is Down !!! , Please Try Again Later";
+    }
+
+    @Override
+    public String addBalance(AddMoney addMoney) {
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/addMoney/",addMoney,String.class);
     }
 
     public String getFallBackCreateUserAccount(UserForm userForm){return "!!! Service is Down !!! , Please Try Again Later";}
@@ -284,7 +300,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     //@EventListener(ApplicationReadyEvent.class)
     @HystrixCommand(fallbackMethod = "getFallbackReserveTicket", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "50000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "70000")
     })
     public String reserveTicket(ReservationForm reservationForm) {
         String s = "";
@@ -423,6 +439,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         reservationForm.getTicketForm()
                 .getPassengers()
                 .forEach(p -> {
+                    log.info("TicketReservation is started");
                     refer_ticket.setAge(p.getAge());
                     refer_ticket.setClass_name(p.getClass_name());
                     refer_ticket.setPassenger_name(p.getPassenger_name());
@@ -437,7 +454,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                     refer_ticket.setStatus(ticketStatus.getStatus());
                     refer_ticket.setSeat_no(ticketStatus.getSeat_no());
                     reservedTickets.add(new ReservedTicket(refer_ticket.getPnr(), refer_ticket, refer_ticket.getTransactional_id(), reservationForm.getUserForm().getAccount_no(), refer_ticket.getEmail_address(), refer_ticket.getStatus(), LocalDateTime.of(refer_ticket.getDate_of_journey(), LocalTime.now()),ticket_fee.get(i.get(0))));
-
+                    log.info("TicketReservation is started");
                     i.set(0,i.get(0)+1);
                     StringBuilder local = new StringBuilder();
                     local.append("\n\n  *--------------------------------------------------------------------------------------------------*\n");
@@ -451,6 +468,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                     } catch (IOException e) {
                         System.out.println("FileNotFoundException");
                     }
+                    log.info("TicketReservation is started");
 
                     // *------------------ Email Section -----------------*
                     try {
@@ -504,13 +522,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     })
     public String payment(Long account_no, List<Double> ticket_fee) {
         String result = "null";
-        Double total_amount = ticket_fee.stream().reduce((a, b) -> a + b).get();
+        Double total_amount = ticket_fee.stream().reduce(Double::sum).get();
+        System.out.println(0);
         try {
             Double balance = 0D;
-            if ((balance = total_amount - restTemplate.getForObject("http://BANK-MANAGEMENT-SERVICE/bank/getBalance/" + account_no, Double.class)) > 0)
+            if ((balance = total_amount - restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/bank/getBalance/" + account_no, Double.class)) > 0)
                 throw new InsufficientBalanceInBankAccount(insufficientBalanceInBankAccount + balance);
+            System.out.println(1);
             if (!restTemplate.postForObject("http://RAILWAY-API-GATEWAY:8085/bank/balanceDebited", new Debit(account_no, total_amount), String.class).equals("success"))
                 throw new TransactionUnSuccessfulException(transactionUnSuccessfulException);
+            System.out.println(2);
         } catch (InsufficientBalanceInBankAccount | TransactionUnSuccessfulException e) {
             result = e.getMessage();
         }
@@ -627,12 +648,15 @@ public class ApplicationServiceImpl implements ApplicationService {
     private String userFormValidation(UserForm userForm) {
         User user = null;
         try{
+            System.out.println(0);
             if(!restTemplate.getForObject("http://USER-MANAGEMENT-SERVICE/user/userExistById/"+userForm.getUser_id(),Boolean.class))
                 throw new UserNotExistException(userNotExistException);
+            System.out.println(1);
             ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY:8085/user/getAllUsers",User[].class);
             user = Arrays.stream(responseEntity.getBody()).filter(p-> p.getUser_id().equals(userForm.getUser_id())).collect(Collectors.toList()).get(0);
             if(!user.getAccount_no().equals(userForm.getAccount_no()) || !user.getBank_name().equals(userForm.getBank_name()) || !user.getFull_name().equals(userForm.getAccountHolder()) || !user.getCredit_card_no().equals(userForm.getCredit_card_no()) || !user.getCvv().equals(userForm.getCvv()))
                 throw new AccountNoNotExistException(accountNoNotExistException);
+            System.out.println(1);
             return "success";
         }
         catch (NullPointerException | UserNotExistException | AccountNoNotExistException e)

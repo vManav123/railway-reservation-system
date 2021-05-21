@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.TestComponent;
 import user.management.system.model.user.ChangePassword;
 import user.management.system.model.user.Ticket;
 import user.management.system.model.user.User;
-import user.management.system.model.user.UserForm;
+import user.management.system.model.user.UserForm1;
 import user.management.system.service.userService.UserService;
 
 import java.time.LocalDate;
@@ -24,44 +24,44 @@ public class FunctionalityTesting {
     private UserService userService;
 
     @Test
-    public void createUser_TestCase_1(UserForm userForm)
+    public void createUser_TestCase_1(UserForm1 userForm1)
     {
-        userForm.setAge(1);
-        userForm.setContact_no("1231231");
-        userForm.setFull_name("asdds");
-        userForm.setEmail_address("Asdasdas");
-        userForm.setSecret_key("asda");
-        Assertions.assertEquals("!!! Invalid Number !!! , Please take care that the number should be length : 10 and all Digits",userService.createUser(userForm));
+        userForm1.setAge(1);
+        userForm1.setContact_no("1231231");
+        userForm1.setFull_name("asdds");
+        userForm1.setEmail_address("Asdasdas");
+        userForm1.setSecret_key("asda");
+        Assertions.assertEquals("!!! Invalid Number !!! , Please take care that the number should be length : 10 and all Digits",userService.createUser(userForm1));
     }
     @Test
-    public void createUser_TestCase_2(UserForm userForm)
+    public void createUser_TestCase_2(UserForm1 userForm1)
     {
-        userForm.setAge(1);
-        userForm.setContact_no("1231231aa");
-        userForm.setFull_name("asdds");
-        userForm.setEmail_address("Asdasdas");
-        userForm.setSecret_key("asda");
-        Assertions.assertEquals("!!! Invalid Email Address !!! Please Take of this Format email@mail.com",userService.createUser(userForm));
+        userForm1.setAge(1);
+        userForm1.setContact_no("1231231aa");
+        userForm1.setFull_name("asdds");
+        userForm1.setEmail_address("Asdasdas");
+        userForm1.setSecret_key("asda");
+        Assertions.assertEquals("!!! Invalid Email Address !!! Please Take of this Format email@mail.com",userService.createUser(userForm1));
     }
     @Test
-    public void createUser_TestCase_3(UserForm userForm)
+    public void createUser_TestCase_3(UserForm1 userForm1)
     {
-        userForm.setAge(1);
-        userForm.setContact_no("1231231121");
-        userForm.setFull_name("asdds");
-        userForm.setEmail_address("asdAsdasdas");
-        userForm.setSecret_key("asda");
-        Assertions.assertEquals("!!! Invalid Email Address !!! Please Take of this Format email@mail.com",userService.createUser(userForm));
+        userForm1.setAge(1);
+        userForm1.setContact_no("1231231121");
+        userForm1.setFull_name("asdds");
+        userForm1.setEmail_address("asdAsdasdas");
+        userForm1.setSecret_key("asda");
+        Assertions.assertEquals("!!! Invalid Email Address !!! Please Take of this Format email@mail.com",userService.createUser(userForm1));
     }
     @Test
-    public void createUser_TestCase_4(UserForm userForm)
+    public void createUser_TestCase_4(UserForm1 userForm1)
     {
-        userForm.setAge(1);
-        userForm.setContact_no("1231231121");
-        userForm.setFull_name("asdds");
-        userForm.setEmail_address("vmanav1999@gmail.com");
-        userForm.setSecret_key("asda");
-        Assertions.assertEquals("Your User Account has been created and your will get your credentials on email address, go and check it",userService.createUser(userForm));
+        userForm1.setAge(1);
+        userForm1.setContact_no("1231231121");
+        userForm1.setFull_name("asdds");
+        userForm1.setEmail_address("vmanav1999@gmail.com");
+        userForm1.setSecret_key("asda");
+        Assertions.assertEquals("Your User Account has been created and your will get your credentials on email address, go and check it",userService.createUser(userForm1));
     }
 
 

@@ -79,13 +79,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String createUser(UserForm userForm) {
+    public String createUser(UserForm1 userForm1) {
         try {
-            if (userForm.getContact_no().length() != 10 && isNumeric(userForm.getContact_no()))
+            if (userForm1.getContact_no().length() != 10 && isNumeric(userForm1.getContact_no()))
                 throw new InvalidContactNumberException(invalidContactNumberException);
-            if (!isEmailValid(userForm.getEmail_address()))
+            if (!isEmailValid(userForm1.getEmail_address()))
                 throw new InvalidEmailException(invalidEmailException);
-            InternetAddress internetAddress = new InternetAddress(userForm.getEmail_address());
+            InternetAddress internetAddress = new InternetAddress(userForm1.getEmail_address());
             internetAddress.validate();
         } catch (InvalidContactNumberException | InvalidEmailException | AddressException e) {
             return e.getMessage();
@@ -93,12 +93,12 @@ public class UserServiceImpl implements UserService {
 
 
         user.setUser_id(sequenceGeneratorService.getUserSequenceNmber("user_sequence"));
-        user.setFull_name(userForm.getFull_name());
-        user.setAge(userForm.getAge());
-        user.setContact_no(userForm.getContact_no());
+        user.setFull_name(userForm1.getFull_name());
+        user.setAge(userForm1.getAge());
+        user.setContact_no(userForm1.getContact_no());
         credentials.setUser_id(user.getUser_id());
-        credentials.setUsername("user" + Arrays.stream(userForm.getFull_name().split(" ")).collect(Collectors.toList()).get(0)+new Random().nextInt(10000));
-        user.setEmail_address(userForm.getEmail_address());
+        credentials.setUsername("user" + Arrays.stream(userForm1.getFull_name().split(" ")).collect(Collectors.toList()).get(0)+new Random().nextInt(10000));
+        user.setEmail_address(userForm1.getEmail_address());
         // Generating password here
         StringBuilder password = new StringBuilder();
         for (int i = 0; i < 8 + new Random().nextInt(5); i++) {
@@ -114,14 +114,14 @@ public class UserServiceImpl implements UserService {
         user.setLock_time(LocalTime.MIN);
         user.setTickets(new HashMap<>());
         credentials.setPassword(password.toString());
-        if(secret_key.equals(userForm.getSecret_key()))
+        if(secret_key.equals(userForm1.getSecret_key()))
             user.setRoles("ADMIN");
         else
             user.setRoles("USER");
         userRepository.save(user);
         credentialsRepository.save(credentials);
-        emailService.sendSimpleEmail(userForm.getEmail_address(),"Dear "+userForm.getFull_name()+",\nThank you for registering on Railway application System\n\nWith Regards\nRailway Developer\nrailway.reservation.system@gmail.com","Welcome to Railway Reservation System");
-        emailService.sendSimpleEmail(userForm.getEmail_address(),"User Created Successfully \n\n Your Credentials are here \n Username : " + credentials.getUsername() + " \n Password : " + credentials.getPassword(),"Your user account has been Created");
+        emailService.sendSimpleEmail(userForm1.getEmail_address(),"Dear "+ userForm1.getFull_name()+",\nThank you for registering on Railway application System\n\nWith Regards\nRailway Developer\nrailway.reservation.system@gmail.com","Welcome to Railway Reservation System");
+        emailService.sendSimpleEmail(userForm1.getEmail_address(),"User Created Successfully \n\n Your Credentials are here \n Username : " + credentials.getUsername() + " \n Password : " + credentials.getPassword(),"Your user account has been Created");
         return "Your User Account has been created with this "+user.getUser_id()+" and your will get your credentials on email address, go and check it";
     }
     // *---------------------------------------------------------------------------------*
