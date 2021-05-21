@@ -12,18 +12,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestComponent;
-import railway.reservation.system.Models.TimeTable;
-import railway.reservation.system.Models.TrainsBetweenStation;
-import railway.reservation.system.Service.TrainService.TrainService;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import railway.reservation.system.model.TimeTable;
+import railway.reservation.system.model.TrainLocation;
+import railway.reservation.system.model.TrainsBetweenStation;
+import railway.reservation.system.model.train.Train;
+import railway.reservation.system.service.trainService.TrainService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -35,6 +36,8 @@ public class Functionality_Testing {
 
     @Autowired
     TrainService trainService;
+    @Autowired
+    MongoRepository<Train, Long> mongoRepository;
 
     // *----------------------------------------------------------------------------------------------------------*
 
@@ -48,6 +51,8 @@ public class Functionality_Testing {
     JSONArray jsonArray;
     String trainsBetweenStationFile;
     List<TrainsBetweenStation> trainBetweenStationList;
+    String trainLocationFile;
+    List<TrainLocation> trainLocationList;
 
     List<TimeTable> getTimeTableList(String timeTableFile) throws JSONException {
         jsonArray = new JSONArray(timeTableFile);
@@ -149,10 +154,73 @@ public class Functionality_Testing {
         trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
         Assertions.assertEquals(trainBetweenStationList.toString(), trainService.trainsBetweenStation("noob city", "Local City").toString());
     }
-
     // *------------------------------------------------------------------------------------------------------------------*
 
 
+
+    // *---------------------------------------------------------- Train Fair ---------------------------------------------*
+    @Test
+    public void TrainsFare_testcase_1() throws IOException, JSONException {
+        trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainFare-TestCase/TrainFare_TestCase_1.json"));
+        trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
+        Assertions.assertEquals(trainBetweenStationList.toString(), trainService.trainFair("Lahore Junction", "Karachi City").toString());
+
+    }
+
+    @Test
+    void TrainsFare_testcase_2() throws IOException, JSONException {
+        trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainFare-TestCase/TrainFare_TestCase_2.json"));
+        trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
+        Assertions.assertEquals(trainBetweenStationList.toString(), trainService.trainFair("Lahore Junction", "Landhi Junction").toString());
+
+    }
+
+    @Test
+    void TrainsFare_testcase_3() throws IOException, JSONException {
+        trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainFare-TestCase/TrainFare_TestCase_3.json"));
+        trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
+        Assertions.assertEquals(trainBetweenStationList.toString(), trainService.trainFair("", "").toString());
+
+    }
+
+    @Test
+    void TrainsFare_testcase_4() throws IOException, JSONException {
+        trainsBetweenStationFile = Files.readString(Path.of("src/test/resources/TrainFare-TestCase/TrainFare_TestCase_4.json"));
+        trainBetweenStationList = getTrainsBetweenStationList(trainsBetweenStationFile);
+        Assertions.assertEquals(trainBetweenStationList.toString(), trainService.trainFair("noob city", "Local City").toString());
+    }
+    // *-------------------------------------------------------------------------------------------------------------------*
+
+
+
+
+    // *--------------------------------------------------- Display Train ------------------------------------------------*
+
+    @Test
+    void Train_testcase_1() throws IOException, JSONException {
+        String train_no = "410878";
+        Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void Train_testcase_2() throws IOException, JSONException {
+        String train_no = "5555108";
+        Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void Train_testcase_3() throws IOException, JSONException {
+        String train_no = "778120";
+        Train train = mongoRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    @Test
+    void Train_testcase_4() throws IOException, JSONException {
+        String train_no = "4108";
+        Train train = new Train(null,"This train is not running usually on that day",null,null,null,null,null,null, new Hashtable<>(),0,false,null);
+        Assertions.assertEquals(train.toString(), trainService.displayTrain(train_no).toString());
+    }
+    // *-------------------------------------------------------------------------------------------------------------------*
 
 
 }

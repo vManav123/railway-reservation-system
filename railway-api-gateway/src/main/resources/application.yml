@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: RAILWAY-API-GATEWAY
+  data:
+    mongodb:
+      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/User-Management-System?retryWrites=true&w=majority
   cloud:
     gateway:
       discovery:
@@ -22,6 +25,10 @@ spring:
           uri: lb://RAILWAY-APPLICATION-SYSTEM
           predicates:
             - Path=/application/**
+        - id: BANK-MANAGEMENT-SERVICE
+          uri: lb://BANK-MANAGEMENT-SERVICE
+          predicates:
+            - Path=/bank/**
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:

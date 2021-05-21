@@ -18,4 +18,32 @@ spring:
     name: RAILWAY-APPLICATION-SYSTEM
   data:
     mongodb:
-      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Railway-Reservation-System?retryWrites=true&w=majority
+      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/User-Management-System?retryWrites=true&w=majority
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: railway.reservation.service@gmail.com
+    password: rvmbsocvdjcfbxpx
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          port: 25
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+
+application:
+  rabbitmq:
+    exchange: application.exchange
+    queue: application.queue
+    routingkey: application.routingkey

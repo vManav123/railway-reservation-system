@@ -1,0 +1,14 @@
+         ----------------------------------  Welcome To Railway Reservation Network ------------------------------------------
+
+         Train No. / Train Name : 778120 / Allama Iqbal Express       Trip : Karachi City -----------> Sialkot Junction
+         Class Name : ACL        Seat No : 6       Quota : General
+         Time : 2021-05-20T01:33:16 ----> 2021-05-20T11:48:16
+         Date of Journey : 2021-05-20            Journey Time : 0 Days 10 h 40 m
+         Status : Confirmed
+
+         -----------------------------------------------------------------------------------------------------------------------
+         Passenger Name : Manav Verma
+         Contact No : 9932293929
+         Gender : Male
+         Age : 34
+         Email Address : vmanav1999@gmail.com

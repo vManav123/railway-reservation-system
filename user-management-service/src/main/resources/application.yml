@@ -4,9 +4,23 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Railway-Reservation-System?retryWrites=true&w=majority
+      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/User-Management-System?retryWrites=true&w=majority
   application:
     name: USER-MANAGEMENT-SERVICE
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: user.development.service@gmail.com
+    password: yldmghbvaosxlgri
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          port: 25
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 eureka:
   client:

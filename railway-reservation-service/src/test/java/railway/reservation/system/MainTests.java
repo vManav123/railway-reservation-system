@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import railway.reservation.system.Models.Train.Train;
-import railway.reservation.system.Service.TrainService.TrainService;
+import railway.reservation.system.model.train.Train;
+import railway.reservation.system.service.trainService.TrainService;
 
 import java.io.IOException;
 
@@ -28,15 +28,14 @@ class MainTests {
     @Autowired
     private Functionality_Testing _functionality_testing;
 
-    // *---------------------------------------------------------------------------------*
-
-    // *------------------------ TimeTable Functionality Testing ------------------------*
-
     @Test
     void DisplayAllTrain_testcase() {
         Assertions.assertEquals(mongoRepository.findAll().toString(), trainService.displayAllTrains().toString());
     }
+    // *---------------------------------------------------------------------------------*
 
+
+    // *------------------------ TimeTable Functionality Testing ------------------------*
     @Test
     public void timeTable_functionality_testing() throws JSONException, IOException {
         _functionality_testing.TimeTable_testcase_1();
@@ -44,11 +43,10 @@ class MainTests {
         _functionality_testing.TimeTable_testcase_3();
         _functionality_testing.TimeTable_testcase_4();
     }
-
     // *--------------------------------------------------------------------------------*
 
-    // *----------------- train Between Station Functionality Testing ------------------*
 
+    // *----------------- train Between Station Functionality Testing ------------------*
     @Test
     public void trainsBetweenStation_functionality_testing() throws JSONException, IOException {
         _functionality_testing.TrainsBetweenStation_testcase_1();
@@ -56,7 +54,28 @@ class MainTests {
         _functionality_testing.TrainsBetweenStation_testcase_3();
         _functionality_testing.TrainsBetweenStation_testcase_4();
     }
+    // *---------------------------------------------------------------------------------*
 
+
+    // *----------------- train Between Station Functionality Testing -------------------*
+    @Test
+    public void trainFare_functionality_testing() throws JSONException, IOException{
+        _functionality_testing.TrainsFare_testcase_1();
+        _functionality_testing.TrainsFare_testcase_2();
+        _functionality_testing.TrainsFare_testcase_3();
+        _functionality_testing.TrainsFare_testcase_4();
+    }
+    // *---------------------------------------------------------------------------------*
+
+
+    // *----------------- train Between Station Functionality Testing -------------------*
+    @Test
+    public void trainDetail_functionality_testing() throws JSONException, IOException{
+        _functionality_testing.Train_testcase_1();
+        _functionality_testing.TrainsFare_testcase_2();
+        _functionality_testing.TrainsFare_testcase_3();
+        _functionality_testing.TrainsFare_testcase_4();
+    }
     // *---------------------------------------------------------------------------------*
 
 

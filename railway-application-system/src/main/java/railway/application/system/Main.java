@@ -9,9 +9,10 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-import railway.application.system.Models.Body.SeatData;
-import railway.application.system.Models.Payment.Payment;
-import railway.application.system.Models.Ticket;
+import railway.application.system.models.response.Message;
+import railway.application.system.models.response.SeatData;
+import railway.application.system.models.payment.Payment;
+import railway.application.system.models.Ticket;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -52,6 +53,9 @@ public class Main {
     public SeatData seatData() {
         return new SeatData();
     }
+
+    @Bean
+    public Message message(){return new Message();}
     // *-----------------------------------------------------------------*
 
 }

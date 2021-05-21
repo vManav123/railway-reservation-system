@@ -1,8 +1,0 @@
-package railway.application.system.ExceptionHandling;
-
-public class InvalidContactNumberException extends Exception{
-    public InvalidContactNumberException(String s)
-    {
-        super(s);
-    }
-}

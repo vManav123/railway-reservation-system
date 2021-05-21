@@ -1,0 +1,1269 @@
+[
+  {
+    "current_station": "Karachi City",
+    "arrival_time": "2021-05-21T08:15:40",
+    "departure_time": "2021-05-21T08:15:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Karachi Cantonment",
+    "arrival_time": "2021-05-21T08:30:40",
+    "departure_time": "2021-05-21T08:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Departure Yard",
+    "arrival_time": "2021-05-21T08:48:40",
+    "departure_time": "2021-05-21T08:51:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Drig Road",
+    "arrival_time": "2021-05-21T09:06:40",
+    "departure_time": "2021-05-21T09:09:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Malir Cantonment",
+    "arrival_time": "2021-05-21T09:24:40",
+    "departure_time": "2021-05-21T09:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Landhi Junction",
+    "arrival_time": "2021-05-21T09:42:40",
+    "departure_time": "2021-05-21T09:45:40",
+    "train_status": "Departed",
+    "platform": 5
+  },
+  {
+    "current_station": "Jummah Goth",
+    "arrival_time": "2021-05-21T10:00:40",
+    "departure_time": "2021-05-21T10:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Bin Qasim",
+    "arrival_time": "2021-05-21T10:18:40",
+    "departure_time": "2021-05-21T10:21:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Dabheji",
+    "arrival_time": "2021-05-21T10:36:40",
+    "departure_time": "2021-05-21T10:39:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Ran Pethani",
+    "arrival_time": "2021-05-21T10:54:40",
+    "departure_time": "2021-05-21T10:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Jungshahi",
+    "arrival_time": "2021-05-21T11:12:40",
+    "departure_time": "2021-05-21T11:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Braudabad",
+    "arrival_time": "2021-05-21T11:30:40",
+    "departure_time": "2021-05-21T11:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Jhimpir",
+    "arrival_time": "2021-05-21T11:48:40",
+    "departure_time": "2021-05-21T11:51:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Meting",
+    "arrival_time": "2021-05-21T12:06:40",
+    "departure_time": "2021-05-21T12:09:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Bholari",
+    "arrival_time": "2021-05-21T12:24:40",
+    "departure_time": "2021-05-21T12:27:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Kotri Junction",
+    "arrival_time": "2021-05-21T12:42:40",
+    "departure_time": "2021-05-21T12:45:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Hyderabad Junction",
+    "arrival_time": "2021-05-21T13:00:40",
+    "departure_time": "2021-05-21T13:03:40",
+    "train_status": "Departed",
+    "platform": 8
+  },
+  {
+    "current_station": "Detha",
+    "arrival_time": "2021-05-21T13:18:40",
+    "departure_time": "2021-05-21T13:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Allahdino Sand",
+    "arrival_time": "2021-05-21T13:36:40",
+    "departure_time": "2021-05-21T13:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Palijani",
+    "arrival_time": "2021-05-21T13:54:40",
+    "departure_time": "2021-05-21T13:57:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Wahab Shah",
+    "arrival_time": "2021-05-21T14:12:40",
+    "departure_time": "2021-05-21T14:15:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Oderolal",
+    "arrival_time": "2021-05-21T14:30:40",
+    "departure_time": "2021-05-21T14:33:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Tando Adam Junction",
+    "arrival_time": "2021-05-21T14:48:40",
+    "departure_time": "2021-05-21T14:51:40",
+    "train_status": "Departed",
+    "platform": 6
+  },
+  {
+    "current_station": "Jalal Marri",
+    "arrival_time": "2021-05-21T15:06:40",
+    "departure_time": "2021-05-21T15:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Shahdadpur",
+    "arrival_time": "2021-05-21T15:24:40",
+    "departure_time": "2021-05-21T15:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Lundo",
+    "arrival_time": "2021-05-21T15:42:40",
+    "departure_time": "2021-05-21T15:45:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Sarhari",
+    "arrival_time": "2021-05-21T16:00:40",
+    "departure_time": "2021-05-21T16:03:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Nawabshah",
+    "arrival_time": "2021-05-21T16:18:40",
+    "departure_time": "2021-05-21T16:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Bucheri",
+    "arrival_time": "2021-05-21T16:36:40",
+    "departure_time": "2021-05-21T16:39:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Daur",
+    "arrival_time": "2021-05-21T16:54:40",
+    "departure_time": "2021-05-21T16:57:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Bandhi",
+    "arrival_time": "2021-05-21T17:12:40",
+    "departure_time": "2021-05-21T17:15:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Malakwal Junction",
+    "arrival_time": "2021-05-21T17:30:40",
+    "departure_time": "2021-05-21T17:33:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kot Lalloo",
+    "arrival_time": "2021-05-21T17:48:40",
+    "departure_time": "2021-05-21T17:51:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Pad Idan Junction",
+    "arrival_time": "2021-05-21T18:06:40",
+    "departure_time": "2021-05-21T18:09:40",
+    "train_status": "Departed",
+    "platform": 7
+  },
+  {
+    "current_station": "Bhiria Road",
+    "arrival_time": "2021-05-21T18:24:40",
+    "departure_time": "2021-05-21T18:27:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Lakha Road",
+    "arrival_time": "2021-05-21T18:42:40",
+    "departure_time": "2021-05-21T18:45:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Mahrabpur Junction",
+    "arrival_time": "2021-05-21T19:00:40",
+    "departure_time": "2021-05-21T19:03:40",
+    "train_status": "Departed",
+    "platform": 8
+  },
+  {
+    "current_station": "Setharja",
+    "arrival_time": "2021-05-21T19:18:40",
+    "departure_time": "2021-05-21T19:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Ranipur Riyasat",
+    "arrival_time": "2021-05-21T19:36:40",
+    "departure_time": "2021-05-21T19:39:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Gambat",
+    "arrival_time": "2021-05-21T19:54:40",
+    "departure_time": "2021-05-21T19:57:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Pir Katpar",
+    "arrival_time": "2021-05-21T20:12:40",
+    "departure_time": "2021-05-21T20:15:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Sialkot Junction",
+    "arrival_time": "2021-05-21T20:30:40",
+    "departure_time": "2021-05-21T20:33:40",
+    "train_status": "Departed",
+    "platform": 8
+  },
+  {
+    "current_station": "Tando Mustikhan",
+    "arrival_time": "2021-05-21T20:48:40",
+    "departure_time": "2021-05-21T20:51:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Khairpur",
+    "arrival_time": "2021-05-21T21:06:40",
+    "departure_time": "2021-05-21T21:09:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Begmanji",
+    "arrival_time": "2021-05-21T21:24:40",
+    "departure_time": "2021-05-21T21:27:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Rohri Junction",
+    "arrival_time": "2021-05-21T21:42:40",
+    "departure_time": "2021-05-21T21:45:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Mando Dairo",
+    "arrival_time": "2021-05-21T22:00:40",
+    "departure_time": "2021-05-21T22:03:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Sangi",
+    "arrival_time": "2021-05-21T22:18:40",
+    "departure_time": "2021-05-21T22:21:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Pano Akil",
+    "arrival_time": "2021-05-21T22:36:40",
+    "departure_time": "2021-05-21T22:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Mahesar",
+    "arrival_time": "2021-05-21T22:54:40",
+    "departure_time": "2021-05-21T22:57:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Ghotki",
+    "arrival_time": "2021-05-21T23:12:40",
+    "departure_time": "2021-05-21T23:15:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Sarhad",
+    "arrival_time": "2021-05-21T23:30:40",
+    "departure_time": "2021-05-21T23:33:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Mirpur Mathelo",
+    "arrival_time": "2021-05-21T23:48:40",
+    "departure_time": "2021-05-21T23:51:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Daharki",
+    "arrival_time": "2021-05-21T00:06:40",
+    "departure_time": "2021-05-21T00:09:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Reti",
+    "arrival_time": "2021-05-21T00:24:40",
+    "departure_time": "2021-05-21T00:27:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Walhar",
+    "arrival_time": "2021-05-21T00:42:40",
+    "departure_time": "2021-05-21T00:45:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Machi Goth",
+    "arrival_time": "2021-05-21T01:00:40",
+    "departure_time": "2021-05-21T01:03:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Sadiqabad",
+    "arrival_time": "2021-05-21T01:18:40",
+    "departure_time": "2021-05-21T01:21:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Adamshaba",
+    "arrival_time": "2021-05-21T01:36:40",
+    "departure_time": "2021-05-21T01:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Rahim Yar Khan",
+    "arrival_time": "2021-05-21T01:54:40",
+    "departure_time": "2021-05-21T01:57:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Tarinda",
+    "arrival_time": "2021-05-21T02:12:40",
+    "departure_time": "2021-05-21T02:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kotsamaba",
+    "arrival_time": "2021-05-21T02:30:40",
+    "departure_time": "2021-05-21T02:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Sahja",
+    "arrival_time": "2021-05-21T02:48:40",
+    "departure_time": "2021-05-21T02:51:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Khanpur Junction",
+    "arrival_time": "2021-05-21T03:06:40",
+    "departure_time": "2021-05-21T03:09:40",
+    "train_status": "Departed",
+    "platform": 5
+  },
+  {
+    "current_station": "Jhetha Bhutta",
+    "arrival_time": "2021-05-21T03:24:40",
+    "departure_time": "2021-05-21T03:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Firoza",
+    "arrival_time": "2021-05-21T03:42:40",
+    "departure_time": "2021-05-21T03:45:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Liaquatpur",
+    "arrival_time": "2021-05-21T04:00:40",
+    "departure_time": "2021-05-21T04:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Dera Nawab Sahib",
+    "arrival_time": "2021-05-21T04:18:40",
+    "departure_time": "2021-05-21T04:21:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Mubarakpur",
+    "arrival_time": "2021-05-21T04:36:40",
+    "departure_time": "2021-05-21T04:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kalanchwala",
+    "arrival_time": "2021-05-21T04:54:40",
+    "departure_time": "2021-05-21T04:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Samasata Junction",
+    "arrival_time": "2021-05-21T05:12:40",
+    "departure_time": "2021-05-21T05:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Bahawalpur",
+    "arrival_time": "2021-05-21T05:30:40",
+    "departure_time": "2021-05-21T05:33:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Lodhran Junction",
+    "arrival_time": "2021-05-21T05:48:40",
+    "departure_time": "2021-05-21T05:51:40",
+    "train_status": "Departed",
+    "platform": 4
+  },
+  {
+    "current_station": "Shah Nal",
+    "arrival_time": "2021-05-21T06:06:40",
+    "departure_time": "2021-05-21T06:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Gilawala",
+    "arrival_time": "2021-05-21T06:24:40",
+    "departure_time": "2021-05-21T06:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Zarif Shaheed",
+    "arrival_time": "2021-05-21T06:42:40",
+    "departure_time": "2021-05-21T06:45:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Shujabad",
+    "arrival_time": "2021-05-21T07:00:40",
+    "departure_time": "2021-05-21T07:03:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Chak",
+    "arrival_time": "2021-05-21T07:18:40",
+    "departure_time": "2021-05-21T07:21:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Sher Shah Junction",
+    "arrival_time": "2021-05-21T07:36:40",
+    "departure_time": "2021-05-21T07:39:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Muzaffarabad",
+    "arrival_time": "2021-05-21T07:54:40",
+    "departure_time": "2021-05-21T07:57:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Multan Cantonment",
+    "arrival_time": "2021-05-21T08:12:40",
+    "departure_time": "2021-05-21T08:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Multan City",
+    "arrival_time": "2021-05-21T08:30:40",
+    "departure_time": "2021-05-21T08:33:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Piran Ghaib",
+    "arrival_time": "2021-05-21T08:48:40",
+    "departure_time": "2021-05-21T08:51:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Tatipur",
+    "arrival_time": "2021-05-21T09:06:40",
+    "departure_time": "2021-05-21T09:09:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Riazabad",
+    "arrival_time": "2021-05-21T09:24:40",
+    "departure_time": "2021-05-21T09:27:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kot Abbas Shaheed",
+    "arrival_time": "2021-05-21T09:42:40",
+    "departure_time": "2021-05-21T09:45:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Khanewal Junction",
+    "arrival_time": "2021-05-21T10:00:40",
+    "departure_time": "2021-05-21T10:03:40",
+    "train_status": "Departed",
+    "platform": 4
+  },
+  {
+    "current_station": "Dera Taj",
+    "arrival_time": "2021-05-21T10:18:40",
+    "departure_time": "2021-05-21T10:21:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Rajput Nagar",
+    "arrival_time": "2021-05-21T10:36:40",
+    "departure_time": "2021-05-21T10:39:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Kacha Khuh",
+    "arrival_time": "2021-05-21T10:54:40",
+    "departure_time": "2021-05-21T10:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Mohsinwal",
+    "arrival_time": "2021-05-21T11:12:40",
+    "departure_time": "2021-05-21T11:15:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Mian Channun",
+    "arrival_time": "2021-05-21T11:30:40",
+    "departure_time": "2021-05-21T11:33:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Kassowal",
+    "arrival_time": "2021-05-21T11:48:40",
+    "departure_time": "2021-05-21T11:51:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Chichawatni",
+    "arrival_time": "2021-05-21T12:06:40",
+    "departure_time": "2021-05-21T12:09:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Harappa",
+    "arrival_time": "2021-05-21T12:24:40",
+    "departure_time": "2021-05-21T12:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Sahiwal",
+    "arrival_time": "2021-05-21T12:42:40",
+    "departure_time": "2021-05-21T12:45:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Yusafwala",
+    "arrival_time": "2021-05-21T13:00:40",
+    "departure_time": "2021-05-21T13:03:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Okara Cantonment",
+    "arrival_time": "2021-05-21T13:18:40",
+    "departure_time": "2021-05-21T13:21:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Okara",
+    "arrival_time": "2021-05-21T13:36:40",
+    "departure_time": "2021-05-21T13:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kissan",
+    "arrival_time": "2021-05-21T13:54:40",
+    "departure_time": "2021-05-21T13:57:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Renala Khurd",
+    "arrival_time": "2021-05-21T14:12:40",
+    "departure_time": "2021-05-21T14:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Akhtarabad",
+    "arrival_time": "2021-05-21T14:30:40",
+    "departure_time": "2021-05-21T14:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Habibabad",
+    "arrival_time": "2021-05-21T14:48:40",
+    "departure_time": "2021-05-21T14:51:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Sehjowal",
+    "arrival_time": "2021-05-21T15:06:40",
+    "departure_time": "2021-05-21T15:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Pattoki",
+    "arrival_time": "2021-05-21T15:24:40",
+    "departure_time": "2021-05-21T15:27:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Changa Manga",
+    "arrival_time": "2021-05-21T15:42:40",
+    "departure_time": "2021-05-21T15:45:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Bhoe Asal",
+    "arrival_time": "2021-05-21T16:00:40",
+    "departure_time": "2021-05-21T16:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Kot Radha Kishn",
+    "arrival_time": "2021-05-21T16:18:40",
+    "departure_time": "2021-05-21T16:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Prem Nagar",
+    "arrival_time": "2021-05-21T16:36:40",
+    "departure_time": "2021-05-21T16:39:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Raiwind Junction",
+    "arrival_time": "2021-05-21T16:54:40",
+    "departure_time": "2021-05-21T16:57:40",
+    "train_status": "Departed",
+    "platform": 5
+  },
+  {
+    "current_station": "Jia Bagga",
+    "arrival_time": "2021-05-21T17:12:40",
+    "departure_time": "2021-05-21T17:15:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kana Kacha",
+    "arrival_time": "2021-05-21T17:30:40",
+    "departure_time": "2021-05-21T17:33:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kot Lakhpat",
+    "arrival_time": "2021-05-21T17:48:40",
+    "departure_time": "2021-05-21T17:51:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Walton",
+    "arrival_time": "2021-05-21T18:06:40",
+    "departure_time": "2021-05-21T18:09:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Lahore Cantonment",
+    "arrival_time": "2021-05-21T18:24:40",
+    "departure_time": "2021-05-21T18:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Lahore Junction",
+    "arrival_time": "2021-05-21T18:42:40",
+    "departure_time": "2021-05-21T18:45:40",
+    "train_status": "Departed",
+    "platform": 6
+  },
+  {
+    "current_station": "Badami Bagh",
+    "arrival_time": "2021-05-21T19:00:40",
+    "departure_time": "2021-05-21T19:03:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Shahdara Bagh Junction",
+    "arrival_time": "2021-05-21T19:18:40",
+    "departure_time": "2021-05-21T19:21:40",
+    "train_status": "Departed",
+    "platform": 6
+  },
+  {
+    "current_station": "Kala Shah Kaku",
+    "arrival_time": "2021-05-21T19:36:40",
+    "departure_time": "2021-05-21T19:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Muridke",
+    "arrival_time": "2021-05-21T19:54:40",
+    "departure_time": "2021-05-21T19:57:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Sadhoke",
+    "arrival_time": "2021-05-21T20:12:40",
+    "departure_time": "2021-05-21T20:15:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Kamoke",
+    "arrival_time": "2021-05-21T20:30:40",
+    "departure_time": "2021-05-21T20:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Eminabad",
+    "arrival_time": "2021-05-21T20:48:40",
+    "departure_time": "2021-05-21T20:51:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Gujranwala City",
+    "arrival_time": "2021-05-21T21:06:40",
+    "departure_time": "2021-05-21T21:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Gujranwala",
+    "arrival_time": "2021-05-21T21:24:40",
+    "departure_time": "2021-05-21T21:27:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Gujranwala Cantonment",
+    "arrival_time": "2021-05-21T21:42:40",
+    "departure_time": "2021-05-21T21:45:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Ghakkhar Mandi",
+    "arrival_time": "2021-05-21T22:00:40",
+    "departure_time": "2021-05-21T22:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Dhaunkal",
+    "arrival_time": "2021-05-21T22:18:40",
+    "departure_time": "2021-05-21T22:21:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Wazirabad Junction",
+    "arrival_time": "2021-05-21T22:36:40",
+    "departure_time": "2021-05-21T22:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Haripur Band",
+    "arrival_time": "2021-05-21T22:54:40",
+    "departure_time": "2021-05-21T22:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Gujrat",
+    "arrival_time": "2021-05-21T23:12:40",
+    "departure_time": "2021-05-21T23:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Deona Juliani",
+    "arrival_time": "2021-05-21T23:30:40",
+    "departure_time": "2021-05-21T23:33:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Lala Musa Junction",
+    "arrival_time": "2021-05-21T23:48:40",
+    "departure_time": "2021-05-21T23:51:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Chak Pirana",
+    "arrival_time": "2021-05-21T00:06:40",
+    "departure_time": "2021-05-21T00:09:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kharian Cantonment",
+    "arrival_time": "2021-05-21T00:24:40",
+    "departure_time": "2021-05-21T00:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kharian",
+    "arrival_time": "2021-05-21T00:42:40",
+    "departure_time": "2021-05-21T00:45:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Choa Kariala",
+    "arrival_time": "2021-05-21T01:00:40",
+    "departure_time": "2021-05-21T01:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Sarai Alamgir",
+    "arrival_time": "2021-05-21T01:18:40",
+    "departure_time": "2021-05-21T01:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Jhelum",
+    "arrival_time": "2021-05-21T01:36:40",
+    "departure_time": "2021-05-21T01:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kala",
+    "arrival_time": "2021-05-21T01:54:40",
+    "departure_time": "2021-05-21T01:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Kaluwal",
+    "arrival_time": "2021-05-21T02:12:40",
+    "departure_time": "2021-05-21T02:15:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Dina",
+    "arrival_time": "2021-05-21T02:30:40",
+    "departure_time": "2021-05-21T02:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Ratial",
+    "arrival_time": "2021-05-21T02:48:40",
+    "departure_time": "2021-05-21T02:51:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Bakrala",
+    "arrival_time": "2021-05-21T03:06:40",
+    "departure_time": "2021-05-21T03:09:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Tarki",
+    "arrival_time": "2021-05-21T03:24:40",
+    "departure_time": "2021-05-21T03:27:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Sohawa",
+    "arrival_time": "2021-05-21T03:42:40",
+    "departure_time": "2021-05-21T03:45:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Missa Keswal",
+    "arrival_time": "2021-05-21T04:00:40",
+    "departure_time": "2021-05-21T04:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Gujar Khan",
+    "arrival_time": "2021-05-21T04:18:40",
+    "departure_time": "2021-05-21T04:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Ghungrila",
+    "arrival_time": "2021-05-21T04:36:40",
+    "departure_time": "2021-05-21T04:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Mandra Junction",
+    "arrival_time": "2021-05-21T04:54:40",
+    "departure_time": "2021-05-21T04:57:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Kaliamawan",
+    "arrival_time": "2021-05-21T05:12:40",
+    "departure_time": "2021-05-21T05:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Mankiala",
+    "arrival_time": "2021-05-21T05:30:40",
+    "departure_time": "2021-05-21T05:33:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Sihala",
+    "arrival_time": "2021-05-21T05:48:40",
+    "departure_time": "2021-05-21T05:51:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Chaklala",
+    "arrival_time": "2021-05-21T06:06:40",
+    "departure_time": "2021-05-21T06:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Rawalpindi",
+    "arrival_time": "2021-05-21T06:24:40",
+    "departure_time": "2021-05-21T06:27:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Nur",
+    "arrival_time": "2021-05-21T06:42:40",
+    "departure_time": "2021-05-21T06:45:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Golra Sharif Junction",
+    "arrival_time": "2021-05-21T07:00:40",
+    "departure_time": "2021-05-21T07:03:40",
+    "train_status": "Departed",
+    "platform": 7
+  },
+  {
+    "current_station": "Sangjani",
+    "arrival_time": "2021-05-21T07:18:40",
+    "departure_time": "2021-05-21T07:21:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Taxila Cantonment",
+    "arrival_time": "2021-05-21T07:36:40",
+    "departure_time": "2021-05-21T07:39:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Wah Cantonment",
+    "arrival_time": "2021-05-21T07:54:40",
+    "departure_time": "2021-05-21T07:57:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Budho",
+    "arrival_time": "2021-05-21T08:12:40",
+    "departure_time": "2021-05-21T08:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Wah",
+    "arrival_time": "2021-05-21T08:30:40",
+    "departure_time": "2021-05-21T08:33:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Hasan Abdal",
+    "arrival_time": "2021-05-21T08:48:40",
+    "departure_time": "2021-05-21T08:51:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Burhan",
+    "arrival_time": "2021-05-21T09:06:40",
+    "departure_time": "2021-05-21T09:09:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Faqirabad",
+    "arrival_time": "2021-05-21T09:24:40",
+    "departure_time": "2021-05-21T09:27:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Sanjwal",
+    "arrival_time": "2021-05-21T09:42:40",
+    "departure_time": "2021-05-21T09:45:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Attock City Junction",
+    "arrival_time": "2021-05-21T10:00:40",
+    "departure_time": "2021-05-21T10:03:40",
+    "train_status": "Departed",
+    "platform": 6
+  },
+  {
+    "current_station": "Rumian",
+    "arrival_time": "2021-05-21T10:18:40",
+    "departure_time": "2021-05-21T10:21:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Attock Khurd",
+    "arrival_time": "2021-05-21T10:36:40",
+    "departure_time": "2021-05-21T10:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Khairabad Kund",
+    "arrival_time": "2021-05-21T10:54:40",
+    "departure_time": "2021-05-21T10:57:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Jhangira Road",
+    "arrival_time": "2021-05-21T11:12:40",
+    "departure_time": "2021-05-21T11:15:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Akora Khattak",
+    "arrival_time": "2021-05-21T11:30:40",
+    "departure_time": "2021-05-21T11:33:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Hayat Sher Pao Shahid",
+    "arrival_time": "2021-05-21T11:48:40",
+    "departure_time": "2021-05-21T11:51:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Nowshera Junction",
+    "arrival_time": "2021-05-21T12:06:40",
+    "departure_time": "2021-05-21T12:09:40",
+    "train_status": "Departed",
+    "platform": 5
+  },
+  {
+    "current_station": "Khushhal",
+    "arrival_time": "2021-05-21T12:24:40",
+    "departure_time": "2021-05-21T12:27:40",
+    "train_status": "Departed",
+    "platform": 2
+  },
+  {
+    "current_station": "Pir Piai",
+    "arrival_time": "2021-05-21T12:42:40",
+    "departure_time": "2021-05-21T12:45:40",
+    "train_status": "Departed",
+    "platform": 3
+  },
+  {
+    "current_station": "Pabbi",
+    "arrival_time": "2021-05-21T13:00:40",
+    "departure_time": "2021-05-21T13:03:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Taru Jabba",
+    "arrival_time": "2021-05-21T13:18:40",
+    "departure_time": "2021-05-21T13:21:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Nasarpur",
+    "arrival_time": "2021-05-21T13:36:40",
+    "departure_time": "2021-05-21T13:39:40",
+    "train_status": "Departed",
+    "platform": 0
+  },
+  {
+    "current_station": "Peshawar City",
+    "arrival_time": "2021-05-21T13:54:40",
+    "departure_time": "2021-05-21T13:57:40",
+    "train_status": "Departed",
+    "platform": 1
+  },
+  {
+    "current_station": "Peshawar Cantonment",
+    "arrival_time": "2021-05-21T14:12:40",
+    "departure_time": "2021-05-21T14:15:40",
+    "train_status": "Departed",
+    "platform": 1
+  }
+]

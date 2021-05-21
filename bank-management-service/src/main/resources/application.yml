@@ -1,0 +1,35 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Bank-Management-System?retryWrites=true&w=majority
+  application:
+    name: BANK-MANAGEMENT-SERVICE
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bank.railway.service@gmail.com
+    password: wwqanhoankbrgsxi
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          port: 25
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    hostname: localhost
+    ip-address: 127.0.0.1
+
+
+
