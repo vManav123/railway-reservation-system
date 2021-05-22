@@ -1,11 +1,13 @@
 package railway.reservation.system.service.trainService;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import railway.reservation.system.exceptions.NoTrainExistException;
+import railway.reservation.system.exceptions.StationNotExistException;
 import railway.reservation.system.exceptions.TrainNotRunningOnThisDayException;
 import railway.reservation.system.model.TimeTable;
 import railway.reservation.system.model.train.Detail;
@@ -22,19 +24,33 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class TrainServiceImpl implements TrainService {
 
 
     // *--------------------- Autowired Reference Variables----------------------*
     @Autowired
     TrainRepository trainRepository;
+    // *-------------------------------------------------------------------------*
+
+
+
+
     // *---------------------------- Exception Messages -------------------------*
     String noTrainsExistException = " !!! There is no train exist on this train Information !!!";
-    // *-------------------------------------------------------------------------*
+    String stationNotExistException = "!!! there is no Station exist on this Train Route";
     String trainNotRunningOnThisDayException = "This train is not running usually on that day";
+    // *-------------------------------------------------------------------------*
+
+
+
     @Value("${get.city:Karachi City}")
     private String city;
-    // *-------------------------------------------------------------------------*
+
+
+
+
+
 
     // *--------------------------- Basic Functionalities -----------------------*
     @Override
@@ -217,7 +233,7 @@ public class TrainServiceImpl implements TrainService {
         }
         StringBuilder result = new StringBuilder("*------------------------------------------------  ***  Trains Between " + trainsBetweenStationList.get(0).getOrigin() + "   --->    " + trainsBetweenStationList.get(0).getDestination() + "  ***  ---------------------------------------*\n \n"
                 + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n"
-                + "| Train No |         Train Name             |   Deprture   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
+                + "| Train No |         Train Name             |   Departure   |    Arrival    |  Travel Time   |               Running Days                   |                Classes                          | \n"
                 + "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- \n");
 
         for (TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList) {
@@ -270,6 +286,87 @@ public class TrainServiceImpl implements TrainService {
         return getTrainRoute(trains.get(0), date, your_location);
     }
 
+    public List<TrainLocation> getTrainRoute(Train train, LocalDate date, String your_location) {
+        String previous_station = "null";
+
+
+        // *------------- NoTrainExistException handled -----------------*
+        try {
+            for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {
+                if (map.getValue().getArrival_time().isBefore(LocalTime.now()) && map.getValue().getDeparture_time().isAfter(LocalTime.now())) {
+                    return getRoute(train, map.getKey(), "Arrived", date, your_location);
+                } else if (!previous_station.equals("null") && LocalTime.now().isAfter(train.getRoute().get(previous_station).getDeparture_time()) && LocalTime.now().isBefore(map.getValue().getArrival_time())) {
+                    return getRoute(train, previous_station, "departed", date, your_location);
+                }
+                previous_station = map.getKey();
+            }
+            throw new NoTrainExistException(noTrainsExistException);
+        } catch (NoTrainExistException e) {
+            return Collections.singletonList(new TrainLocation(e.getMessage(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", -1));
+        }
+
+    }
+
+    public List<TrainLocation> getRoute(Train train, String train_location, String departed, LocalDate date, String your_location) {
+        List<TrainLocation> route = new ArrayList<>();
+        LocalDate localDate = date;
+
+        // *------------- TrainNotRunningOnThisDayException handled -----------------*
+        try {
+            if (!train.getRun_days().contains(localDate.getDayOfWeek().toString().substring(0, 3).toUpperCase())) {
+                throw new TrainNotRunningOnThisDayException(trainNotRunningOnThisDayException);
+            }
+        } catch (TrainNotRunningOnThisDayException e) {
+            return Collections.singletonList(new TrainLocation(e.getMessage(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", -1));
+        }
+
+
+        LocalDateTime arrival = LocalDateTime.of(localDate, train.getDeparture_time());
+        LocalDateTime Departure = LocalDateTime.of(localDate, train.getDeparture_time());
+        LocalTime previous_time = train.getDeparture_time();
+
+
+        int chk = 0;
+        for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {
+            int platform;
+            if (map.getKey().contains("Junction"))
+                platform = new Random().nextInt(9);
+            else
+                platform = new Random().nextInt(4);
+
+            if ((map.getValue().getArrival_time().isAfter(LocalTime.NOON) && map.getValue().getDeparture_time().isBefore(LocalTime.NOON))) {
+                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
+                localDate = localDate.plusDays(1);
+                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
+                chk = 2;
+            } else if ( (previous_time.isAfter(LocalTime.NOON) && map.getValue().getArrival_time().isBefore(LocalTime.NOON))) {
+                localDate = localDate.plusDays(1);
+                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
+                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
+                chk = 1;
+            } else {
+                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
+                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
+            }
+            previous_time = Departure.toLocalTime();
+
+            if (chk == 1) {
+                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
+                chk = 3;
+            } else if (chk == 2) {
+                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
+                chk = 3;
+            }
+            else if(LocalDateTime.now().isBefore(LocalDateTime.of(LocalDate.now(),map.getValue().getDeparture_time())))
+                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
+            else if(LocalDateTime.now().isAfter(LocalDateTime.of(LocalDate.now(),map.getValue().getDeparture_time())))
+                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
+        }
+        return route;
+    }
+
+
+    // *------------------------------------- Train Location List to Table --------------------------------------*
     @Override
     public String trainLocationToTable(String train_search_info, LocalDate date, String your_location) {
 
@@ -285,8 +382,20 @@ public class TrainServiceImpl implements TrainService {
                     .collect(Collectors.toList())
                     .get(0);
 
-        boolean test1 = false;
-        boolean test3 = false;
+
+        //  Your Location Tested
+        try
+        {
+            if(!train.getRoute().containsKey(WordUtils.capitalizeFully(your_location)))
+                throw new StationNotExistException(stationNotExistException);
+        }
+        catch (StationNotExistException e)
+        {
+            return e.getMessage();
+        }
+        log.info("Your Location Found int the Route");
+
+
         String status = trainLocationList.get(0).getDeparture_time().isAfter(LocalDateTime.of(date,LocalTime.now())) ? "Arriving" : "Departed";
         for (TrainLocation trainLocation : trainLocationList)
         {
@@ -304,7 +413,7 @@ public class TrainServiceImpl implements TrainService {
                 .stream()
                 .filter(p->WordUtils.capitalizeFully(train_location).equalsIgnoreCase(p.getCurrent_station()) || WordUtils.capitalizeFully(your_location).equalsIgnoreCase(p.getCurrent_station()))
                 .collect(Collectors.toList());
-        System.out.println(trainLocations);
+
         Duration duration = Duration.between(trainLocations.get(0).getArrival_time()
                                             ,
                                             trainLocations
@@ -347,87 +456,6 @@ public class TrainServiceImpl implements TrainService {
         }
         return result.toString();
     }
-
-    public List<TrainLocation> getTrainRoute(Train train, LocalDate date, String your_location) {
-        String previous_station = "null";
-
-
-        // *------------- NoTrainExistException handled -----------------*
-        try {
-            for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {
-                if (map.getValue().getArrival_time().isBefore(LocalTime.now()) && map.getValue().getDeparture_time().isAfter(LocalTime.now())) {
-                    return getRoute(train, map.getKey(), "Arrived", date, your_location);
-                } else if (!previous_station.equals("null") && LocalTime.now().isAfter(train.getRoute().get(previous_station).getDeparture_time()) && LocalTime.now().isBefore(map.getValue().getArrival_time())) {
-                    return getRoute(train, previous_station, "departed", date, your_location);
-                }
-                previous_station = map.getKey();
-            }
-            throw new NoTrainExistException(noTrainsExistException);
-        } catch (NoTrainExistException e) {
-            return Collections.singletonList(new TrainLocation(e.getMessage(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", -1));
-        }
-
-    }
-
-    public List<TrainLocation> getRoute(Train train, String train_location, String departed, LocalDate date, String your_location) {
-        List<TrainLocation> route = new ArrayList<>();
-        LocalDate localDate = date;
-
-        // *------------- TrainNotRunningOnThisDayException handled -----------------*
-        try {
-            if (!train.getRun_days().contains(localDate.getDayOfWeek().toString().substring(0, 3).toUpperCase())) {
-                throw new TrainNotRunningOnThisDayException(trainNotRunningOnThisDayException);
-            }
-        } catch (TrainNotRunningOnThisDayException e) {
-            return Collections.singletonList(new TrainLocation(e.getMessage(), LocalDateTime.now(), LocalDateTime.now(), "Not Reachable", -1));
-        }
-
-
-        LocalDateTime departure = LocalDateTime.of(localDate, train.getDeparture_time());
-        LocalDateTime arrival = departure;
-        LocalDateTime Departure = departure;
-        LocalTime previous_time = departure.toLocalTime();
-
-
-        int chk = 0;
-        for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {
-            int platform;
-            if (map.getKey().contains("Junction"))
-                platform = new Random().nextInt(9);
-            else
-                platform = new Random().nextInt(4);
-
-            if ((map.getValue().getArrival_time().isAfter(LocalTime.NOON) && map.getValue().getDeparture_time().isBefore(LocalTime.NOON))) {
-                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
-                localDate = localDate.plusDays(1);
-                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
-                chk = 2;
-            } else if ( (previous_time.isAfter(LocalTime.NOON) && map.getValue().getArrival_time().isBefore(LocalTime.NOON))) {
-                localDate = localDate.plusDays(1);
-                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
-                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
-                chk = 1;
-            } else {
-                arrival = LocalDateTime.of(localDate, map.getValue().getArrival_time());
-                Departure = LocalDateTime.of(localDate, map.getValue().getDeparture_time());
-            }
-            previous_time = departure.toLocalTime();
-
-            if (chk == 1) {
-                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
-                chk = 3;
-            } else if (chk == 2) {
-                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
-                chk = 3;
-            }
-            else if(LocalDateTime.now().isBefore(LocalDateTime.of(LocalDate.now(),map.getValue().getDeparture_time())))
-                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
-            else if(LocalDateTime.now().isAfter(LocalDateTime.of(LocalDate.now(),map.getValue().getDeparture_time())))
-                route.add(new TrainLocation(map.getKey(), arrival, Departure, "Departed", platform));
-        }
-        return route;
-    }
-
 
     // *-------------------------------------------------------------------------------------------*
 
