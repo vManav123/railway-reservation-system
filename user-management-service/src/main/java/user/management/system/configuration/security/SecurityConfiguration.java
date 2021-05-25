@@ -1,4 +1,4 @@
-package railway.application.system.configuration.securityConfiguration;
+package user.management.system.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import railway.application.system.configuration.securityConfiguration.filters.JwtRequestFilter;
+import user.management.system.configuration.security.filters.JwtRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -33,9 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new Pbkdf2PasswordEncoder();
     }
 
-    @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationsManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
@@ -46,11 +45,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/v2/**", "/csrf","/configuration/security","/swagger-ui.html","/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui/**", "/webjars/**","/swagger.json")
                 .permitAll()
-                .antMatchers("/application/authenticate")
+                .antMatchers("/user/authenticate")
                 .permitAll()
-                .antMatchers("/application/public/**").permitAll()
-                .antMatchers("/trains/**", "/user/**").permitAll()
-                .antMatchers("/application/nonPublic/**").hasAnyAuthority("USER","ADMIN")
+                .antMatchers( "/user/nonPublic/**")
+                .hasAuthority("ADMIN")
+                .antMatchers("/user/public/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -60,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs/**");

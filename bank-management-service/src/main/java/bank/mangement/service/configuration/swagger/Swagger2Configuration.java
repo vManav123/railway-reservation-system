@@ -1,8 +1,10 @@
-package user.management.system.configuration.swaggerConfiguration;
+package bank.mangement.service.configuration.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
@@ -14,11 +16,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
-import java.util.List;
 
+import java.util.List;
+@SuppressWarnings("deprecation")
 @EnableSwagger2
 @Configuration
-public class Swagger2Configuration {
+public class Swagger2Configuration extends WebMvcConfigurerAdapter {
 
     private ApiKey apiKey() {
         return new ApiKey("JWT", "Authorization", "header");
@@ -33,7 +36,14 @@ public class Swagger2Configuration {
         authorizationScopes[0] = authorizationScope;
         return Collections.singletonList(new SecurityReference("JWT", authorizationScopes));
     }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui/")
+                .addResourceLocations("classpath:/META-INF/resources/");
 
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -46,14 +56,13 @@ public class Swagger2Configuration {
     }
 
     private ApiInfo apiDetails() {
-        return new ApiInfo("Railway Application System"
-                ,"This Application is for User Management purpose. here you can do   `Create User Account` , `Get User Details` , `ChangePassword` and many more thing can do..."
-                ,"1.2.0"
-                ,"Free To Use"
-                ,new springfox.documentation.service.Contact("Railway Developer","http://localhost:8085/user/welcome","user.development.service@gmail.com")
-                ,"API License"
-                ,"http://localhost:8085/user/welcome"
+        return new ApiInfo("Bank Management System"
+                , "Bank Management Service are here "
+                , "1.0.0"
+                , "Free To Use"
+                , new springfox.documentation.service.Contact("Railway Developer", "http://bank-management-system.com", "bank.railway.service@gmail.com")
+                , "API License"
+                , "http://bank-management-system.com"
                 , Collections.emptyList());
     }
-
 }

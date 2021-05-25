@@ -1,6 +1,7 @@
 package user.management.system.service.userService;
-
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import user.management.system.exception.InvalidContactNumberException;
@@ -100,10 +101,6 @@ public class UserServiceImpl implements UserService {
         credentials.setUsername("user" + Arrays.stream(userForm1.getFull_name().split(" ")).collect(Collectors.toList()).get(0)+new Random().nextInt(10000));
         user.setEmail_address(userForm1.getEmail_address());
         // Generating password here
-        StringBuilder password = new StringBuilder();
-        for (int i = 0; i < 8 + new Random().nextInt(5); i++) {
-            password.append((char) (new Random().nextInt(62) + 64));
-        }
         user.setBank_name("no Bank added");
         user.setAccount_no(0L);
         user.setCredit_card_no("null");
@@ -113,15 +110,18 @@ public class UserServiceImpl implements UserService {
         user.setAccount_non_locked(false);
         user.setLock_time(LocalTime.MIN);
         user.setTickets(new HashMap<>());
-        credentials.setPassword(password.toString());
+        String password = RandomStringUtils.randomAlphanumeric(new Random().nextInt(3)+8);
+        Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder();
+        credentials.setPassword(encoder.encode(password));
         if(secret_key.equals(userForm1.getSecret_key()))
             user.setRoles("ADMIN");
         else
             user.setRoles("USER");
+        credentials.setRoles(user.getRoles());
         userRepository.save(user);
         credentialsRepository.save(credentials);
         emailService.sendSimpleEmail(userForm1.getEmail_address(),"Dear "+ userForm1.getFull_name()+",\nThank you for registering on Railway application System\n\nWith Regards\nRailway Developer\nrailway.reservation.system@gmail.com","Welcome to Railway Reservation System");
-        emailService.sendSimpleEmail(userForm1.getEmail_address(),"User Created Successfully \n\n Your Credentials are here \n Username : " + credentials.getUsername() + " \n Password : " + credentials.getPassword(),"Your user account has been Created");
+        emailService.sendSimpleEmail(userForm1.getEmail_address(),"User Created Successfully \n\n Your Credentials are here \n Username : " + credentials.getUsername() + " \n Password : " + password,"Your user account has been Created");
         return "Your User Account has been created with this "+user.getUser_id()+" and your will get your credentials on email address, go and check it";
     }
     // *---------------------------------------------------------------------------------*
@@ -201,6 +201,13 @@ public class UserServiceImpl implements UserService {
         user.getTickets().put(pnr,ticket);
         userRepository.save(user);
         return "*------ Ticket Added Successfully -------*";
+    }
+
+    @Override
+    public Credentials getCredentials(long user_id) {
+        if(credentialsRepository.findAll().stream().noneMatch(p -> p.getUser_id().equals(user_id)))
+            return new Credentials();
+        return credentialsRepository.findAll().stream().filter(p->p.getUser_id().equals(user_id)).collect(Collectors.toList()).get(0);
     }
 
     @Override

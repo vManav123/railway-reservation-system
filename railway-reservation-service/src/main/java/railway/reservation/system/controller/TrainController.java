@@ -79,48 +79,48 @@ public class TrainController {
 
 
     // *--------------------------------------- Ticket Reservation Functionality ---------------------------------------------*
-    @GetMapping(path = "/addData")
+    @GetMapping(path = "/nonPublic/addData")
     @ApiIgnore
     public String addData() {
         log.trace("Added Data is Accessed");
         return trainSeatService.addData();
     }
 
-    @GetMapping(path = "/welcome")
+    @GetMapping(path = "/public/welcome")
     @ApiIgnore
     public String welcome() {
         return "Welcome to Pakistan Railway Reservation portal";
     }
 
-    @PostMapping(path = "/reserveTicket")
+    @PostMapping(path = "/public/reserveTicket")
     @ApiIgnore
     public TicketStatus reserveTicket(@RequestBody Ticket ticket){return reservationService.reserveTicket(ticket);}
 
-    @PostMapping(path = "/reservedTicket")
+    @PostMapping(path = "/public/reservedTicket")
     @ApiIgnore
     public String reservedTicket(@RequestBody ReservedTicket reservedTicket){return reservationService.reservedTicket(reservedTicket);}
 
-    @GetMapping(path = "/ticketExistByPNR/{pnr}")
+    @GetMapping(path = "/public/ticketExistByPNR/{pnr}")
     @ApiIgnore
     public boolean chkPNR(@PathVariable long pnr){return reservationService.ticketExistByPNR(pnr);}
 
-    @GetMapping(path = "/getTicket/{pnr}")
+    @GetMapping(path = "/public/getTicket/{pnr}")
     @ApiIgnore
     public ReservedTicket getTicket(@PathVariable long pnr){return reservationService.getTicket(pnr);}
 
-    @GetMapping(path = "/cancelTicket/{pnr}")
+    @GetMapping(path = "/public/cancelTicket/{pnr}")
     @ApiIgnore
     public String cancelTicket(@PathVariable long pnr){return reservationService.ticketCancellation(pnr);}
 
-    @PostMapping(path = "/cancelSeat")
+    @PostMapping(path = "/public/cancelSeat")
     @ApiIgnore
     public String cancelSeat(@RequestBody SeatData seatData){return reservationService.seatCancellation(seatData.getSeat_no(),seatData.getClass_name(),seatData.getSeat_id());}
 
-    @PostMapping(path = "/availableSeats")
+    @PostMapping(path = "/public/availableSeats")
     @ApiIgnore
     public String availableSeats(@RequestBody AvailableSeats availableSeats){return reservationService.availableSeats(availableSeats.getStart(),availableSeats.getDestination(),availableSeats.getLocalDate());}
 
-    @PostMapping(path = "/availableAccommodation")
+    @PostMapping(path = "/public/availableAccommodation")
     @ApiIgnore
     public String availableAccommodation(@RequestBody AccommodationBody accommodationBody){return reservationService.availableAccommodation(accommodationBody.getTrain_no(),accommodationBody.getDate());}
     // *---------------------------------------------- End of Reservation Functionalities ------------------------------------*
@@ -130,25 +130,25 @@ public class TrainController {
     // *----------------------------------------------- Train Management Functionalities -------------------------------------*
 
     //  *-------- Time Table Functionality -------*
-    @GetMapping(path = "/timeTable/{city}")
+    @GetMapping(path = "/public/timeTable/{city}")
     @ApiIgnore
     @ApiOperation(value = "get Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station in JSON format", response = TimeTable.class)
     public List<TimeTable> displayTimeTable(@PathVariable String city) {
         return trainService.displayTimeTable(city);
     }
 
-    @GetMapping(path = "/trainTimeTable/{city_name}")
+    @GetMapping(path = "/public/trainTimeTable/{city_name}")
     @ApiOperation(value = "Display Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ", response = TimeTable.class)
     public String displayTimeToTable(@PathVariable String city_name) { return trainService.displayTimeTableByYourCity(city_name); }
     // *-------------------------------------------*
 
 
     // *---Train Between Stations Functionality ---*
-    @GetMapping(path = "/trainsBetweenStation/{origin}:{destination}")
+    @GetMapping(path = "/public/trainsBetweenStation/{origin}:{destination}")
     @ApiOperation(value = "Display trains between stations", notes = "It will display all trains between given stations into Table Format", response = TrainsBetweenStation.class)
     public String getTrainsBetweenStationToTable(@PathVariable String origin, @PathVariable String destination) { return trainService.trainsBetweenStationToTable(origin, destination); }
 
-    @GetMapping(path = "/trainsBetweenStations/{origin}:{destination}")
+    @GetMapping(path = "/public/trainsBetweenStations/{origin}:{destination}")
     @ApiIgnore
     @ApiOperation(value = "get trains between stations", notes = "It will display all trains     between given stations into JSON Format", response = TrainsBetweenStation.class)
     public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin, @PathVariable String destination) { return trainService.trainsBetweenStation(origin, destination); }
@@ -156,13 +156,13 @@ public class TrainController {
 
 
     // *------- Train Location Functionality -------*
-    @PostMapping(path = "/trainsLocation")
+    @PostMapping(path = "/public/trainsLocation")
     @ApiOperation(value = "Display train location to your Train ", notes = "It will display trains location of given stations into JSON Format", response = TrainsBetweenStation.class)
     public String getTrainLocationToTable(@RequestBody LocationBody locationBody) {
         return trainService.trainLocationToTable(locationBody.getTrain_no(),locationBody.getDate(),locationBody.getYour_location());
     }
 
-    @PostMapping(path = "/trainsLocations")
+    @PostMapping(path = "/public/trainsLocations")
     @ApiIgnore
     @ApiOperation(value = "Display train location to your Train ", notes = "It will display trains location of given stations into Table Format", response = TrainsBetweenStation.class)
     public List<TrainLocation> getTrainLocation(@RequestBody LocationBody locationBody) {
@@ -172,14 +172,14 @@ public class TrainController {
 
 
     // *----- Basic Data Display Functionality -----*
-    @GetMapping(path = "/trainFare/{origin}:{destination}")
+    @GetMapping(path = "/public/trainFare/{origin}:{destination}")
     @ApiIgnore
     @ApiOperation(value = "Display trains and fare between stations", notes = "It will display all train and fare between given stations into JSON Format", response = TrainsBetweenStation.class)
     public String getTrainFareToTable(@PathVariable String origin, @PathVariable String destination) {
         return trainService.trainFairToTable(origin, destination);
     }
 
-    @GetMapping(path = "/trainFares/{origin}:{destination}")
+    @GetMapping(path = "/public/trainFares/{origin}:{destination}")
     @ApiIgnore
     @ApiOperation(value = "get trains and fare between stations", notes = "It will display all train and Fare between given stations into JSON Format", response = TrainsBetweenStation.class)
     public List<TrainsBetweenStation> getTrainFare(@PathVariable String origin, @PathVariable String destination) {
@@ -189,40 +189,47 @@ public class TrainController {
 
 
     // *----- Basic Data Display Functionality -----*
-    @PutMapping(path = "/updateAllTrains")
-    public String updateAlltrains(@RequestBody List<Train> list) {
+    @PutMapping(path = "/nonPublic/updateAllTrains")
+    public String updateAllTrains(@RequestBody List<Train> list) {
         return trainService.updateData(list);
     }
 
-    @GetMapping(path = "/customUpdate")
+    @GetMapping(path = "/nonPublic/customUpdate")
     @ApiIgnore
     public String customUpdate() {
         return trainService.customUpdation();
     }
 
-    @GetMapping(path = "/displayAllTrains")
-    public List<Train> displayAlltrains() {
+    @GetMapping(path = "/public/displayAllTrains")
+    public List<Train> displayAllTrains() {
         return trainService.displayAllTrains();
     }
 
-    @GetMapping(path = "/displaytrains/{trainsNo}")
+    @GetMapping(path = "/public/displaytrains/{trainsNo}")
     @ApiIgnore
     public Train displayTrains(@PathVariable String trainsNo) {
         return trainService.displayTrain(trainsNo);
     }
 
-    @GetMapping(path = "/getTrainByTrainNo/{train_no}")
+    @GetMapping(path = "/public/getTrainByTrainNo/{train_no}")
     public Train getTrainByTrainNo(@PathVariable String train_no) {
         return trainService.getTrainByTrainNo(train_no);
     }
 
+    @PostMapping(path = "/nonPublic/addTrain")
+    public String addTrain(@RequestBody Train train){return trainService.addTrain(train);}
 
-    @GetMapping(path = "/trainExistByTrainNo/{train_no}")
-    @ApiIgnore
+    @DeleteMapping(path = "/nonPublic/deleteTrain/{train_no}:{confirmation}")
+    public String deleteTrain(@PathVariable String train_no , @PathVariable String confirmation){return trainService.deleteTrain(train_no,confirmation);};
+
+    @DeleteMapping(path = "/nonPublic/deleteAllTrains/{confirmation}")
+    @ApiOperation(value = "Delete All Train Data from Database", notes = "Please be Careful to use this API , it gonna delete All Train Data from Railway Reservation System , if you want to continue , then type in Confirmation -> 'Yes'.", response = TrainsBetweenStation.class)
+    public String deleteAllTrains(String confirmation){return trainService.deleteAllTrains(confirmation);}
+
+    @GetMapping(path = "/public/trainExistByTrainNo/{train_no}")
     public boolean trainExistByTrainNo(@PathVariable String train_no) { return trainService.trainExistByTrainNo(train_no);}
 
-    @GetMapping(path = "/displaytrain/{trainsNo}")
-    @ApiIgnore
+    @GetMapping(path = "/public/displaytrain/{trainsNo}")
     public String displayTrain(@PathVariable String trainsNo) {
         return trainService.displayTrainToTable(trainsNo);
     }

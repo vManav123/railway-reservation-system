@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import railway.reservation.system.configuration.security.filters.JwtRequestFilter;
 
@@ -29,9 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
+    public PasswordEncoder passwordEncoder() { return new Pbkdf2PasswordEncoder(); }
 
     @Override
     @Bean
@@ -46,10 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/v2/**", "/csrf","/configuration/security","/swagger-ui.html","/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui/**", "/webjars/**","/swagger.json")
                 .permitAll()
-                .antMatchers("/application/authenticate")
+                .antMatchers("/trains/authenticate")
                 .permitAll()
-                .antMatchers("/trains/**").permitAll()
-                .antMatchers("/users/**").hasRole("USER")
+                .antMatchers("/trains/public**").permitAll()
+                .antMatchers("/trains/nonPublic**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

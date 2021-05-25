@@ -1,9 +1,13 @@
 package bank.mangement.service.service.bankService;
 
+import bank.mangement.service.model.bank.Bank_Account;
+import bank.mangement.service.model.bank.TransactionalHistory;
 import bank.mangement.service.model.bankForm.BankForm;
 import bank.mangement.service.model.bankForm.Debit;
 import bank.mangement.service.model.payment.Payment;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface BankService {
@@ -24,4 +28,12 @@ public interface BankService {
     public Long generateTransactionSequence();
 
     public Payment getTransaction(long transactional_id,long account_no);
+
+    public String deleteBankAccount(long account_no,String confirmation);
+
+    public String updateBankAccount(Bank_Account bank_account);
+
+    public String deleteAllBankAccount(String confirmation);
+
+    public TransactionalHistory getTransactionHistory(long account_no);
 }

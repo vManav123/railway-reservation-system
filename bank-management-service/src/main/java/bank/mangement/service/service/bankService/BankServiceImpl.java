@@ -4,6 +4,7 @@ import bank.mangement.service.exception.BankNotExistException;
 import bank.mangement.service.exception.InvalidAccountNoException;
 import bank.mangement.service.exception.InvalidAccountTypeException;
 import bank.mangement.service.exception.UserNotExistException;
+import bank.mangement.service.model.bank.Credentials;
 import bank.mangement.service.model.bankForm.BankForm;
 import bank.mangement.service.model.bank.Bank_Account;
 import bank.mangement.service.model.bank.TransactionalDetails;
@@ -12,11 +13,13 @@ import bank.mangement.service.model.bankForm.Debit;
 import bank.mangement.service.model.bankForm.User;
 import bank.mangement.service.model.payment.Payment;
 import bank.mangement.service.repository.BankRepository;
+import bank.mangement.service.repository.CredentialsRepository;
 import bank.mangement.service.repository.TransactionalRepository;
 import bank.mangement.service.service.emailService.EmailService;
 import bank.mangement.service.service.sequenceGenerator.DataSequenceGeneratorService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("bankServiceImpl")
+@Slf4j
 public class BankServiceImpl implements BankService {
 
     // *------------------------ Exception Messages ---------------------*
@@ -55,6 +59,8 @@ public class BankServiceImpl implements BankService {
     private Bank_Account bank_account;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private CredentialsRepository credentialsRepository;
     // *-----------------------------------------------------------------*
 
 
@@ -68,12 +74,14 @@ public class BankServiceImpl implements BankService {
     // *-------------- Bank Account Creation Functionality --------------*
     @Override
     @HystrixCommand(fallbackMethod = "getFallbackAccountCreation" , commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String createAccount(BankForm bankForm) {
         String result;
+        log.info("Bank Form Validation is in Process");
         if (!(result=validateBankForm(bankForm)).equals("success"))
             return result;
+        log.info("Bank Form Validated Successfully");
 
         bank_account.setAccount_holder(bankForm.getAccountHolder());
         bank_account.setAccount_no(sequenceGeneratorService.getBankSequenceNumber("bank_sequence"));
@@ -87,17 +95,26 @@ public class BankServiceImpl implements BankService {
         bank_account.setExpiry_date(bank_account.getStart_date().plusYears(5));
         bank_account.setBank_balance(0.0);
         bank_account.setIsActive(Boolean.TRUE);
-        User user = restTemplate.getForObject("http://localhost:8082/user/getUser/"+bankForm.getUser_id(), User.class);
+        log.info("bank detail Filled");
+
+        User user = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/getUser/"+bankForm.getUser_id(), User.class);
         user.setAccount_no(bank_account.getAccount_no());
         user.setBank_name(bank_account.getBank_name());
         user.setCredit_card_no(bank_account.getCredit_card_no());
         user.setCvv(bank_account.getCvv());
         user.setExpiry_date(bank_account.getExpiry_date());
-        if(!restTemplate.postForObject("http://localhost:8082/user/updateUser",user,String.class).equals("User Details Updated for this user id : "+user.getUser_id()))
+        log.info("User detail Filled");
+        if(!restTemplate.postForObject("http://RAILWAY-API-GATEWAY/user/public/updateUser",user,String.class).equals("User Details Updated for this user id : "+user.getUser_id()))
+        {
+            log.info("User Details Not Updated Successfully");
             return "User Details Not Updated Successfully";
+        }
         bank_account.setEmail_address(user.getEmail_address());
         bankRepository.save(bank_account);
+        log.info("Bank Account Created Successfully");
+
         emailService.sendSimpleEmail(bank_account.getEmail_address(),"Dear "+user.getFull_name()+",\nWelcome Railway Bank System\nYour Account has been created Successfully with this account no. :"+bank_account.getAccount_no()+" and account Type. "+bank_account.getAccount_type()+"\n  Bank Name : "+bank_account.getBank_name()+".\n\nWith Regards\nBank Management System\nbank.railway.service@gmail.com","Bank is Created Successfully" );
+
         return "Account Created Successfully";
     }
 
@@ -105,7 +122,7 @@ public class BankServiceImpl implements BankService {
 
 
     @HystrixCommand(fallbackMethod = "getFallbackValidation" , commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "15000")
     })
     private String validateBankForm(BankForm bankForm) {
         try {
@@ -114,6 +131,7 @@ public class BankServiceImpl implements BankService {
         } catch (BankNotExistException e) {
             return e.getMessage() + "\n\nThese are the names of all Account Type , you can choose from here\n" + banks;
         }
+        log.info("Bank Name is Valid");
         try {
             if(!account_type.contains(bankForm.getAccount_type().toLowerCase()))
                 throw new InvalidAccountTypeException(invalidAccountTypeException);
@@ -122,16 +140,18 @@ public class BankServiceImpl implements BankService {
         {
             return e.getMessage()+"\n\nThese are the names of all Account Type , you can choose from here\n"+account_type;
         }
+        log.info("Account Type is Valid "+bankForm.getUser_id());
         try {
-            if (!restTemplate.getForObject("http://localhost:8082/user/userExistById/"+ bankForm.getUser_id(),Boolean.class))
+            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/userExistById/"+ bankForm.getUser_id(),Boolean.class))
                 throw new UserNotExistException(userNotExistException);
         } catch (UserNotExistException e) {
             return e.getMessage();
         }
+        log.info("Success in validation of Bank Form");
         return "success";
     }
 
-    public String getFallbackValidation(BankForm bankForm){return "!!! Service is Down , Please Try again later";}
+    public String getFallbackValidation(BankForm bankForm){return "!!! Service is Down , Please Try again later !!!";}
 
     @Override
     public boolean accountNoExist(Long account_no) {
@@ -272,8 +292,53 @@ public class BankServiceImpl implements BankService {
     @Override
     public Payment getTransaction(long transactional_id,long account_no) {
         TransactionalDetails transactionalHistory = transactionalRepository.findById(account_no).get().getTransactions().get(transactional_id);
-        System.out.println(transactional_id+"  "+account_no+"  "+transactionalHistory);
         return new Payment(transactional_id,transactionalHistory.getAmount(),account_no,transactionalHistory.getTransaction_type(),transactionalHistory.getTransaction_time());
+    }
+
+    @Override
+    public String deleteBankAccount(long account_no,String confirmation) {
+        if(!confirmation.equalsIgnoreCase("Yes"))
+            return "Deletion Unsuccessful";
+
+        // validate Account no
+        if (validateAccountNo(account_no)) return invalidAccountNoException;
+
+        // deletion of Bank account
+        bankRepository.deleteById(account_no);
+        return  "Deletion Successful";
+    }
+
+    private boolean validateAccountNo(long account_no) {
+        try {
+            if(!bankRepository.existsById(account_no))
+                throw new InvalidAccountNoException(invalidAccountNoException);
+        }
+        catch (InvalidAccountNoException e)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String updateBankAccount(Bank_Account bank_account) {
+
+        // validate Account no
+        if (validateAccountNo(bank_account.getAccount_no())) return invalidAccountNoException;
+        return "Bank Account is updated Successfully";
+    }
+
+    @Override
+    public String deleteAllBankAccount(String confirmation) {
+        if(!confirmation.equalsIgnoreCase("Yes"))
+            return "Deletion Unsuccessful";
+        bankRepository.deleteAll();
+        return "Deletion Successful";
+    }
+
+    @Override
+    public TransactionalHistory getTransactionHistory(long account_no) {
+        return transactionalRepository.findById(account_no).get();
     }
     // *----------------------------------------------------------------*
 

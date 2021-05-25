@@ -1,5 +1,6 @@
 package railway.reservation.system;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -12,6 +13,7 @@ import railway.reservation.system.model.ticket.ReservedTicket;
 
 @SpringBootApplication
 @EnableEurekaClient
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {

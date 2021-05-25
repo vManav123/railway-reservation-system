@@ -6,6 +6,7 @@ import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import railway.reservation.system.exceptions.InvalidTrainNoException;
 import railway.reservation.system.exceptions.NoTrainExistException;
 import railway.reservation.system.exceptions.StationNotExistException;
 import railway.reservation.system.exceptions.TrainNotRunningOnThisDayException;
@@ -38,8 +39,9 @@ public class TrainServiceImpl implements TrainService {
 
     // *---------------------------- Exception Messages -------------------------*
     String noTrainsExistException = " !!! There is no train exist on this train Information !!!";
-    String stationNotExistException = "!!! there is no Station exist on this Train Route";
-    String trainNotRunningOnThisDayException = "This train is not running usually on that day";
+    String stationNotExistException = "!!! there is no Station exist on this Train Route !!!";
+    String trainNotRunningOnThisDayException = "!!! This train is not running usually on that day !!!";
+    String invalidTrainNoException = "!!! Invalid Train Number !!! ";
     // *-------------------------------------------------------------------------*
 
 
@@ -91,6 +93,50 @@ public class TrainServiceImpl implements TrainService {
         return !trainRepository.findAll().stream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).isEmpty();
     }
 
+    @Override
+    public String deleteAllTrains(String confirmation) {
+        if(confirmation.equalsIgnoreCase("Yes"))
+            return "Deletion Unsuccessful";
+        log.info("All Train Data is Deleting");
+        trainRepository.deleteAll();
+        log.info("All Train Data is deleted Successfully");
+        return "All Train Data is deleted Successfully";
+    }
+
+    @Override
+    public String deleteTrain(String train_no,String confirmation) {
+
+        if(confirmation.equalsIgnoreCase("Yes"))
+            return "Deletion Unsuccessful";
+
+        try {
+            if(trainRepository.findAll().stream().noneMatch(p -> train_no.equalsIgnoreCase(p.getTrain_no())))
+                throw new InvalidTrainNoException(invalidTrainNoException);
+        }
+        catch (InvalidTrainNoException e)
+        {
+            return e.getMessage();
+        }
+        log.info("Train Data is Deleting");
+        trainRepository.delete(trainRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0));
+        log.info("Train Data is deleted Successfully");
+        return "Train Data is deleted Successfully";
+    }
+
+    @Override
+    public String addTrain(Train train) {
+        try{
+            if(isNumeric(train.getTrain_no()))
+                throw new InvalidTrainNoException(invalidTrainNoException);
+        }
+        catch (InvalidTrainNoException e)
+        {
+            return e.getMessage();
+        }
+        trainRepository.save(train);
+        log.info("All Train Data is deleted Successfully");
+        return "All Train Data is deleted Successfully";
+    }
     // *--------------------------------------------------------------------------*
 
 

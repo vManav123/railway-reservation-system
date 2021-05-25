@@ -9,26 +9,19 @@ import org.springframework.stereotype.Service;
 import railway.reservation.system.model.controllerBody.Credentials;
 import railway.reservation.system.repository.CredentialsRepository;
 
-
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private CredentialsRepository credentialsRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return new User("railway-admin", "jaosda@42121",
-                new ArrayList<>());
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if( credentialsRepository.findAll().stream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).isEmpty())
+            throw new UsernameNotFoundException("UserName Not Found");
+        Credentials credentials = credentialsRepository.findAll().stream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).get(0);
+        return new User(credentials.getUsername(),credentials.getPassword(),credentials.getAuthorities());
     }
-//    @Autowired
-//    private CredentialsRepository credentialsRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        if( credentialsRepository.findAll().stream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).isEmpty())
-//            throw new UsernameNotFoundException("UserName Not Found");
-//        Credentials credentials = credentialsRepository.findAll().stream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).get(0);
-//        return new User(credentials.getUsername(),credentials.getPassword(),credentials.getAuthorities());
-//    }
 }

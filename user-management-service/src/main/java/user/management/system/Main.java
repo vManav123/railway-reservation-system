@@ -10,9 +10,7 @@ import user.management.system.model.user.User;
 @SpringBootApplication
 public class Main {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
+    public static void main(String[] args) { SpringApplication.run(Main.class, args); }
     @Bean
     public User getUser() {
         return new User();

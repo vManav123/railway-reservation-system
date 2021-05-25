@@ -51,6 +51,12 @@ public interface TrainService {
     public String trainFairToTable(String origin, String destination);
 
     public List<TrainsBetweenStation> trainFair(String origin, String destination);
+
+    public String deleteAllTrains(String confirmation);
+
+    public String deleteTrain(String train_no,String confirmation);
+
+    public String addTrain(Train train);
     // *-----------------------------------------------------------------------------*
 
 }

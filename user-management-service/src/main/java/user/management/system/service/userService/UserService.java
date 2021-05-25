@@ -1,10 +1,7 @@
 package user.management.system.service.userService;
 
 import org.springframework.stereotype.Service;
-import user.management.system.model.user.ChangePassword;
-import user.management.system.model.user.Ticket;
-import user.management.system.model.user.User;
-import user.management.system.model.user.UserForm1;
+import user.management.system.model.user.*;
 
 import java.util.List;
 
@@ -27,4 +24,6 @@ public interface UserService {
     public String changePassword(ChangePassword changePassword);
 
     public String saveTicket(Long account_no, long pnr, Ticket ticket);
+
+    public Credentials getCredentials(long user_id);
 }

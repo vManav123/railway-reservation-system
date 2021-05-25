@@ -45,7 +45,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     private Ticket ticket;
     @Autowired
     private SeatData seatData;
-
     // *-----------------------------------------------------------------*
 
 
@@ -55,8 +54,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     String invalidContactNumberException = "!!! Invalid Number !!! , Please take care that the number should be length : 10 and all Digits";
     String accountNoNotExistException = "!!! Account_no Doesn't Exist in our records!!!";
     String noTrainsExistException = " !!! There is no train exist on this train Information !!!";
-    String trainNotRunningOnThisDayException = "This train is not running usually on that day";
-    String stationNotExistException = "!!! This Station is not Exist in the Train Route , There is a Mistake with Station selection !!! , Take care of these information";
+    String trainNotRunningOnThisDayException = "!!! This train is not running usually on that day !!!";
+    String stationNotExistException = "!!! This Station is not Exist in the Train Route !!! , There is a Mistake with Station selection !!! , Take care of these information";
     String reservationDateException = "!!! this date is not allowed to Book Ticket !!!";
     String ticketLimitOutOfBoundException = "!!! Maximum 6 Ticket can be book at a time !!!";
     String trainClassNotExistException = "!!! This Train class not exist in our System !!!";
@@ -76,7 +75,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     public String userWelcome() {
-        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/user/welcome", String.class);
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/welcome", String.class);
     }
     public String getFallBackUserWelcome(){return "!!! Service is Down !!! , Please Try Again Later";}
 
@@ -86,7 +85,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     public String getTrain(String train_no) {
-        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/trains/displaytrain/"+train_no,String.class);
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/displaytrain/"+train_no,String.class);
     }
     public String getFallBackTrain(String station)
     {
@@ -100,7 +99,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     public String trainTimeTable(String station) {
-        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/trains/trainTimeTable/"+station,String.class);
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/trainTimeTable/"+station,String.class);
     }
     public String getFallBackTrainTimeTable(String station)
     {
@@ -114,7 +113,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     public String trainBetweenStation(String origin, String destination) {
-        String s = restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/trains/trainsBetweenStation/"+origin+":"+destination,String.class);
+        String s = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/trainsBetweenStation/"+origin+":"+destination,String.class);
         return s;
     }
     public String getFallBackTrainBetweenStation(String station,String station2)
@@ -129,7 +128,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     public String trainFares(String origin, String destination) {
-        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/trains/trainFare/"+origin+":"+destination,String.class);
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/trainFare/"+origin+":"+destination,String.class);
     }
     public String getFallBackTrainFare(String station,String station2)
     {
@@ -143,7 +142,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String trainLocation(LocationBody locationBody) {
-        return restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE:8083/trains/trainsLocation",locationBody, String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/trainsLocation",locationBody, String.class);
     }
     public String getFallBackTrainLocation(LocationBody locationBody)
     {
@@ -158,7 +157,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public ResponseEntity<?> getTrainByTrainNo(String train_no) {
-        return ResponseEntity.of(Optional.ofNullable(restTemplate.getForEntity("http://RAILWAY-RESERVATION-SERVICE:8083/trains/getTrainByTrainNo/"+train_no,Train.class).getBody()));
+        return ResponseEntity.of(Optional.ofNullable(restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/trains/public/getTrainByTrainNo/"+train_no,Train.class).getBody()));
     }
     public ResponseEntity<?> getFallBackTrainNo(String train_no){return ResponseEntity.of(Optional.of("!!! Service is Down !!! , Please Try Again Later"));}
     // *-----------------------------------------------------------------------*
@@ -169,7 +168,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000")
     })
     public String availableSeats(AvailableSeats availableSeats) {
-        return restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE:8083/trains/availableSeats",availableSeats,String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/availableSeats",availableSeats,String.class);
     }
     public String getFallBackAvailableSeats(AvailableSeats availableSeats){return "!!! Service is Down !!! , Please Try Again Later";}
     // *--------------------------------------------------------------------------*
@@ -180,7 +179,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String availableAccommodation(AccommodationBody accommodationBody) {
-        return restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE:8083/trains/availableAccommodation",accommodationBody,String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/availableAccommodation",accommodationBody,String.class);
     }
 
     public String getFallBackAvailableAccommodation(AccommodationBody accommodationBody){return "!!! Service is Down !!! , Please Try Again Later";}
@@ -192,7 +191,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String createUserAccount(UserForm1 userForm) {
-        return restTemplate.postForObject("http://USER-MANAGEMENT-SERVICE:8082/user/createUser",userForm,String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/user/public/createUser",userForm,String.class);
     }
     public String getFallBackCreateUserAccount(UserForm1 userForm){return "!!! Service is Down !!! , Please Try Again Later";}
     @Override
@@ -200,7 +199,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String createBankAccount(BankForm bankForm) {
-        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/createAccount",bankForm,String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/createAccount",bankForm,String.class);
     }
     public String getFallBackCreateBankAccount(BankForm bankForm) {
         return "!!! Service is Down !!! , Please Try Again Later";
@@ -208,7 +207,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public String addBalance(AddMoney addMoney) {
-        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/addMoney/",addMoney,String.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/addMoney/",addMoney,String.class);
     }
 
     public String getFallBackCreateUserAccount(UserForm userForm){return "!!! Service is Down !!! , Please Try Again Later";}
@@ -226,12 +225,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     })
     public String getPNR(Long pnr) {
         try {
-            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/ticketExistByPNR/" + pnr, Boolean.class))
+            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/ticketExistByPNR/" + pnr, Boolean.class))
                 throw new InvalidPNRException(invalidPNRException);
         } catch (InvalidPNRException e) {
             return e.getMessage();
         }
-        ReservedTicket ticket = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/getTicket/" + pnr, ReservedTicket.class);
+        ReservedTicket ticket = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/getTicket/" + pnr, ReservedTicket.class);
         return getTicket(ticket.getTicket()).toString();
     }
 
@@ -250,7 +249,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     })
     public String TicketCancellation(long pnr) {
         try {
-            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/trains/ticketExistByPNR/" + pnr, Boolean.class))
+            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/ticketExistByPNR/" + pnr, Boolean.class))
                 throw new InvalidPNRException(invalidPNRException);
             log.info("ticket-Exist");
         } catch (InvalidPNRException e) {
@@ -258,22 +257,22 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
 
 
-        ReservedTicket reservedTicket = restTemplate.getForObject("http://RAILWAY-RESERVATION-SERVICE/trains/getTicket/" + pnr, ReservedTicket.class);
+        ReservedTicket reservedTicket = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/getTicket/" + pnr, ReservedTicket.class);
         log.info("2");
         assert reservedTicket != null;
-        Payment payment = restTemplate.getForObject("http://BANK-MANAGEMENT-SERVICE/bank/getTransaction/"+reservedTicket.getTransactional_id()+":"+reservedTicket.getAccount_no(),Payment.class);
+        Payment payment = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/bank/public/getTransaction/"+reservedTicket.getTransactional_id()+":"+reservedTicket.getAccount_no(),Payment.class);
         log.info("3");
         SeatData seat = seatData;
         seat.setSeat_id(new Seat_Id(reservedTicket.getTicket().getTrain_no(), reservedTicket.getTicket().getDate_of_journey()));
         seat.setClass_name(reservedTicket.getTicket().getClass_name());
         seat.setSeat_no(reservedTicket.getTicket().getSeat_no());
         try {
-            if (!Objects.equals(restTemplate.postForObject("http://BANK-MANAGEMENT-SERVICE/bank/addMoney", new AddMoney(reservedTicket.getAccount_no(), reservedTicket.getAmount()), String.class), "Amount Added Successfully to your Account with account no : " + payment.getAccountNo()))
+            if (!Objects.equals(restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/addMoney", new AddMoney(reservedTicket.getAccount_no(), reservedTicket.getAmount()), String.class), "Amount Added Successfully to your Account with account no : " + payment.getAccountNo()))
                 throw new TransactionUnSuccessfulException("unable to refund money");
-            if (!Objects.equals(restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE/trains/cancelSeat", seatData, String.class), "success"))
+            if (!Objects.equals(restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/cancelSeat", seatData, String.class), "success"))
                 throw new TransactionUnSuccessfulException("unable to cancel seat");
             log.info("5");
-            if (!Objects.equals(restTemplate.getForObject("http://RAILWAY-RESERVATION-SERVICE/trains/cancelTicket/" + pnr, String.class), "success"))
+            if (!Objects.equals(restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/cancelTicket/" + pnr, String.class), "success"))
                 throw new TransactionUnSuccessfulException("unable to cancel ticket");
             log.info("6");
         } catch (TransactionUnSuccessfulException e) {
@@ -305,7 +304,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     public String reserveTicket(ReservationForm reservationForm) {
         String s = "";
         try {
-            if (!restTemplate.getForObject("http://RAILWAY-RESERVATION-SERVICE/trains/trainExistByTrainNo/" + reservationForm.getTicketForm().getTrain_no(), Boolean.class))
+            if (!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/trainExistByTrainNo/" + reservationForm.getTicketForm().getTrain_no(), Boolean.class))
                 throw new NoTrainExistException(noTrainsExistException);
         }
         catch (NoTrainExistException e)
@@ -315,7 +314,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         log.info("Train No is Valid");
 
         // UserForm Validation
-        Train train = restTemplate.getForEntity("http://RAILWAY-RESERVATION-SERVICE/trains/getTrainByTrainNo/"+reservationForm.getTicketForm().getTrain_no(),Train.class).getBody();
+        Train train = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/trains/public/getTrainByTrainNo/"+reservationForm.getTicketForm().getTrain_no(),Train.class).getBody();
+
         if(!(s=userFormValidation(reservationForm.getUserForm())).equals("success"))
             return s;
         log.info("UserForm Validation is Successfully");
@@ -393,12 +393,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<Long> transactional_id = new ArrayList<>();
         int k=1;
         for (Double cost : ticket_fee) {
-            payment.setTransactional_id(restTemplate.getForObject("http://BANK-MANAGEMENT-SERVICE/bank/generateTransactionSequence",Long.class)+1);
+            payment.setTransactional_id(restTemplate.getForObject("http://RAILWAY-API-GATEWAY/bank/public/generateTransactionSequence",Long.class)+1);
             payment.setAccountNo(reservationForm.getUserForm().getAccount_no());
             payment.setAmount(cost);
             payment.setTransaction_type("Debited");
             payment.setTransaction_time(LocalDateTime.now());
-            restTemplate.postForObject("http://BANK-MANAGEMENT-SERVICE/bank/saveTransaction",payment,String.class);
+            restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/saveTransaction",payment,String.class);
             transactional_id.add(payment.getTransactional_id());
         }
 
@@ -486,8 +486,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         // saving Ticket to database
         reservedTickets.forEach(p -> {
 
-            restTemplate.postForObject("http://USER-MANAGEMENT-SERVICE/user/saveTicket/"+p.getAccount_no()+":"+p.getPnr(),p.getTicket(),String.class);
-            restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE/trains/reservedTicket", p,String.class);
+            restTemplate.postForObject("http://RAILWAY-API-GATEWAY/user/public/saveTicket/"+p.getAccount_no()+":"+p.getPnr(),p.getTicket(),String.class);
+            restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/reservedTicket", p,String.class);
         });
         log.info("Ticket Reservation is Successfully");
         return result.toString();
@@ -497,15 +497,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         StringBuilder local;
         local = new StringBuilder();
         local.append("         ----------------------------------  Welcome To Railway Reservation Network ------------------------------------------\n\n");
-        local.append("         Train No. / Train Name : " + refer_ticket.getTrain_no() + " / " + refer_ticket.getTrain_name() + "       Trip : " + refer_ticket.getStart() + " -----------> " + refer_ticket.getDestination() + "\n");
-        local.append("         Class Name : " + refer_ticket.getClass_name() + "        Seat No : " + refer_ticket.getSeat_no() + "       Quota : " + refer_ticket.getQuota() + "\n         Time : " + refer_ticket.getDeparture_time() + " ----> " + refer_ticket.getArrival_time() + "\n");
-        local.append("         Date of Journey : " + refer_ticket.getDate_of_journey() + "            Journey Time : " + refer_ticket.getJourney_time() + "\n         Status : " + refer_ticket.getStatus() + "\n");
+        local.append("         Train No. / Train Name : ").append(refer_ticket.getTrain_no()).append(" / ").append(refer_ticket.getTrain_name()).append("       Trip : ").append(refer_ticket.getStart()).append(" -----------> ").append(refer_ticket.getDestination()).append("\n");
+        local.append("         Class Name : ").append(refer_ticket.getClass_name()).append("        Seat No : ").append(refer_ticket.getSeat_no()).append("       Quota : ").append(refer_ticket.getQuota()).append("\n         Time : ").append(refer_ticket.getDeparture_time()).append(" ----> ").append(refer_ticket.getArrival_time()).append("\n");
+        local.append("         Date of Journey : ").append(refer_ticket.getDate_of_journey()).append("            Journey Time : ").append(refer_ticket.getJourney_time()).append("\n         Status : ").append(refer_ticket.getStatus()).append("\n");
         local.append("\n         -----------------------------------------------------------------------------------------------------------------------\n");
-        local.append("         Passenger Name : " + refer_ticket.getPassenger_name() + "\n");
-        local.append("         Contact No : " + refer_ticket.getContact_no() + "\n");
-        local.append("         Gender : " + refer_ticket.getSex() + "\n");
-        local.append("         Age : " + refer_ticket.getAge() + "\n");
-        local.append("         Email Address : " + refer_ticket.getEmail_address() + "\n");
+        local.append("         Passenger Name : ").append(refer_ticket.getPassenger_name()).append("\n");
+        local.append("         Contact No : ").append(refer_ticket.getContact_no()).append("\n");
+        local.append("         Gender : ").append(refer_ticket.getSex()).append("\n");
+        local.append("         Age : ").append(refer_ticket.getAge()).append("\n");
+        local.append("         Email Address : ").append(refer_ticket.getEmail_address()).append("\n");
         return local;
     }
 
@@ -513,7 +513,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     private TicketStatus pnrGenerate(Ticket refer_ticket) {
-        return restTemplate.postForObject("http://RAILWAY-RESERVATION-SERVICE/trains/reserveTicket", refer_ticket, TicketStatus.class);
+        return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/reserveTicket", refer_ticket, TicketStatus.class);
     }
 
     // *------------------------------ Payment Section ----------------------------*
@@ -526,10 +526,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         System.out.println(0);
         try {
             Double balance = 0D;
-            if ((balance = total_amount - restTemplate.getForObject("http://RAILWAY-API-GATEWAY:8085/bank/getBalance/" + account_no, Double.class)) > 0)
+            if ((balance = total_amount - restTemplate.getForObject("http://RAILWAY-API-GATEWAY/bank/public/getBalance/" + account_no, Double.class)) > 0)
                 throw new InsufficientBalanceInBankAccount(insufficientBalanceInBankAccount + balance);
             System.out.println(1);
-            if (!restTemplate.postForObject("http://RAILWAY-API-GATEWAY:8085/bank/balanceDebited", new Debit(account_no, total_amount), String.class).equals("success"))
+            if (!restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/balanceDebited", new Debit(account_no, total_amount), String.class).equals("success"))
                 throw new TransactionUnSuccessfulException(transactionUnSuccessfulException);
             System.out.println(2);
         } catch (InsufficientBalanceInBankAccount | TransactionUnSuccessfulException e) {
@@ -630,7 +630,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         {
             return e.getMessage();
         }
-        ResponseEntity<Train[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-RESERVATION-SERVICE/trains/displayAllTrains",Train[].class);
+        ResponseEntity<Train[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/trains/public/displayAllTrains",Train[].class);
         List<Train> trains = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
 
         return "success";
@@ -649,10 +649,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         User user = null;
         try{
             System.out.println(0);
-            if(!restTemplate.getForObject("http://USER-MANAGEMENT-SERVICE/user/userExistById/"+userForm.getUser_id(),Boolean.class))
+            if(!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/userExistById/"+userForm.getUser_id(),Boolean.class))
                 throw new UserNotExistException(userNotExistException);
             System.out.println(1);
-            ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY:8085/user/getAllUsers",User[].class);
+            ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/user/public/getAllUsers",User[].class);
             user = Arrays.stream(responseEntity.getBody()).filter(p-> p.getUser_id().equals(userForm.getUser_id())).collect(Collectors.toList()).get(0);
             if(!user.getAccount_no().equals(userForm.getAccount_no()) || !user.getBank_name().equals(userForm.getBank_name()) || !user.getFull_name().equals(userForm.getAccountHolder()) || !user.getCredit_card_no().equals(userForm.getCredit_card_no()) || !user.getCvv().equals(userForm.getCvv()))
                 throw new AccountNoNotExistException(accountNoNotExistException);

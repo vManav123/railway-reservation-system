@@ -21,9 +21,9 @@ public class Main {
 
     // *-------------------- Autowiring Data Content -------------------*
     @Bean
+    @LoadBalanced
     public RestTemplate restTemplate(){return new RestTemplate();}
     @Bean
-    @LoadBalanced
     public Bank_Account bank_account(){return new Bank_Account();}
     // *----------------------------------------------------------------*
 
