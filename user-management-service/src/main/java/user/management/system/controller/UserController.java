@@ -1,6 +1,5 @@
 package user.management.system.controller;
 
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,9 +66,6 @@ public class UserController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
     // *---------------------------------------------------*
-
-
-
 
 
     // *--------------  Basic Functionality ---------------*
