@@ -1,9 +1,9 @@
 package user.management.system.service.userService;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import user.management.system.exception.InvalidContactNumberException;
 import user.management.system.exception.InvalidEmailException;
 import user.management.system.exception.UserNotExistException;
@@ -12,7 +12,6 @@ import user.management.system.repository.CredentialsRepository;
 import user.management.system.repository.UserRepository;
 import user.management.system.service.emailService.EmailService;
 import user.management.system.service.sequenceGeneratorService.DataSequenceGeneratorService;
-
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -127,6 +126,16 @@ public class UserServiceImpl implements UserService {
     // *---------------------------------------------------------------------------------*
 
 
+    @Override
+    public String getEmailAddress(long id) {
+        if(userRepository.existsById(id))
+            return userRepository.findById(id).get().getEmail_address();
+        var listUser = userRepository.findAll().parallelStream().filter(p->p.getAccount_no().equals(id)).collect(Collectors.toList());
+        if(listUser.isEmpty())
+            return "null";
+        return listUser.get(0).getEmail_address();
+    }
+
     // *------------------------------- Basic Functionalities ---------------------------*
     @Override
     public String addUser(User user) {
@@ -178,7 +187,7 @@ public class UserServiceImpl implements UserService {
         {
             return e.getMessage();
         }
-        Credentials credentials = credentialsRepository.findAll().stream().filter(p->p.getUser_id().equals(changePassword.getUser_id())).collect(Collectors.toList()).get(0);
+        Credentials credentials = credentialsRepository.findAll().parallelStream().filter(p->p.getUser_id().equals(changePassword.getUser_id())).collect(Collectors.toList()).get(0);
         credentials.setPassword(changePassword.getNew_password());
         credentials.setRoles(user.getRoles());
         credentialsRepository.save(credentials);
@@ -188,7 +197,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String saveTicket(Long account_no,long pnr, Ticket ticket) {
         try{
-           if(userRepository.findAll().stream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList()).isEmpty())
+           if(userRepository.findAll().parallelStream().noneMatch(p -> p.getAccount_no().equals(account_no)))
                throw new UserNotExistException(userNotExistException);
            if(pnr<0)
                throw new InvalidContactNumberException("Invalid PNR");
@@ -197,17 +206,19 @@ public class UserServiceImpl implements UserService {
         {
             return e.getMessage();
         }
-        user=userRepository.findAll().stream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList()).get(0);
+        user=userRepository.findAll().parallelStream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList()).get(0);
         user.getTickets().put(pnr,ticket);
         userRepository.save(user);
         return "*------ Ticket Added Successfully -------*";
     }
 
     @Override
-    public Credentials getCredentials(long user_id) {
-        if(credentialsRepository.findAll().stream().noneMatch(p -> p.getUser_id().equals(user_id)))
-            return new Credentials();
-        return credentialsRepository.findAll().stream().filter(p->p.getUser_id().equals(user_id)).collect(Collectors.toList()).get(0);
+    public String getCredentials(long user_id) {
+        if(credentialsRepository.findAll().parallelStream().noneMatch(p -> p.getUser_id().equals(user_id)))
+            return "Invalid User ID";
+        Credentials credentials = credentialsRepository.findAll().parallelStream().filter(p->p.getUser_id().equals(user_id)).collect(Collectors.toList()).get(0);
+        emailService.sendSimpleEmail(userRepository.findById(user_id).get().getEmail_address(),"Dear  "+ Arrays.stream(userRepository.findById(user_id).get().getFull_name().split(" ")).collect(Collectors.toList()).get(0)+",\n\n Your Credentials are here \n Username : " + credentials.getUsername() + " \n Password : " + credentials.getPassword()+"\n\nWith Regards\nUser Management Service\nuser.development.service@gmail.com","Your user account has been Created");
+        return "Your Credentials send it to your gmail , go and check it" ;
     }
 
     @Override

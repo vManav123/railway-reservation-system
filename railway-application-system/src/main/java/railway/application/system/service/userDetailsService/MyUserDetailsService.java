@@ -19,9 +19,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(credentialsRepository.findAll().stream().filter(p -> p.getUsername().equals(username)).count() == 0)
+        if(credentialsRepository.findAll().parallelStream().filter(p -> p.getUsername().equals(username)).count() == 0)
             throw new UsernameNotFoundException("UserName Not Found");
-        Credentials credentials = credentialsRepository.findAll().stream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).get(0);
+        Credentials credentials = credentialsRepository.findAll().parallelStream().filter(p->p.getUsername().equals(username)).collect(Collectors.toList()).get(0);
         Credentials updateCredentials = new Credentials(credentials.getUsername(), credentials.getPassword(),credentials.getUser_id(),credentials.getRoles());
         return new User(updateCredentials.getUsername(),updateCredentials.getPassword(),updateCredentials.getAuthorities());
     }

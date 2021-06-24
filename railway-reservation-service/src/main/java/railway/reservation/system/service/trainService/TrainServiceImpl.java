@@ -11,10 +11,10 @@ import railway.reservation.system.exceptions.NoTrainExistException;
 import railway.reservation.system.exceptions.StationNotExistException;
 import railway.reservation.system.exceptions.TrainNotRunningOnThisDayException;
 import railway.reservation.system.model.TimeTable;
-import railway.reservation.system.model.train.Detail;
-import railway.reservation.system.model.train.Train;
 import railway.reservation.system.model.TrainLocation;
 import railway.reservation.system.model.TrainsBetweenStation;
+import railway.reservation.system.model.train.Detail;
+import railway.reservation.system.model.train.Train;
 import railway.reservation.system.repository.TrainRepository;
 
 import java.time.Duration;
@@ -64,12 +64,12 @@ public class TrainServiceImpl implements TrainService {
     public Train displayTrain(String trainNo) {
         List<Train> trains = trainRepository.findAll();
         try {
-            if (trains.stream().filter(p -> p.getTrain_no().equals(trainNo)).collect(Collectors.toList()).isEmpty())
+            if (trains.parallelStream().filter(p -> p.getTrain_no().equals(trainNo)).collect(Collectors.toList()).isEmpty())
                 throw new NoTrainExistException(trainNotRunningOnThisDayException);
         } catch (NoTrainExistException e) {
             return new Train(e.getMessage());
         }
-        return trains.stream().filter(p -> p.getTrain_no().equals(trainNo.toString())).collect(Collectors.toList()).get(0);
+        return trains.parallelStream().filter(p -> p.getTrain_no().equals(trainNo.toString())).collect(Collectors.toList()).get(0);
     }
 
     @Override
@@ -85,12 +85,12 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public Train getTrainByTrainNo(String train_no) {
-        return trainRepository.findAll().stream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        return trainRepository.findAll().parallelStream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
     }
 
     @Override
     public boolean trainExistByTrainNo(String train_no) {
-        return !trainRepository.findAll().stream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).isEmpty();
+        return !trainRepository.findAll().parallelStream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).isEmpty();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class TrainServiceImpl implements TrainService {
             return "Deletion Unsuccessful";
 
         try {
-            if(trainRepository.findAll().stream().noneMatch(p -> train_no.equalsIgnoreCase(p.getTrain_no())))
+            if(trainRepository.findAll().parallelStream().noneMatch(p -> train_no.equalsIgnoreCase(p.getTrain_no())))
                 throw new InvalidTrainNoException(invalidTrainNoException);
         }
         catch (InvalidTrainNoException e)
@@ -118,7 +118,7 @@ public class TrainServiceImpl implements TrainService {
             return e.getMessage();
         }
         log.info("Train Data is Deleting");
-        trainRepository.delete(trainRepository.findAll().stream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0));
+        trainRepository.delete(trainRepository.findAll().parallelStream().filter(p->p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0));
         log.info("Train Data is deleted Successfully");
         return "Train Data is deleted Successfully";
     }
@@ -193,7 +193,7 @@ public class TrainServiceImpl implements TrainService {
 
         int x = 1;
 
-        List<TimeTable> timeTable = timeTables.stream().sorted(Comparator.comparing(TimeTable::getTime_arrival)).collect(Collectors.toList());
+        List<TimeTable> timeTable = timeTables.parallelStream().sorted(Comparator.comparing(TimeTable::getTime_arrival)).collect(Collectors.toList());
 
         for (TimeTable t : timeTable) {
             t.setId(x++);
@@ -251,7 +251,7 @@ public class TrainServiceImpl implements TrainService {
 
                 Duration duration = Duration.between(trainData.getRoute().get(WordUtils.capitalizeFully(origin)).getDeparture_time(), trainData.getRoute().get(WordUtils.capitalizeFully(destination)).getArrival_time());
                 String total_Time = Math.abs(duration.toHoursPart()) + "h " + Math.abs(duration.toMinutesPart()) + "m";
-                HashMap<String, Double> map = trainData.getCoaches_fair().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (p, q) -> p, HashMap::new));
+                HashMap<String, Double> map = trainData.getCoaches_fair().entrySet().parallelStream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (p, q) -> p, HashMap::new));
 
                 trainsBetweenStations.add(new TrainsBetweenStation(trainData.getTrain_no(), trainData.getTrain_name(), WordUtils.capitalizeFully(origin), trainData.getRoute().get(WordUtils.capitalizeFully(origin)).getDeparture_time(), WordUtils.capitalizeFully(destination), trainData.getRoute().get(WordUtils.capitalizeFully(destination)).getArrival_time(), total_Time, trainData.getRun_days(), map));
             }
@@ -322,7 +322,7 @@ public class TrainServiceImpl implements TrainService {
     public List<TrainLocation> trainLocation(String train_search_info, LocalDate date, String your_location) {
 
         List<Train> trains = trainRepository.findAll();
-        trains = trains.stream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList());
+        trains = trains.parallelStream().filter(p -> p.getTrain_no().equals(train_search_info)).collect(Collectors.toList());
             try {
                 if (trains.isEmpty())
                     throw new NoTrainExistException(noTrainsExistException + " " + train_search_info);
@@ -423,7 +423,7 @@ public class TrainServiceImpl implements TrainService {
 
         Train train = trainRepository
                     .findAll()
-                    .stream()
+                    .parallelStream()
                     .filter(p -> p.getTrain_no().equals(train_search_info))
                     .collect(Collectors.toList())
                     .get(0);
@@ -454,16 +454,16 @@ public class TrainServiceImpl implements TrainService {
             trainLocation.setTrain_status(status);
         }
         String s = WordUtils.capitalizeFully(your_location);
-        String train_location = trainLocationList.stream().filter(p-> p.getTrain_status().equals("Arrived") || p.getTrain_status().equals("Arriving")).collect(Collectors.toList()).get(0).getCurrent_station();
+        String train_location = trainLocationList.parallelStream().filter(p-> p.getTrain_status().equals("Arrived") || p.getTrain_status().equals("Arriving")).collect(Collectors.toList()).get(0).getCurrent_station();
         List<TrainLocation> trainLocations = trainLocationList
-                .stream()
+                .parallelStream()
                 .filter(p->WordUtils.capitalizeFully(train_location).equalsIgnoreCase(p.getCurrent_station()) || WordUtils.capitalizeFully(your_location).equalsIgnoreCase(p.getCurrent_station()))
                 .collect(Collectors.toList());
 
         Duration duration = Duration.between(trainLocations.get(0).getArrival_time()
                                             ,
                                             trainLocations
-                                                    .stream()
+                                                    .parallelStream()
                                                     .filter(p->p.getCurrent_station().equals(s))
                                                     .collect(Collectors.toList())
                                                     .get(0)
@@ -515,7 +515,7 @@ public class TrainServiceImpl implements TrainService {
         for (TrainsBetweenStation trainsBetweenStation : trainsBetweenStationList) {
             Integer fare = 0;
             boolean chk = false;
-            Train train = trains.stream().filter(p -> p.getTrain_name().equals(trainsBetweenStation.getTrain_name())).collect(Collectors.toList()).get(0);
+            Train train = trains.parallelStream().filter(p -> p.getTrain_name().equals(trainsBetweenStation.getTrain_name())).collect(Collectors.toList()).get(0);
             String dest = destination;
             String start = origin;
             for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {

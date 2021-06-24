@@ -7,11 +7,10 @@ import bank.mangement.service.model.bankForm.Debit;
 import bank.mangement.service.model.payment.Payment;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public interface BankService {
 
+    public long getUserIdFromAccountNo(long accountNo);
 
     public String createAccount(BankForm bankForm);
 

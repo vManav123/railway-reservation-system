@@ -45,6 +45,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private Ticket ticket;
     @Autowired
     private SeatData seatData;
+    int j = 0;
     // *-----------------------------------------------------------------*
 
 
@@ -96,10 +97,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     // *----------- Train Time Table -----------*
     @Override
     @HystrixCommand(fallbackMethod = "getFallBackTrainTimeTable" , commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
     })
     public String trainTimeTable(String station) {
-        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/trainTimeTable/"+station,String.class);
+        log.info("TimeTable process in Service Class");
+        return restTemplate.getForObject("http://RAILWAY-RESERVATION-SERVICE:8083/trains/public/trainTimeTable/"+station,String.class);
     }
     public String getFallBackTrainTimeTable(String station)
     {
@@ -183,7 +185,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     public String getFallBackAvailableAccommodation(AccommodationBody accommodationBody){return "!!! Service is Down !!! , Please Try Again Later";}
-    // *---------------------------------------------------------------------------*
+    // *-----------------------------------------------------------------------------*
+
 
     // *---------------------------- Create User Account --------------------------*
     @Override
@@ -193,7 +196,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     public String createUserAccount(UserForm1 userForm) {
         return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/user/public/createUser",userForm,String.class);
     }
+
     public String getFallBackCreateUserAccount(UserForm1 userForm){return "!!! Service is Down !!! , Please Try Again Later";}
+    // *-----------------------------------------------------------------------------*
+
+
+    // *---------------------------- Create User Account --------------------------*
     @Override
     @HystrixCommand(fallbackMethod = "getFallBackCreateBankAccount" , commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
@@ -201,20 +209,49 @@ public class ApplicationServiceImpl implements ApplicationService {
     public String createBankAccount(BankForm bankForm) {
         return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/createAccount",bankForm,String.class);
     }
+
     public String getFallBackCreateBankAccount(BankForm bankForm) {
         return "!!! Service is Down !!! , Please Try Again Later";
     }
+    // *-----------------------------------------------------------------------------*
 
+
+    // *------------------------------- Add balance --------------------------------*
     @Override
+    @HystrixCommand(fallbackMethod = "getFallBackAddBalance" , commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
+    })
     public String addBalance(AddMoney addMoney) {
         return restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/addMoney/",addMoney,String.class);
     }
 
-    public String getFallBackCreateUserAccount(UserForm userForm){return "!!! Service is Down !!! , Please Try Again Later";}
-    // *---------------------------------------------------------------------------*
+    public String getFallBackAddBalance(AddMoney addMoney) {
+        return "!!! Service is Down !!! , Please Try Again Later";
+    }
+    // *-----------------------------------------------------------------------------*
 
 
+    // *------------------------------ get Credentials ------------------------------*
+    @Override
+    @HystrixCommand(fallbackMethod = "getFallBackGetCredential" , commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "20000")
+    })
+    public String getCredentials(long user_id) {
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/userCredential/"+user_id,String.class);
+    }
 
+    public String getFallBackGetCredential(long user_id) {
+        return "!!! Service is Down !!! , Please Try Again Later";
+    }
+    // *-----------------------------------------------------------------------------*
+
+    // *------------------------------ get Credentials ------------------------------*
+    @Override
+    public User getProfile(long user_id) {
+        return restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/getUser/"+user_id,User.class);
+    }
+
+    // *-----------------------------------------------------------------------------------------------------------------*
 
     // *------------------------------------------- Reservation Ticket Functionalities ---------------------------------*
 
@@ -258,10 +295,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 
         ReservedTicket reservedTicket = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/getTicket/" + pnr, ReservedTicket.class);
-        log.info("2");
+        log.info("Ticket Received Successfully ✔");
         assert reservedTicket != null;
         Payment payment = restTemplate.getForObject("http://RAILWAY-API-GATEWAY/bank/public/getTransaction/"+reservedTicket.getTransactional_id()+":"+reservedTicket.getAccount_no(),Payment.class);
-        log.info("3");
+        log.info("Transactional detail Received Successfully ✔");
         SeatData seat = seatData;
         seat.setSeat_id(new Seat_Id(reservedTicket.getTicket().getTrain_no(), reservedTicket.getTicket().getDate_of_journey()));
         seat.setClass_name(reservedTicket.getTicket().getClass_name());
@@ -269,12 +306,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         try {
             if (!Objects.equals(restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/addMoney", new AddMoney(reservedTicket.getAccount_no(), reservedTicket.getAmount()), String.class), "Amount Added Successfully to your Account with account no : " + payment.getAccountNo()))
                 throw new TransactionUnSuccessfulException("unable to refund money");
+            log.info("Money Refunded Successfully ✔");
             if (!Objects.equals(restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/cancelSeat", seatData, String.class), "success"))
                 throw new TransactionUnSuccessfulException("unable to cancel seat");
-            log.info("5");
+            log.info("Seat cancellation happened Successfully ✔");
             if (!Objects.equals(restTemplate.getForObject("http://RAILWAY-API-GATEWAY/trains/public/cancelTicket/" + pnr, String.class), "success"))
                 throw new TransactionUnSuccessfulException("unable to cancel ticket");
-            log.info("6");
+            log.info("Seat cancellation happened Successfully ✔");
         } catch (TransactionUnSuccessfulException e) {
             return e.getMessage();
         }
@@ -311,20 +349,20 @@ public class ApplicationServiceImpl implements ApplicationService {
         {
             return e.getMessage();
         }
-        log.info("Train No is Valid");
+        log.info("Train No is Validation is Successfully ✔");
 
         // UserForm Validation
         Train train = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/trains/public/getTrainByTrainNo/"+reservationForm.getTicketForm().getTrain_no(),Train.class).getBody();
 
         if(!(s=userFormValidation(reservationForm.getUserForm())).equals("success"))
             return s;
-        log.info("UserForm Validation is Successfully");
+        log.info("UserForm Validation is Successfully ✔");
 
 
         // TicketForm Validation
         if(!(s=ticketFormValidation(reservationForm.getTicketForm(),train)).equals("success"))
             return s;
-        log.info("TicketForm Validation is Successfully");
+        log.info("TicketForm Validation is Successfully ✔");
 
 
         // PassengerForm Validation
@@ -338,19 +376,19 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         if(!(s=passengerFormValidation(reservationForm.getTicketForm().getPassengers())).equals("success"))
             return s;
-        log.info("PassengerForm Validation is Successfully");
+        log.info("PassengerForm Validation is Successfully ✔");
 
 
         // Train Class Validation
         try{
-            if(reservationForm.getTicketForm().getPassengers().stream().filter(p -> train.getCoaches_fair().containsKey(p.getClass_name())).count()!=reservationForm.getTicketForm().getPassengers().size())
+            if(reservationForm.getTicketForm().getPassengers().parallelStream().filter(p -> train.getCoaches_fair().containsKey(p.getClass_name())).count()!=reservationForm.getTicketForm().getPassengers().size())
                 throw new TrainClassNotExistException(trainClassNotExistException);
         }
         catch (TrainClassNotExistException e)
         {
             return e.getMessage();
         }
-        log.info("Train class is Valid");
+        log.info("Train class is Validation is Successfully ✔");
 
 
         // Ticket Price Calculation
@@ -386,10 +424,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 
         // *------------------- payment section ------------------*
-        log.info("Payment is Processing");
+        log.info("Payment is Started ✔");
         if (!(payment(reservationForm.getUserForm().getAccount_no(), ticket_fee)).equals("success"))
             return s;
-        log.info("Payment is Successful");
+        log.info("Payment is Successful  ✔");
         List<Long> transactional_id = new ArrayList<>();
         int k=1;
         for (Double cost : ticket_fee) {
@@ -411,7 +449,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         refer_ticket.setTrain_name(train.getTrain_name());
         refer_ticket.setStart(reservationForm.getTicketForm().getStart());
         refer_ticket.setDestination(reservationForm.getTicketForm().getDestination());
-        refer_ticket.setDate_of_journey(LocalDate.now());
+        refer_ticket.setDate_of_journey(reservationForm.getTicketForm().getReservation_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        log.info("Journey Date : "+refer_ticket.getDate_of_journey().toString());
         chk = false;
         LocalDateTime duration = LocalDateTime.now();
         for (Map.Entry<String, Detail> map : train.getRoute().entrySet()) {
@@ -426,7 +465,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             }
 
         }
-        log.info("TicketReservation is started");
+        log.info("TicketReservation is started ✔");
         StringBuilder result = new StringBuilder();
         result.append("Congratulation Reservation has been completed Successfully , here are you Ticket PNR NO , you can check details on your gmail and via PNR status in this Application\n");
 
@@ -439,7 +478,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         reservationForm.getTicketForm()
                 .getPassengers()
                 .forEach(p -> {
-                    log.info("TicketReservation is started");
+                    log.info("TicketReservation is Passenger data Updating ✔");
+
                     refer_ticket.setAge(p.getAge());
                     refer_ticket.setClass_name(p.getClass_name());
                     refer_ticket.setPassenger_name(p.getPassenger_name());
@@ -454,8 +494,10 @@ public class ApplicationServiceImpl implements ApplicationService {
                     refer_ticket.setStatus(ticketStatus.getStatus());
                     refer_ticket.setSeat_no(ticketStatus.getSeat_no());
                     reservedTickets.add(new ReservedTicket(refer_ticket.getPnr(), refer_ticket, refer_ticket.getTransactional_id(), reservationForm.getUserForm().getAccount_no(), refer_ticket.getEmail_address(), refer_ticket.getStatus(), LocalDateTime.of(refer_ticket.getDate_of_journey(), LocalTime.now()),ticket_fee.get(i.get(0))));
-                    log.info("TicketReservation is started");
+                    log.info("Journey Date : "+refer_ticket.getDate_of_journey().toString());
+                    log.info("TicketReservation generating ✔");
                     i.set(0,i.get(0)+1);
+
                     StringBuilder local = new StringBuilder();
                     local.append("\n\n  *--------------------------------------------------------------------------------------------------*\n");
                     local.append("       Train Passenger Name :xx " + refer_ticket.getPassenger_name() + "         PNR NO. : " + refer_ticket.getPnr());
@@ -466,15 +508,15 @@ public class ApplicationServiceImpl implements ApplicationService {
                     try {
                         Files.writeString(Paths.get("C:\\Users\\MVERMA\\Railway-Reservation-System\\railway-application-system\\src\\main\\resources\\static\\Ticket.txt"), local.toString());
                     } catch (IOException e) {
-                        System.out.println("FileNotFoundException");
+                        log.error("FileNotFoundException");
                     }
-                    log.info("TicketReservation is started");
+                    log.info("Ticket has been Reserved ✔");
 
                     // *------------------ Email Section -----------------*
                     try {
-                        System.out.println(emailService.sendEmailWithAttachment(refer_ticket.getEmail_address(), "Your Train Ticket " + (refer_ticket.getStatus().equals("Confirmed") ? "has been Confirmed for the date : " + refer_ticket.getDate_of_journey() + "\nYou can find your ticket in the Attachment\nThis is PNR NO. : " + refer_ticket.getPnr() : "has been in waiting  \nIf till date of on boarding there is no update in Seat then your money will  be refunded"), "Your ticket reservation is " + (refer_ticket.getStatus().equals("Confirmed") ? "Confirmed" : "in waiting ")));
+                        log.info(emailService.sendEmailWithAttachment(refer_ticket.getEmail_address(), "Your Train Ticket " + (refer_ticket.getStatus().equals("Confirmed") ? "has been Confirmed for the date : " + refer_ticket.getDate_of_journey() + "\nYou can find your ticket in the Attachment\nThis is PNR NO. : " + refer_ticket.getPnr() : "has been in waiting  \nIf till date of on boarding there is no update in Seat then your money will  be refunded"), "Your ticket reservation is " + (refer_ticket.getStatus().equals("Confirmed") ? "Confirmed" : "in waiting ")));
                     } catch (MessagingException e) {
-                        System.out.println("Unable to send Message");
+                        log.error("Unable to send Message");
                     }
                     // *--------------------------------------------------*
                 });
@@ -489,8 +531,13 @@ public class ApplicationServiceImpl implements ApplicationService {
             restTemplate.postForObject("http://RAILWAY-API-GATEWAY/user/public/saveTicket/"+p.getAccount_no()+":"+p.getPnr(),p.getTicket(),String.class);
             restTemplate.postForObject("http://RAILWAY-API-GATEWAY/trains/public/reservedTicket", p,String.class);
         });
-        log.info("Ticket Reservation is Successfully");
+        log.info("Ticket Reservation is Successfully ✔");
+        j++;
+        log.info(" ‼‼ Ticket no "+j+"  ✔💲💱");
+        if(j<75)
+            reserveTicket(reservationForm);
         return result.toString();
+
     }
 
     private StringBuilder getTicket(Ticket refer_ticket) {
@@ -509,6 +556,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         return local;
     }
 
+    // *-------------------------------- PNR Generate ----------------------------*
     @HystrixCommand(fallbackMethod = "getFallbackPNRGenerate", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
@@ -523,17 +571,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     public String payment(Long account_no, List<Double> ticket_fee) {
         String result = "null";
         Double total_amount = ticket_fee.stream().reduce(Double::sum).get();
-        System.out.println(0);
         try {
             Double balance = 0D;
             if ((balance = total_amount - restTemplate.getForObject("http://RAILWAY-API-GATEWAY/bank/public/getBalance/" + account_no, Double.class)) > 0)
                 throw new InsufficientBalanceInBankAccount(insufficientBalanceInBankAccount + balance);
-            System.out.println(1);
+            log.info("Balance check Successful ✔");
             if (!restTemplate.postForObject("http://RAILWAY-API-GATEWAY/bank/public/balanceDebited", new Debit(account_no, total_amount), String.class).equals("success"))
                 throw new TransactionUnSuccessfulException(transactionUnSuccessfulException);
-            System.out.println(2);
+            log.info("Transaction happend Successfully ✔");
         } catch (InsufficientBalanceInBankAccount | TransactionUnSuccessfulException e) {
             result = e.getMessage();
+            log.error(e.getMessage());
         }
         return result.equals("null") ? "success" : result;
     }
@@ -562,19 +610,18 @@ public class ApplicationServiceImpl implements ApplicationService {
     public String passengerFormValidation(List<Passenger> passengers) {
 
         try {
-            if (!passengers.stream()
+            if (!passengers.parallelStream()
                     .filter(p -> "Female".equalsIgnoreCase(p.getSex()))
-                    .allMatch(q -> "ladies".equalsIgnoreCase(q.getQuota())) || !(passengers.stream()
+                    .allMatch(q -> "ladies".equalsIgnoreCase(q.getQuota())) || !(passengers.parallelStream()
                     .filter(p -> "Female".equalsIgnoreCase(p.getSex()))
                     .allMatch(s -> "ladies".equalsIgnoreCase(s.getQuota()) && passengers.size() == 1))
             )
                 throw new InvalidQuotaException(invalidQuotaException + "Ladies Quota Applicable for Female gender ");
-
-            if (!passengers.stream()
+            if (!passengers.parallelStream()
                     .filter(p -> "senior citizen".equalsIgnoreCase(p.getQuota()))
                     .allMatch(p -> p.getAge() >= 58))
                 throw new InvalidQuotaException(invalidQuotaException + "Senior Citizen Quota is not Applicable for People has age less than 58 years");
-            if (passengers.stream().noneMatch(p -> isNumeric(p.getContact_no()))
+            if (passengers.parallelStream().noneMatch(p -> isNumeric(p.getContact_no()))
             )
                 throw new InvalidContactNumberException(invalidContactNumberException);
 
@@ -613,14 +660,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     private String ticketFormValidation(TicketForm ticketForm,Train train)
     {
         try{
-            if(train.getRoute().keySet().stream().filter(p->p.equals(ticketForm.getStart()) || p.equals(ticketForm.getDestination())).count()!=2)
+            if(train.getRoute().keySet().parallelStream().filter(p->p.equals(ticketForm.getStart()) || p.equals(ticketForm.getDestination())).count()!=2)
                 throw new StationNotExistException(stationNotExistException);
 
 
             LocalDate date = ticketForm.getReservation_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             if(!(date.isAfter(LocalDate.now()) && LocalDateTime.of(date,train.getDeparture_time().minusHours(4)).isAfter(LocalDateTime.now())))
                 throw new ReservationDateException(reservationDateException + "Your Date Should be before the date train Start");
-            if(train.getRun_days().stream()
+            if(train.getRun_days().parallelStream()
                                   .filter(p->p.equals(date.getDayOfWeek().toString().toUpperCase().substring(0,3)))
                                   .count()!=1
             )
@@ -648,15 +695,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     private String userFormValidation(UserForm userForm) {
         User user = null;
         try{
-            System.out.println(0);
             if(!restTemplate.getForObject("http://RAILWAY-API-GATEWAY/user/public/userExistById/"+userForm.getUser_id(),Boolean.class))
                 throw new UserNotExistException(userNotExistException);
-            System.out.println(1);
+            log.info("User Id has been matched ✔");
             ResponseEntity<User[]> responseEntity = restTemplate.getForEntity("http://RAILWAY-API-GATEWAY/user/public/getAllUsers",User[].class);
             user = Arrays.stream(responseEntity.getBody()).filter(p-> p.getUser_id().equals(userForm.getUser_id())).collect(Collectors.toList()).get(0);
             if(!user.getAccount_no().equals(userForm.getAccount_no()) || !user.getBank_name().equals(userForm.getBank_name()) || !user.getFull_name().equals(userForm.getAccountHolder()) || !user.getCredit_card_no().equals(userForm.getCredit_card_no()) || !user.getCvv().equals(userForm.getCvv()))
                 throw new AccountNoNotExistException(accountNoNotExistException);
-            System.out.println(1);
+            log.info("Bank Account has been matched ✔");
             return "success";
         }
         catch (NullPointerException | UserNotExistException | AccountNoNotExistException e)

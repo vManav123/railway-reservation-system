@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
+@Builder
 public class Debit {
     private Long account_no;
     private Double amount;

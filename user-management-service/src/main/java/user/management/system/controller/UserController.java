@@ -14,7 +14,10 @@ import springfox.documentation.annotations.ApiIgnore;
 import user.management.system.configuration.security.models.AuthenticationRequest;
 import user.management.system.configuration.security.models.AuthenticationResponse;
 import user.management.system.configuration.security.util.JwtUtil;
-import user.management.system.model.user.*;
+import user.management.system.model.user.ChangePassword;
+import user.management.system.model.user.Ticket;
+import user.management.system.model.user.User;
+import user.management.system.model.user.UserForm1;
 import user.management.system.repository.CredentialsRepository;
 import user.management.system.service.userDetailsService.MyUserDetailsService;
 import user.management.system.service.userService.UserService;
@@ -75,6 +78,9 @@ public class UserController {
         return "Welcome to User Interface";
     }
 
+    @GetMapping(path = "/public/getEmail/{id}")
+    public String getEmailAddress(@PathVariable long id){return userService.getEmailAddress(id);}
+
     @PostMapping(path = "/nonPublic/addUser")
     public String addUser(@RequestBody User user)    {
         return userService.addUser(user);
@@ -106,7 +112,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/public/userCredential/{user_id}")
-    public Credentials getCredentials(@PathVariable long user_id){return userService.getCredentials(user_id);}
+    public String getCredentials(@PathVariable long user_id){return userService.getCredentials(user_id);}
 
     private Long validateUser() {
         String[] chunks = token.split("\\.");

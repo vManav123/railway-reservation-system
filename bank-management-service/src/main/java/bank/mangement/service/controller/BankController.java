@@ -12,7 +12,6 @@ import bank.mangement.service.model.payment.Payment;
 import bank.mangement.service.repository.CredentialsRepository;
 import bank.mangement.service.service.bankService.BankService;
 import bank.mangement.service.service.userDetailsService.MyUserDetailsService;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -112,6 +111,9 @@ public class BankController {
 
     @GetMapping(path = "/nonPublic/getTransactionHistory")
     public TransactionalHistory getTransactionHistory(long account_no){return bankService.getTransactionHistory(account_no);}
+
+    @GetMapping(path = "public/getUserIdFromAccountNo/{account_no}")
+    public long getUserIdFromAccountNo(@PathVariable long account_no){return bankService.getUserIdFromAccountNo(account_no);}
     // *------------------------------------------ End of Bank Functionalities -----------------------------------------*
 
 }

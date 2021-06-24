@@ -34,19 +34,24 @@ public class BatchProcessing {
     @Bean
     public Job readCSVFile() {
         log.info("Job reading Data from CSV File");
-        return jobBuilderFactory.get("readCSVFile").incrementer(new RunIdIncrementer()).start(step1())
+        return jobBuilderFactory
+                .get("readCSVFile")
+                .incrementer(new RunIdIncrementer())
+                .start(step1())
                 .build();
     }
     @Bean
     public Step step1() {
         log.info("Step 1 Followed");
-        return stepBuilderFactory.get("step1").<Credentials, Credentials>chunk(10).reader(reader())
+        return stepBuilderFactory
+                .get("step1").<Credentials, Credentials>chunk(10)
+                .reader(reader())
                 .writer(writer()).build();
     }
 
     @Bean
     public FlatFileItemReader<Credentials> reader() {
-        log.info("Data reading...");
+        log.info("Data Reading...");
         FlatFileItemReader<Credentials> reader = new FlatFileItemReader<>();
         reader.setResource(new ClassPathResource("Credentials.csv"));
         reader.setLineMapper(new DefaultLineMapper<Credentials>() {{

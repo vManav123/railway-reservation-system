@@ -1,12 +1,18 @@
 package user.management.system.service.userService;
 
 import org.springframework.stereotype.Service;
-import user.management.system.model.user.*;
+import user.management.system.model.user.ChangePassword;
+import user.management.system.model.user.Ticket;
+import user.management.system.model.user.User;
+import user.management.system.model.user.UserForm1;
 
 import java.util.List;
 
 @Service
 public interface UserService {
+
+    public String getEmailAddress(long id);
+
     public String addUser(User user);
 
     public String addAllUser(List<User> users);
@@ -25,5 +31,5 @@ public interface UserService {
 
     public String saveTicket(Long account_no, long pnr, Ticket ticket);
 
-    public Credentials getCredentials(long user_id);
+    public String getCredentials(long user_id);
 }

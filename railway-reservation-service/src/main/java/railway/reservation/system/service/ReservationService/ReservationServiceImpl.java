@@ -1,5 +1,6 @@
 package railway.reservation.system.service.reservationService;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
 public class ReservationServiceImpl implements ReservationService {
 
     // *---------------------------- Exception Messages -------------------------*
@@ -72,6 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public TicketStatus reserveTicket(Ticket ticket) {
         ticket.setPnr(dataSequenceGeneratorService.getUserSequenceNumber("ticket_sequence"));
+        log.info("Journey Date : "+ticket.getDate_of_journey().toString());
         String status = reserveSeat(ticket.getTrain_no(), ticket.getClass_name(), ticket.getDate_of_journey(), ticket.getPnr());
         ticket.setStatus(Arrays.stream(status.split(":")).collect(Collectors.toList()).get(0));
         return new TicketStatus(ticket.getPnr(),ticket.getStatus(),Arrays.stream(status.split(":")).collect(Collectors.toList()).get(1));
@@ -83,12 +86,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public String reserveSeat(String train_no, String class_name, LocalDate date, Long pnr) {
+        log.info("Journey Date : "+date.toString());
         Trains_Seats trains_seats = trainSeatService.getTrainSeats(train_no);
         int seat_no = 0;
         ReserveSeats reserveSeats;
         boolean chk = false;
         try {
-            reserveSeats = reservedSeatsRepository.findAll().stream().filter(p -> p.getSeat_id().getTrain_no().equals(train_no) && p.getSeat_id().getReservation_date().equals(date)).collect(Collectors.toList()).get(0);
+            reserveSeats = reservedSeatsRepository.findAll().parallelStream().filter(p -> p.getSeat_id().getTrain_no().equals(train_no) && p.getSeat_id().getReservation_date().equals(date)).collect(Collectors.toList()).get(0);
         } catch (IndexOutOfBoundsException e) {
             reserveSeats = getReserveSeats();
             chk = true;
@@ -131,7 +135,7 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
         reservedSeatsRepository.save(reserveSeats);
-        if (trains_seats.getSeats_per_coach().get(class_name) >= Collections.max(reserveSeats.getSeats().get(class_name).keySet()))
+        if (trains_seats.getSeats_per_coach().get(class_name) > Collections.max(reserveSeats.getSeats().get(class_name).keySet()))
             return "Confirmed"+":"+seat_no;
         else
             return "Waiting"+":"+seat_no;
@@ -145,12 +149,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservedTicket getTicket(long pnr) {
-        return reservedTicketRepository.findAll().stream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).get(0);
+        return reservedTicketRepository.findAll().parallelStream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).get(0);
     }
 
     @Override
     public boolean ticketExistByPNR(long pnr) {
-        return !reservedTicketRepository.findAll().stream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).isEmpty();
+        return !reservedTicketRepository.findAll().parallelStream().filter(p->p.getPnr().equals(pnr)).collect(Collectors.toList()).isEmpty();
     }
 
     @Override
@@ -176,14 +180,14 @@ public class ReservationServiceImpl implements ReservationService {
     public String availableSeats(String start,String destination,LocalDate date) {
 
         StringBuilder result = new StringBuilder();
-        List<Train> trainList = trainRepository.findAll().stream().filter(p-> p.getRoute().keySet().stream().filter(q-> start.equalsIgnoreCase(q) || destination.equals(q)).count()==2).collect(Collectors.toList());
+        List<Train> trainList = trainRepository.findAll().parallelStream().filter(p-> p.getRoute().keySet().parallelStream().filter(q-> start.equalsIgnoreCase(q) || destination.equals(q)).count()==2).collect(Collectors.toList());
         result.append("-----------------------------------------------------------------------------------------------------------\n");
         result.append("------------------------------- These are the Train Present on the Route ----------------------------------\n");
         result.append("-----------------------------------------------------------------------------------------------------------\n\n");
         trainList.forEach(p->{
             boolean chk = false;
             Trains_Seats trains_seats = trainSeatService.getTrainSeats(p.getTrain_no());
-            List<ReserveSeats> reserveSeats = reservedSeatsRepository.findAll().stream().filter(q->q.getSeat_id().toString().equals((new Seat_Id(p.getTrain_no(),date)).toString())).collect(Collectors.toList());
+            List<ReserveSeats> reserveSeats = reservedSeatsRepository.findAll().parallelStream().filter(q->q.getSeat_id().toString().equals((new Seat_Id(p.getTrain_no(),date)).toString())).collect(Collectors.toList());
             if(reserveSeats.isEmpty())
                 chk=true;
 
@@ -217,7 +221,7 @@ public class ReservationServiceImpl implements ReservationService {
     public String availableAccommodation(String train_no, LocalDate date) {
         boolean chk = trainRepository
                                 .findAll()
-                                .stream()
+                                .parallelStream()
                                 .filter(p->p.getTrain_no().equals(train_no))
                                 .count()==1;
        try
@@ -234,7 +238,7 @@ public class ReservationServiceImpl implements ReservationService {
        result.append("\n\n  ------------------------------ Accommodation for The Route of This Train No  : "+train_no+" ---------------------------------\n");
        accommodationRepository
                .findAll()
-               .stream()
+               .parallelStream()
                .filter(p->p.getTrain_no().equals(train_no))
                .collect(Collectors.toList())
                .get(0)

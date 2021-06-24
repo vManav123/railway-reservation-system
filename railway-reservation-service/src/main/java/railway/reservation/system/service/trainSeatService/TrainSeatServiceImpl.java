@@ -1,7 +1,6 @@
 package railway.reservation.system.service.trainSeatService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import railway.reservation.system.model.ticket.Trains_Seats;
@@ -86,7 +85,7 @@ public class TrainSeatServiceImpl implements TrainSeatService {
 
     @Override
     public Trains_Seats getTrainSeats(String train_no) {
-        return seatRepository.findAll().stream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
+        return seatRepository.findAll().parallelStream().filter(p -> p.getTrain_no().equals(train_no)).collect(Collectors.toList()).get(0);
     }
     // *----------------------------- end --------------------------------*
 

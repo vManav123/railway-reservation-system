@@ -7,6 +7,25 @@ spring:
       uri: mongodb+srv://vManav123:root@cluster1.dxvl7.mongodb.net/Railway-Reservation-System?retryWrites=true&w=majority
   application:
     name: RAILWAY-RESERVATION-SERVICE
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: railway.reservation.service@gmail.com
+    password: rvmbsocvdjcfbxpx
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          port: 25
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
 
 eureka:
   client:
@@ -15,3 +34,5 @@ eureka:
   instance:
     hostname: localhost
     ip-address: 127.0.0.1
+
+

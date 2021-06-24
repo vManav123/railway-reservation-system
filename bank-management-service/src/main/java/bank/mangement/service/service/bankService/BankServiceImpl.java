@@ -4,11 +4,10 @@ import bank.mangement.service.exception.BankNotExistException;
 import bank.mangement.service.exception.InvalidAccountNoException;
 import bank.mangement.service.exception.InvalidAccountTypeException;
 import bank.mangement.service.exception.UserNotExistException;
-import bank.mangement.service.model.bank.Credentials;
-import bank.mangement.service.model.bankForm.BankForm;
 import bank.mangement.service.model.bank.Bank_Account;
 import bank.mangement.service.model.bank.TransactionalDetails;
 import bank.mangement.service.model.bank.TransactionalHistory;
+import bank.mangement.service.model.bankForm.BankForm;
 import bank.mangement.service.model.bankForm.Debit;
 import bank.mangement.service.model.bankForm.User;
 import bank.mangement.service.model.payment.Payment;
@@ -45,7 +44,6 @@ public class BankServiceImpl implements BankService {
 
 
     // *---------------- Autowired Reference Variables ----------------*
-
     @Autowired
     @Qualifier("bankRepository")
     private BankRepository bankRepository;
@@ -70,6 +68,10 @@ public class BankServiceImpl implements BankService {
     // *-----------------------------------------------------------------*
 
 
+    @Override
+    public long getUserIdFromAccountNo(long accountNo) {
+        return bankRepository.findById(accountNo).get().getUser_id();
+    }
 
     // *-------------- Bank Account Creation Functionality --------------*
     @Override
@@ -89,7 +91,7 @@ public class BankServiceImpl implements BankService {
         bank_account.setUser_id(bankForm.getUser_id());
         bank_account.setContact_no(bankForm.getContact_no());
         bank_account.setAccount_type(bankForm.getAccount_type());
-        bank_account.setCredit_card_no(new Random().nextInt(8999) + 1000 + "-" + new Random().nextInt(8999) + 1000 + "-" + new Random().nextInt(8999) + 1000);
+        bank_account.setCredit_card_no((new Random().nextInt(8999) + 1000) + "-" + (new Random().nextInt(8999) + 1000) + "-" + (new Random().nextInt(8999) + 1000));
         bank_account.setCvv(new Random().nextInt(899) + 100 + "");
         bank_account.setStart_date(LocalDate.now());
         bank_account.setExpiry_date(bank_account.getStart_date().plusYears(5));
@@ -170,7 +172,7 @@ public class BankServiceImpl implements BankService {
         }
         return bankRepository
                 .findAll()
-                .stream()
+                .parallelStream()
                 .filter(p -> p.getAccount_no().equals(account_no))
                 .collect(Collectors.toList())
                 .get(0).getBank_balance();
@@ -181,7 +183,7 @@ public class BankServiceImpl implements BankService {
         if(debit.getAmount()<=0)
             return "Amount will not Not accepted should be greater than 0";
         // Transaction
-        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().stream().filter(p->p.getAccount_no().equals(debit.getAccount_no())).collect(Collectors.toList());
+        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().parallelStream().filter(p->p.getAccount_no().equals(debit.getAccount_no())).collect(Collectors.toList());
         if(transactionalHistories.isEmpty())
         {
             Map<Long, TransactionalDetails> map = new Hashtable<>();
@@ -199,7 +201,7 @@ public class BankServiceImpl implements BankService {
         // bank
         List<Bank_Account> bank_accounts = bankRepository
                 .findAll()
-                .stream()
+                .parallelStream()
                 .filter(p -> p.getAccount_no().equals(debit.getAccount_no()))
                 .collect(Collectors.toList());
         try
@@ -230,7 +232,7 @@ public class BankServiceImpl implements BankService {
             return e.getMessage();
         }
 
-        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().stream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList());
+        List<TransactionalHistory> transactionalHistories = transactionalRepository.findAll().parallelStream().filter(p->p.getAccount_no().equals(account_no)).collect(Collectors.toList());
         if(transactionalHistories.isEmpty())
         {
             Map<Long, TransactionalDetails> map = new Hashtable<>();
@@ -248,7 +250,7 @@ public class BankServiceImpl implements BankService {
         // bank
         List<Bank_Account> bank_accounts = bankRepository
                 .findAll()
-                .stream()
+                .parallelStream()
                 .filter(p -> p.getAccount_no().equals(account_no))
                 .collect(Collectors.toList());
         try
@@ -261,7 +263,7 @@ public class BankServiceImpl implements BankService {
             return e.getMessage();
         }
         bank_account=bank_accounts.get(0);
-        emailService.sendSimpleEmail(bank_account.getEmail_address(),"The Transaction happened Your Account with this Account no : "+bank_account.getAccount_no()+" and amount of Rs. "+amount+"  was Credited at "+LocalDateTime.now()+".","Amount Credited from your account" );
+        emailService.sendSimpleEmail(bank_account.getEmail_address(),"The Transaction happened Your Account with this Account no : "+bank_account.getAccount_no()+" and amount of Rs. "+amount+"  was Credited at "+LocalDateTime.now()+".","Amount Credited to your account" );
         bank_account.setBank_balance(bank_account.getBank_balance() + amount);
         bankRepository.save(bank_account);
 

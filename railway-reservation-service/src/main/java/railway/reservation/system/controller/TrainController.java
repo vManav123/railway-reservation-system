@@ -1,6 +1,5 @@
 package railway.reservation.system.controller;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +78,7 @@ public class TrainController {
 
 
     // *--------------------------------------- Ticket Reservation Functionality ---------------------------------------------*
+
     @GetMapping(path = "/nonPublic/addData")
     @ApiIgnore
     public String addData() {
@@ -123,6 +123,7 @@ public class TrainController {
     @PostMapping(path = "/public/availableAccommodation")
     @ApiIgnore
     public String availableAccommodation(@RequestBody AccommodationBody accommodationBody){return reservationService.availableAccommodation(accommodationBody.getTrain_no(),accommodationBody.getDate());}
+
     // *---------------------------------------------- End of Reservation Functionalities ------------------------------------*
 
 
@@ -138,7 +139,7 @@ public class TrainController {
     }
 
     @GetMapping(path = "/public/trainTimeTable/{city_name}")
-    @ApiOperation(value = "Display Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ", response = TimeTable.class)
+    @ApiOperation(value = "Display Time Table of Trains", notes = "It Will Display the TimeTable of All Trains From Your Station into Table Format ")
     public String displayTimeToTable(@PathVariable String city_name) { return trainService.displayTimeTableByYourCity(city_name); }
     // *-------------------------------------------*
 
@@ -150,9 +151,9 @@ public class TrainController {
 
     @GetMapping(path = "/public/trainsBetweenStations/{origin}:{destination}")
     @ApiIgnore
-    @ApiOperation(value = "get trains between stations", notes = "It will display all trains     between given stations into JSON Format", response = TrainsBetweenStation.class)
+    @ApiOperation(value = "get trains between stations", notes = "It will display all trains between given stations into JSON Format", response = TrainsBetweenStation.class)
     public List<TrainsBetweenStation> getTrainsBetweenStation(@PathVariable String origin, @PathVariable String destination) { return trainService.trainsBetweenStation(origin, destination); }
-    // *----------------------------------- ---------*
+    // *---------------------------------------------*
 
 
     // *------- Train Location Functionality -------*
@@ -168,7 +169,7 @@ public class TrainController {
     public List<TrainLocation> getTrainLocation(@RequestBody LocationBody locationBody) {
         return trainService.trainLocation(locationBody.getTrain_no(),locationBody.getDate(),locationBody.getYour_location());
     }
-    // *--------------------------------------------*
+    // *----------------------------------------------*
 
 
     // *----- Basic Data Display Functionality -----*
