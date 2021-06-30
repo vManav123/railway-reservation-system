@@ -154,7 +154,6 @@ Let's see an example:
 <properties>
     <spring.version>4.3.5.RELEASE</spring.version>
 </properties>
-
 <dependencies>
     <dependency>
         <groupId>org.springframework</groupId>
