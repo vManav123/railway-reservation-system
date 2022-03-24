@@ -504,6 +504,8 @@ public class ApplicationServiceImpl implements ApplicationService {
                     local.append("\n  *--------------------------------------------------------------------------------------------------*\n");
                     result.append(local);
 
+
+
                     local = getTicket(refer_ticket);
                     try {
                         Files.writeString(Paths.get("C:\\Users\\MVERMA\\Railway-Reservation-System\\railway-application-system\\src\\main\\resources\\static\\Ticket.txt"), local.toString());
@@ -511,6 +513,8 @@ public class ApplicationServiceImpl implements ApplicationService {
                         log.error("FileNotFoundException");
                     }
                     log.info("Ticket has been Reserved ✔");
+
+
 
                     // *------------------ Email Section -----------------*
                     try {
@@ -534,8 +538,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         log.info("Ticket Reservation is Successfully ✔");
         j++;
         log.info(" ‼‼ Ticket no "+j+"  ✔💲💱");
-        if(j<75)
-            reserveTicket(reservationForm);
+
+        /*
+    if(j<75)
+         reserveTicket(reservationForm);
+        */
         return result.toString();
 
     }

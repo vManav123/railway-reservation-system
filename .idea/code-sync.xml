@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.sogou.adstream.status.code.sync.component.SyncSetting">
+    <option name="pullSyncConfig">
+      <SyncConfig />
+    </option>
+    <option name="pushSyncConfig">
+      <SyncConfig />
+    </option>
+  </component>
+</project>
