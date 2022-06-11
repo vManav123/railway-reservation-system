@@ -3,7 +3,7 @@ This Project is to make ticketing more convenient for travelers, Indian Railways
 
 ## High Level Daigram
 
-<img src="./Railway Reservation System High Level desgin.svg">
+<img src="./high-level-design/Railway Reservation System High Level Design.svg">
 
 
 
